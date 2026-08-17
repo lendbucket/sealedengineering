@@ -62,7 +62,7 @@ export const CITIES: City[] = [
     region: "Gulf Coast",
     title: "Sealed Engineering Letters Houston TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Houston and Harris County. Solar structural letters, foundation reports, and windstorm work by a licensed Texas PE.",
+      "Sealed engineering letters for Houston and Harris County. Solar structural letters, foundation reports, and WPI-8 windstorm by a Texas PE.",
     h1: "Sealed Engineering Letters in Houston, Texas",
     lede: "Harris County puts three separate engineering problems on the same address: expansive Beaumont clay under the slab, high coastal wind overhead, and a windstorm boundary that runs through the county itself.",
     windstormArea: true,
@@ -115,7 +115,7 @@ export const CITIES: City[] = [
     region: "Central Texas",
     title: "Sealed Engineering Letters San Antonio TX | PE",
     description:
-      "Sealed engineering letters and certifications for San Antonio and Bexar County. Foundation reports, solar structural letters, and permit letters by a Texas PE.",
+      "Sealed engineering letters for San Antonio and Bexar County. Foundation reports, solar structural letters, and permit letters by a Texas PE.",
     h1: "Sealed Engineering Letters in San Antonio, Texas",
     lede: "Bexar County is split down the middle by geology. The north side sits on Edwards limestone and the south and east sit on Blackland clay, and a foundation opinion that does not know which one it is standing on is worth nothing.",
     windstormArea: false,
@@ -168,7 +168,7 @@ export const CITIES: City[] = [
     region: "North Texas",
     title: "Sealed Engineering Letters Dallas TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Dallas and Dallas County. Foundation inspection reports, roof certifications, and permit letters by a Texas PE.",
+      "Sealed engineering letters for Dallas County. Foundation inspection reports, roof certifications, and permit letters sealed by a Texas PE.",
     h1: "Sealed Engineering Letters in Dallas, Texas",
     lede: "Dallas sits on Houston Black clay, which is the most expansive soil series in the state, under a hail belt that shortens every roof in the county. Those two facts drive most of the engineering work here.",
     windstormArea: false,
@@ -221,7 +221,7 @@ export const CITIES: City[] = [
     region: "North Texas",
     title: "Sealed Engineering Letters Fort Worth TX | PE",
     description:
-      "Sealed engineering letters and certifications for Fort Worth and Tarrant County. Foundation reports, roof letters, and sealed permit letters by a licensed Texas PE.",
+      "Sealed engineering letters for Fort Worth and Tarrant County. Foundation reports, roof letters, and permit letters sealed by a Texas PE.",
     h1: "Sealed Engineering Letters in Fort Worth, Texas",
     lede: "Tarrant County sits where the Blackland Prairie meets the Eagle Ford shale and the Cross Timbers, which means foundation behavior changes across the county rather than across the state.",
     windstormArea: false,
@@ -274,7 +274,7 @@ export const CITIES: City[] = [
     region: "Central Texas",
     title: "Sealed Engineering Letters Austin TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Austin and Travis County. Permit letters, beam sizing, foundation reports, and solar letters by a Texas PE.",
+      "Sealed engineering letters for Austin and Travis County. Permit letters, beam sizing, and foundation reports sealed by a licensed Texas PE.",
     h1: "Sealed Engineering Letters in Austin, Texas",
     lede: "Austin has the most demanding residential plan review of any large Texas city and the geology to match: limestone and karst west of the escarpment, expansive clay east of it, often within the same subdivision.",
     windstormArea: false,
@@ -327,7 +327,7 @@ export const CITIES: City[] = [
     region: "West Texas",
     title: "Sealed Engineering Letters El Paso TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for El Paso County. Solar structural letters, permit letters, and carport plans sealed by a licensed Texas PE.",
+      "Sealed engineering letters for El Paso County. Solar structural letters, permit letters, and carport plans sealed by a licensed Texas PE.",
     h1: "Sealed Engineering Letters in El Paso, Texas",
     lede: "El Paso is the one Texas market where seismic design actually enters the conversation, and the one where the soil problem is collapse under wetting rather than swell.",
     windstormArea: false,
@@ -433,7 +433,7 @@ export const CITIES: City[] = [
     region: "South Texas",
     title: "Sealed Engineering Letters Laredo TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Laredo and Webb County. Permit letters, carport plans, and foundation reports sealed by a licensed Texas PE.",
+      "Sealed engineering letters for Laredo and Webb County. Permit letters, carport plans, and foundation reports sealed by a licensed Texas PE.",
     h1: "Sealed Engineering Letters in Laredo, Texas",
     lede: "Laredo builds fast on caliche and clay in one of the hottest sustained climates in the country, and shade structures here are infrastructure rather than an upgrade.",
     windstormArea: false,
@@ -486,7 +486,7 @@ export const CITIES: City[] = [
     region: "Panhandle and South Plains",
     title: "Sealed Engineering Letters Lubbock TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Lubbock County. Solar structural letters, permit letters, and foundation reports sealed by a licensed Texas PE.",
+      "Sealed engineering letters for Lubbock County. Solar structural letters, permit letters, and foundation reports sealed by a Texas PE.",
     h1: "Sealed Engineering Letters in Lubbock, Texas",
     lede: "Flat, open, and windy. Lubbock sites are frequently exposure C, which raises design wind pressures well above what the mapped speed alone suggests, and it changes every attachment on a roof.",
     windstormArea: false,
@@ -539,7 +539,7 @@ export const CITIES: City[] = [
     region: "Rio Grande Valley",
     title: "Sealed Engineering Letters McAllen TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for McAllen and Hidalgo County. Solar structural letters, foundation certifications, and permit letters by a Texas PE.",
+      "Sealed engineering letters for McAllen and Hidalgo County. Solar structural letters, foundation certifications, and permit letters.",
     h1: "Sealed Engineering Letters in McAllen, Texas",
     lede: "Hidalgo County sits one county inland from the windstorm boundary with wind speeds that behave like the coast, which is a combination that catches out engineers who work from a map without reading it.",
     windstormArea: false,
@@ -645,7 +645,7 @@ export const CITIES: City[] = [
     region: "Panhandle and South Plains",
     title: "Sealed Engineering Letters Amarillo TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Amarillo, Potter County, and Randall County. Roof letters, solar letters, and permit letters by a licensed Texas PE.",
+      "Sealed engineering letters for Amarillo, Potter and Randall counties. Roof letters, solar letters, and permit letters by a licensed Texas PE.",
     h1: "Sealed Engineering Letters in Amarillo, Texas",
     lede: "The Panhandle combines open exposure, sustained wind, and one of the most active hail corridors in the country. Roofs and attachments carry the engineering weight here.",
     windstormArea: false,
@@ -751,7 +751,7 @@ export const CITIES: City[] = [
     region: "Central Texas",
     title: "Sealed Engineering Letters Waco TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Waco and McLennan County. Foundation inspection reports, repair plans, and permit letters by a licensed Texas PE.",
+      "Sealed engineering letters for Waco and McLennan County. Foundation reports, repair plans, and permit letters sealed by a licensed Texas PE.",
     h1: "Sealed Engineering Letters in Waco, Texas",
     lede: "Waco sits in the heart of the Blackland Prairie on some of the most expansive soil in Texas, and the renovation boom of the last decade has put an unusual amount of old framing under new loads.",
     windstormArea: false,
@@ -804,7 +804,7 @@ export const CITIES: City[] = [
     region: "East Texas",
     title: "Sealed Engineering Letters Tyler TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Tyler and Smith County. Foundation certifications, roof letters, and repair specifications by a licensed Texas PE.",
+      "Sealed engineering letters for Tyler and Smith County. Foundation certifications, roof letters, and repair specifications by a Texas PE.",
     h1: "Sealed Engineering Letters in Tyler, Texas",
     lede: "East Texas is the wet side of the state. Sandy soils over clay, heavy tree cover, and a manufactured housing stock that keeps foundation certifications moving through every lender in the region.",
     windstormArea: false,
@@ -857,7 +857,7 @@ export const CITIES: City[] = [
     region: "Central Texas",
     title: "Sealed Engineering Letters College Station TX | PE",
     description:
-      "Sealed engineering letters and certifications for College Station and Brazos County. Foundation reports, permit letters, and beam sizing by a licensed Texas PE.",
+      "Sealed engineering letters for College Station and Brazos County. Foundation reports, permit letters, and beam sizing by a Texas PE.",
     h1: "Sealed Engineering Letters in College Station, Texas",
     lede: "Brazos County is expansive clay with a very large rental stock, which puts an unusual amount of repair, conversion, and code enforcement work through a fast growing plan review.",
     windstormArea: false,
@@ -963,7 +963,7 @@ export const CITIES: City[] = [
     region: "West Texas",
     title: "Sealed Engineering Letters Midland TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Midland County. Permit letters, carport plans, solar letters, and foundation reports by a licensed Texas PE.",
+      "Sealed engineering letters for Midland County. Permit letters, carport plans, and foundation certifications sealed by a Texas PE.",
     h1: "Sealed Engineering Letters in Midland, Texas",
     lede: "The Permian Basin builds in bursts. When the rig count moves, the permit queue moves with it, and the engineering that unblocks a project is worth more than the engineering itself.",
     windstormArea: false,
@@ -1016,7 +1016,7 @@ export const CITIES: City[] = [
     region: "West Texas",
     title: "Sealed Engineering Letters Odessa TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Odessa and Ector County. Permit letters, carport plans, and foundation certifications by a licensed Texas PE.",
+      "Sealed engineering letters for Odessa and Ector County. Permit letters, carport plans, and foundation certifications by a Texas PE.",
     h1: "Sealed Engineering Letters in Odessa, Texas",
     lede: "Ector County shares the Permian Basin's soil advantages and its scheduling pressure, with a heavier concentration of workforce and manufactured housing than its neighbor.",
     windstormArea: false,
@@ -1069,7 +1069,7 @@ export const CITIES: City[] = [
     region: "Central Texas",
     title: "Sealed Engineering Letters Round Rock TX | PE",
     description:
-      "Sealed engineering letters and certifications for Round Rock and Williamson County. Permit letters, beam sizing, and foundation reports by a licensed Texas PE.",
+      "Sealed engineering letters for Round Rock and Williamson County. Permit letters, beam sizing, and foundation reports by a Texas PE.",
     h1: "Sealed Engineering Letters in Round Rock, Texas",
     lede: "Williamson County has grown faster than almost anywhere in the country, which means most of its housing stock is young, on placed fill, and still settling into its site.",
     windstormArea: false,
@@ -1228,7 +1228,7 @@ export const CITIES: City[] = [
     region: "West Texas",
     title: "Sealed Engineering Letters San Angelo TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for San Angelo and Tom Green County. Permit letters, foundation reports, and carport plans by a licensed Texas PE.",
+      "Sealed engineering letters for San Angelo and Tom Green County. Permit letters, foundation reports, and carport plans by a Texas PE.",
     h1: "Sealed Engineering Letters in San Angelo, Texas",
     lede: "San Angelo sits on the transition between the Edwards Plateau and the Rolling Plains, which means shallow rock in some neighborhoods and moving clay in others.",
     windstormArea: false,
@@ -1281,7 +1281,7 @@ export const CITIES: City[] = [
     region: "West Texas",
     title: "Sealed Engineering Letters Abilene TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Abilene and Taylor County. Roof certifications, foundation reports, and permit letters by a licensed Texas PE.",
+      "Sealed engineering letters for Abilene and Taylor County. Roof certifications, foundation reports, and permit letters by a Texas PE.",
     h1: "Sealed Engineering Letters in Abilene, Texas",
     lede: "Abilene sits in the hail corridor on Rolling Plains clay, with an older housing stock that has taken sixty years of both.",
     windstormArea: false,
@@ -1334,7 +1334,7 @@ export const CITIES: City[] = [
     region: "South Texas",
     title: "Sealed Engineering Letters Alice TX | Texas PE",
     description:
-      "Sealed engineering letters and certifications for Alice and Jim Wells County. Manufactured home foundation certifications and permit letters by a licensed Texas PE.",
+      "Sealed engineering letters for Alice and Jim Wells County. Manufactured home foundation certifications and permit letters by a Texas PE.",
     h1: "Sealed Engineering Letters in Alice, Texas",
     lede: "Jim Wells County sits one county inland from the windstorm line with coastal wind loads and a housing stock that is heavily manufactured. Both facts drive what gets ordered here.",
     windstormArea: false,

@@ -235,7 +235,7 @@ export const SERVICES: Service[] = [
     keyword: "roof certification letter",
     title: "Roof Certification Letter Texas | Sealed by a PE",
     description:
-      "Sealed roof certification letters for Texas lenders and closings. Condition observed, deficiencies noted, remaining useful life estimated by a licensed engineer.",
+      "Sealed roof certification letters for Texas lenders and closings. Condition observed, deficiencies named, remaining useful life estimated.",
     h1: "Roof Certification Letters in Texas, Sealed by a Licensed PE",
     lede: "The letter an underwriter asks for when the appraiser flags the roof: condition observed, deficiencies named, and an estimate of remaining useful life, sealed by an engineer.",
     evidenceMode: "site-visit",
@@ -539,7 +539,7 @@ export const SERVICES: Service[] = [
     keyword: "engineer letter for permit",
     title: "Engineer Letter for Permit Texas | PE Sealed",
     description:
-      "Sealed structural letters for Texas permit offices. When plan review asks for engineer sign-off on a wall, a beam, an addition, or a retrofit, this is that letter.",
+      "Sealed structural letters for Texas permit offices. When plan review asks for engineer sign-off on a wall, beam, addition, or retrofit.",
     h1: "Engineer Letters for Texas Permit Offices",
     lede: "Plan review asked for a sealed letter and the project stopped. This is the deliverable that restarts it: a specific structural question answered, sealed, and addressed to the reviewer who asked.",
     evidenceMode: "either",
@@ -737,7 +737,7 @@ export const SERVICES: Service[] = [
     keyword: "engineer repair specification letter",
     title: "Repair Specification Letter Texas | Sealed by PE",
     description:
-      "Sealed repair specification letters for Texas structural damage. The repair method, members, and connections specified so a contractor can build it and a city can pass it.",
+      "Sealed repair specification letters for Texas structural damage. The repair method, members, and connections specified in buildable detail.",
     h1: "Repair Specification Letters, Sealed by a Texas PE",
     lede: "Something structural is damaged and somebody has to say exactly how it gets fixed. This is that document: the repair specified in buildable detail, sealed, and written so plan review and the contractor read the same thing.",
     evidenceMode: "either",

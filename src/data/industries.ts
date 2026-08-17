@@ -33,7 +33,7 @@ export const INDUSTRIES: Industry[] = [
     name: "For Solar Installers",
     title: "Solar Structural Letters for Installers | Texas PE",
     description:
-      "One engineering relationship for every Texas jurisdiction. Sealed solar structural letters built for batch volume, with intake that does not restart on each permit.",
+      "One engineering relationship for every Texas jurisdiction. Sealed solar structural letters built for batch volume, with repeatable intake.",
     h1: "Structural Letters for Solar Installers Working Texas",
     lede: "You are not buying a letter. You are buying the day it takes off your permit calendar, in every jurisdiction you work, without managing a different engineer in each one.",
     pains: [
@@ -104,7 +104,7 @@ export const INDUSTRIES: Industry[] = [
     name: "For Lenders and Loan Officers",
     title: "Foundation Certifications for Lenders | Texas PE",
     description:
-      "Manufactured home foundation certifications built around closing timelines. FHA, VA, and USDA, sealed by a licensed Texas PE and written for the underwriter.",
+      "Manufactured home foundation certifications built around closing timelines. FHA, VA, and USDA, sealed by a licensed Texas PE.",
     h1: "Foundation Certifications Built Around Your Closing Date",
     lede: "The condition shows up late, the borrower has movers booked, and the certification is now the only thing between the file and the table. That is the problem this is designed around.",
     pains: [
