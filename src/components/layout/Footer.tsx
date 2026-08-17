@@ -106,17 +106,24 @@ export function Footer() {
             property, and no engineer client relationship is formed by reading it.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2">
-            <span>
+          {/* These three are standalone controls rather than words inside a
+              sentence, so they carry the 44px target size the mobile audit
+              asserts. gap-x rather than padding on the row, so the touch areas
+              do not overlap. */}
+          <div className="mt-4 flex flex-wrap items-center gap-x-6">
+            <span className="py-3">
               Copyright {year} {SITE.legalEntity}
             </span>
-            <Link href="/privacy" className="hover:text-on-seal">
+            <Link href="/privacy" className="inline-flex min-h-11 min-w-11 items-center justify-center hover:text-on-seal">
               Privacy
             </Link>
-            <Link href="/terms" className="hover:text-on-seal">
+            <Link href="/terms" className="inline-flex min-h-11 min-w-11 items-center justify-center hover:text-on-seal">
               Terms
             </Link>
-            <a href={`mailto:${SITE.email}`} className="hover:text-on-seal">
+            <a
+              href={`mailto:${SITE.email}`}
+              className="inline-flex min-h-11 min-w-11 items-center justify-center hover:text-on-seal"
+            >
               {SITE.email}
             </a>
           </div>

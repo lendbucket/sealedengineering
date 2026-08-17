@@ -59,7 +59,14 @@ export function Header({
     <header className="sticky top-0 z-50 border-b border-line bg-paper/95 backdrop-blur-sm">
       <Container>
         <div className="flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="shrink-0" aria-label="Sealed Engineering home">
+          {/* min-h-11 rather than letting the wordmark set the height: the mark
+              is 35px tall and the link would inherit that, which is under the
+              44px target size scripts/mobile-audit.ts asserts. */}
+          <Link
+            href="/"
+            className="flex min-h-11 shrink-0 items-center"
+            aria-label="Sealed Engineering home"
+          >
             <Wordmark />
           </Link>
 

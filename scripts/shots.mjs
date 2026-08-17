@@ -13,7 +13,7 @@ import { startNextServer } from "./lib/dev-server.mjs";
 
 const WIDTHS = [390, 1280];
 const HEIGHT = 900;
-const PORT = Number(process.env.SHOT_PORT || 3128);
+const PORT = Number(process.env.SHOT_PORT || 3129);
 const OUT = process.env.SHOT_DIR || "screenshots";
 
 const routes = process.argv.slice(2);

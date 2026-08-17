@@ -22,6 +22,26 @@ const CRUMBS: Crumb[] = [
 ];
 
 /**
+ * force-dynamic, and this is load-bearing rather than tidy.
+ *
+ * In prelaunch this page calls redirect() before touching searchParams, so
+ * Next sees no dynamic API and prerenders the REDIRECT itself as a static
+ * artifact. /waitlist reads searchParams and stays dynamic. Flip LAUNCH_MODE to
+ * live without a rebuild and the two disagree: /order serves a build-time
+ * redirect to /waitlist while /waitlist evaluates the flag at runtime and
+ * redirects back to /order. The browser gets ERR_TOO_MANY_REDIRECTS and the
+ * whole order flow is unreachable.
+ *
+ * That is not hypothetical. `npm run forms-audit` found it by starting a live
+ * server against a prelaunch build, which is exactly the state a deploy is in
+ * between an environment change and the next build.
+ *
+ * Marking both sides dynamic means the launch gate is decided per request, by
+ * the running server, from the environment it actually has.
+ */
+export const dynamic = "force-dynamic";
+
+/**
  * The live-mode order flow.
  *
  * Built now and gated, so the day LAUNCH_MODE flips is a configuration change

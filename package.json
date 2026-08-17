@@ -15,7 +15,7 @@
     "mobile-audit": "tsx scripts/mobile-audit.ts",
     "precontrast-audit": "node scripts/preflight-harness.mjs",
     "contrast-audit": "node scripts/contrast-audit.mjs",
-    "preforms-audit": "node scripts/preflight-audit.mjs",
+    "preforms-audit": "node scripts/preflight-forms.mjs",
     "forms-audit": "node scripts/forms-audit.mjs",
     "preseo-audit": "node scripts/preflight-audit.mjs",
     "seo-audit": "node scripts/seo-audit.mjs",
@@ -23,6 +23,7 @@
     "placeholder-audit": "node scripts/placeholder-audit.mjs",
     "premeta-audit": "node scripts/preflight-audit.mjs",
     "meta-audit": "node scripts/meta-audit.mjs",
+    "preaudit": "node scripts/preflight-audit.mjs",
     "audit": "node scripts/audit.mjs"
   },
   "dependencies": {

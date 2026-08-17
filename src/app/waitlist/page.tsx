@@ -22,6 +22,14 @@ const CRUMBS: Crumb[] = [
 ];
 
 /**
+ * force-dynamic for the same reason /order carries it: the launch gate has to
+ * be decided per request by the running server rather than baked into a
+ * prerendered artifact at build time. See the comment in src/app/order/page.tsx
+ * for the redirect loop this prevents.
+ */
+export const dynamic = "force-dynamic";
+
+/**
  * The waitlist page reads a `service` query parameter so a CTA on a service
  * page can preselect the deliverable. That makes it a dynamic render rather
  * than a static one, which is the correct trade: this is the one page on the

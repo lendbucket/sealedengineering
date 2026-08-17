@@ -18,8 +18,11 @@ export function Faqs({ faqs, heading = "Questions people actually ask" }: { faqs
         <h2 className="text-2xl font-bold text-seal-800 sm:text-3xl">{heading}</h2>
         <div className="mt-8 divide-y divide-line border-y border-line">
           {faqs.map((f) => (
-            <details key={f.q} className="group py-4">
-              <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-left text-base font-semibold text-seal-800">
+            <details key={f.q} className="group">
+              {/* The padding lives on the summary rather than on the details,
+                  because the summary is the tap target and 24px of text is
+                  under the 44px floor the mobile audit asserts. */}
+              <summary className="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 py-4 text-left text-base font-semibold text-seal-800">
                 <span>{f.q}</span>
                 <span
                   aria-hidden="true"
@@ -36,7 +39,7 @@ export function Faqs({ faqs, heading = "Questions people actually ask" }: { faqs
                   </svg>
                 </span>
               </summary>
-              <p className="mt-3 pr-8 text-[0.9375rem] leading-relaxed text-ink">{f.a}</p>
+              <p className="mb-4 pr-8 text-[0.9375rem] leading-relaxed text-ink">{f.a}</p>
             </details>
           ))}
         </div>

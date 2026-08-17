@@ -44,6 +44,25 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  /**
+   * The launch mode this artifact was BUILT with, inlined at build time.
+   *
+   * `env` entries are substituted into the bundle during `next build`, which is
+   * the opposite of how `process.env.LAUNCH_MODE` behaves in a server module:
+   * that one is read from the running process. Having both is what lets
+   * src/instrumentation.ts compare them at startup.
+   *
+   * Why that comparison is worth a config entry: nearly every page on this site
+   * is statically prerendered, and the footer's licensure disclosure is
+   * rendered into each one at build time. Change LAUNCH_MODE without
+   * rebuilding and the running server activates ordering while fifty
+   * prerendered pages keep telling visitors that firm registration is pending.
+   * That is the compliance failure this whole gate exists to prevent, arriving
+   * through the one door the gate does not watch.
+   */
+  env: {
+    BUILD_LAUNCH_MODE: (process.env.LAUNCH_MODE || "prelaunch").trim().toLowerCase(),
+  },
   images: {
     // AVIF first, WebP as the fallback. Order matters: the first entry the
     // request's Accept header matches is the one served.

@@ -47,12 +47,14 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."
  *   3123  mobile-audit (next dev)
  *   3124  contrast-audit (next dev)
  *   3125  the main dev/prod server every audit points BASE_URL at
- *   3126  forms-audit (next start, live-mode leg)
- *   3127  reserved for a second launch-mode server
+ *   3126  forms-audit, prelaunch leg (next start)
+ *   3127  forms-audit, live-mode leg (next start)
+ *   3128  the Supabase stand-in forms-audit points those two servers at
+ *   3129  shots (next dev)
  * Scanned as a range rather than a list so a harness that claims a new port
  * inside it is covered before anyone remembers to update this comment.
  */
-export const AUDIT_PORT_RANGE = [3123, 3128];
+export const AUDIT_PORT_RANGE = [3123, 3129];
 
 const isWindows = process.platform === "win32";
 

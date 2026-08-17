@@ -57,7 +57,20 @@ export function pageMeta({ title, description, path, noindex, ogImage }: PageMet
   const url = canonical(path);
 
   return {
-    title,
+    // `absolute` rather than a bare string, and this is load-bearing.
+    //
+    // The root layout declares a title template of "%s | Sealed Engineering".
+    // A bare string here would be run through it, so a title measured at 48
+    // characters in this function would reach the browser at 69. The assertion
+    // above would pass and the SERP would still truncate.
+    //
+    // Every title on this site already carries its own brand context, so the
+    // template is the wrong tool for them. It stays declared in the layout as a
+    // fallback for any page that forgets to call pageMeta at all.
+    //
+    // scripts/meta-audit.mjs measures the rendered <title> rather than this
+    // value, which is how the discrepancy was found in the first place.
+    title: { absolute: title },
     description,
     alternates: { canonical: url },
     openGraph: {
