@@ -1,0 +1,18 @@
+=== audit ===
+54 sitemap routes, 55 distinct internal link targets
+
+PASS: no broken links, no internal redirects, no orphans, 404 answers 404.
+(checked 54 sitemap routes and 55 link targets)
+=== meta-audit ===
+scanned 54 of 54 sitemap routes against http://localhost:3125
+unique titles: 54, unique descriptions: 54, unique H1s: 54
+
+PASS: titles, descriptions, H1s, canonicals, og:site_name, and schema all clean.
+=== placeholder-audit ===
+scanned 54 sitemap routes plus the llms files against http://localhost:3125
+
+PASS: no placeholder content in rendered output.
+allowlisted by design: "you@email.com"
+=== seo-audit ===
+
+PASS: all 22 sampled pages score SEO 100.

@@ -1,0 +1,24 @@
+=== contrast-audit ===
+  faq open @390: contrast=ok  other-a11y=ok
+  faq open @1280: contrast=ok  other-a11y=ok
+
+================ COLOR CONTRAST (WCAG AA) ================
+  PASS: no color-contrast violations on any template or state.
+
+================ OTHER A11Y (WCAG A/AA) ================
+  PASS: no other WCAG A/AA violations on any template or state.
+
+================ RESULT ================
+23 templates plus 4 interactive states, at 390 and 1280px.
+ALL GREEN. No WCAG A/AA violations.
+=== mobile-audit ===
+terms                     pass      pass      pass      pass      
+
+================ MOBILE MENU ================
+  opens:                 pass
+  body scroll locked:    pass
+  closes on navigate:    pass
+  body scroll restored:  pass
+
+================ RESULT ================
+ALL GREEN. Zero horizontal scroll and no undersized targets across 22 templates.
