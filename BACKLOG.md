@@ -254,3 +254,63 @@ from it as standing law. What changed, and what did not.
       was approved by the operator on screenshots before the playbook arrived.
       Worth an explicit confirmation that it still reads as intended alongside
       the other two brands.
+
+## Fabrication sweep, 2026-08-18: clean
+
+Run against source and all 56 rendered surfaces (54 sitemap routes plus
+`/llms.txt` and `/llms-full.txt`) in response to an operator brief listing
+specific fabricated elements to remove. **None of them exist in this repo, and
+none ever have.**
+
+Searched for and not found: testimonials or quote attributions, star and review
+counts including the "150+ five-star reviews" claim, `AggregateRating` / `Review`
+/ `Rating` schema, firm registration number 19245 or any other, "Licensed and
+Insured" or "bonded", invented project or client counts, years-in-business
+claims, and turnaround guarantees.
+
+This is enforced rather than fortunate, and the enforcement is what should be
+maintained:
+
+- `placeholder-audit` fails the build on any PE name, licence number, or firm
+  registration number absent from `src/config/credentials.ts`. All three lists
+  are empty, so any credential anywhere fails.
+- `meta-audit` fails on any `AggregateRating` or `Review` node. **The hasReviews
+  false pattern is permanent until real third-party reviews exist.**
+- `voice-audit` fails on turnaround promises, outcome guarantees, and puffery.
+- No dollar figure may appear until a price sheet exists.
+
+No branch survives this sweep because there was nothing to change. A permanent
+standalone sweep script was considered and not added: the three audits above
+already cover every pattern it looked for, and a fourth script duplicating them
+would be a second place to maintain the same rules.
+
+## Brief routing incident, 2026-08-18
+
+An operator brief arrived instructing this repo to remove fabricated elements
+that do not exist here, and to invert the brand positioning: Sealed to
+contractor-facing plan stamping, StampMyPlans to homeowner. Both were queried
+before any action and the operator confirmed **the registry stands and the brief
+was misrouted**.
+
+Recorded so a future session does not re-litigate it:
+
+- **Sealed Engineering remains the homeowner and ordering-party brand.** It owns
+  transactional service terms, city level geo, and homeowner education.
+  StampMyPlans owns contractor plan stamping process, speed, and volume terms,
+  and owns no geo. 254 owns institutional terms, county geo, and careers.
+- **The 25 city pages stay indexed.** They are not doorway pages: each carries a
+  permit office verified against the city's own site with a source URL and date,
+  a distinct local submittal fact, wind band, soil, four market-specific
+  paragraphs, and three local FAQs. There are no county pages in this repo, and
+  the registry forbids 254 from building city pages, so deindexing these would
+  leave Texas city geo unowned across the whole portfolio.
+- Nothing was noindexed and no positioning was changed.
+
+- [ ] **REGISTRY SOURCE OF TRUTH IS MISLABELLED.** The header of
+      `src/data/keyword-registry.ts` states the 254 repo holds the master copy.
+      As of 2026-08-18 the 254 repo has **no** registry file; the only other copy
+      is `stampmyplans/data/keyword-registry.ts`, which is byte-identical to this
+      one except for the careers note. Designate the real source of truth, fix
+      the header in every copy, and copy this repo's resolved careers note into
+      it. Until then the divergence declared in the previous session is still
+      open and pointing at a repo that does not have the file.
