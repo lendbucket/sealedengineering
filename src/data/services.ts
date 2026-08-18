@@ -432,7 +432,13 @@ export const SERVICES: Service[] = [
       },
     ],
     related: ["foundation-repair-plans", "manufactured-home-foundation-certification", "repair-specification-letters"],
-    emphasisCities: ["houston", "dallas", "fort-worth", "san-antonio", "austin", "waco", "college-station", "round-rock"],
+    // san-angelo added 2026-08-18. It was the one Tier 1 city no service page
+    // named, so no money page pointed at it. This is the right list for it
+    // rather than a convenient one: the San Angelo page is built on differential
+    // bearing, where depth to limestone changes across a single lot and part of
+    // a foundation rests on rock while the rest rests on clay. That is a
+    // foundation inspection problem before it is anything else.
+    emphasisCities: ["houston", "dallas", "fort-worth", "san-antonio", "austin", "waco", "college-station", "round-rock", "san-angelo"],
   },
 
   // ---------------------------------------------------------------- 05

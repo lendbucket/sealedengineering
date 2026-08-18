@@ -1,7 +1,7 @@
 {
   "base": "http://localhost:3125",
   "routes": 54,
-  "totalEditorialLinks": 627,
+  "totalEditorialLinks": 628,
   "byRoute": {
     "/": {
       "inbound": 53,
@@ -327,7 +327,7 @@
     },
     "/services/foundation-inspection-reports": {
       "inbound": 32,
-      "outbound": 15,
+      "outbound": 16,
       "inboundFrom": [
         "/",
         "/industries/lenders-and-loan-officers",
@@ -824,9 +824,10 @@
       ]
     },
     "/texas/san-angelo": {
-      "inbound": 5,
+      "inbound": 6,
       "outbound": 13,
       "inboundFrom": [
+        "/services/foundation-inspection-reports",
         "/texas",
         "/texas/abilene",
         "/texas/el-paso",

@@ -55,10 +55,15 @@ export default async function ServicePage({ params }: Params) {
     { name: service.name, path: `/services/${service.slug}` },
   ];
 
+  // No slice. There was a .slice(0, 8) here, and it silently swallowed the
+  // ninth entry when san-angelo was added to close the one city with no
+  // inbound link from any money page. A cap that drops data without saying so
+  // turns an editorial decision in the data file into a no-op nobody notices;
+  // link-map reported zero change and the fix looked applied. The lists are
+  // curated per service and none is long enough to need truncating.
   const emphasisCities = (service.emphasisCities || [])
     .map((c) => getCity(c))
-    .filter((c) => c !== undefined)
-    .slice(0, 8);
+    .filter((c) => c !== undefined);
 
   return (
     <>

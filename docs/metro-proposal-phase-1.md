@@ -110,6 +110,14 @@ served by one Insights post. It could carry considerably more.
 
 ---
 
+> **SETTLED 2026-08-18 by one authorised Ahrefs batch. See
+> [keyword-batch-phase-1.md](./keyword-batch-phase-1.md).** Short version: the
+> city pattern shows no measurable demand, service plus city combos are a NO,
+> and metro beatability ordering is not answerable because no metro term has
+> volume to order. The tiers below stand as depth investment in existing pages,
+> not as a case for building more geo. Actual cost 1,680 units against a 2,000
+> estimate.
+
 ## What this report cannot settle, and what it would cost
 
 No Ahrefs call has been made or authorised. Three questions genuinely need it:
