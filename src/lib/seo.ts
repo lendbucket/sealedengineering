@@ -14,8 +14,12 @@ import { SITE, SITE_NAME } from "@/config/site";
  * than a short one, and both are better than a 500.
  */
 
+// Playbook Part 3.4 gives 50 to 60 and 140 to 160. Only the caps are enforced
+// here, because a build-time throw on a short title would block work over a
+// difference between two operator documents. scripts/meta-audit.mjs measures
+// and reports the floors as warnings. See BACKLOG.md.
 export const TITLE_MAX = 60;
-export const DESCRIPTION_MAX = 155;
+export const DESCRIPTION_MAX = 160;
 
 type PageMetaInput = {
   /** Keyword-leading, under 60 characters, and unique across the site. */

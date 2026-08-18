@@ -34,7 +34,8 @@ const EXEMPT = {
   "/privacy": "Legal text. A conversion prompt inside a privacy policy is a dark pattern.",
   "/terms": "Legal text, same reason.",
   "/contact": "The contact form is the conversion path on this page.",
-  "/careers": "The application form is the conversion path, and it is a different audience.",
+  "/careers":
+    "A routing stub for hiring, which the keyword registry assigns to 254 Engineering Services. Its only action is an outbound link to that firm, and a waitlist prompt on a hiring page would be a non sequitur.",
 };
 
 const problems = [];

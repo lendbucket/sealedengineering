@@ -1123,8 +1123,8 @@ export const CITIES: City[] = [
     local: [
       "Odessa carries a heavier concentration of workforce and manufactured housing than Midland does, particularly outside the city limits. That makes FHA, VA, and USDA foundation certifications a larger share of the work here, and it makes crawl space access the practical constraint on timing far more often than the engineering does.",
       "The soil advantage is the same as Midland's. Caliche and calcareous loam with low to moderate expansion mean the seasonal clay cycle that dominates foundation engineering across most of Texas is not the local story. When an Odessa foundation is distressed, poorly compacted fill under a rapidly built subdivision and water reaching where it should not are the usual explanations.",
-      "Boom cycle scheduling pressure applies here identically. When activity is high everything is oversubscribed at once, and the deliverables that can be produced from documents rather than from a site visit are the ones that stay fast regardless of what the field looks like.",
-      "Shade structures and covered parking are ordinary construction rather than upgrades, and open terrain exposure governs them through uplift. A stock carport plan carried in from a lower exposure market is the most common reason one gets rejected at the counter.",
+      "Boom cycle scheduling pressure applies here exactly as it does in Midland. When activity is high, everything is oversubscribed at once.",
+      "Shade structures and covered parking are ordinary construction here rather than upgrades, and open terrain exposure governs them entirely through uplift rather than through the weight of anything sitting on top. A stock carport plan carried in from a lower exposure market is the most common reason one gets rejected at the counter, and the correction is almost always a larger footing than the person submitting it expected.",
     ],
     emphasis: [
       "manufactured-home-foundation-certification",

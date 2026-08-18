@@ -63,15 +63,6 @@ const STATES = [
     },
   },
   {
-    name: "careers errors",
-    path: "/careers",
-    async prepare(page) {
-      await page.waitForTimeout(1200);
-      await page.getByRole("button", { name: /send application/i }).click({ timeout: 10_000 });
-      await page.locator("#name-error").waitFor({ state: "visible", timeout: 10_000 });
-    },
-  },
-  {
     name: "faq open",
     path: "/services/solar-structural-letters",
     async prepare(page) {

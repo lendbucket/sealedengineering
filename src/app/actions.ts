@@ -8,7 +8,6 @@ import { IS_LIVE } from "@/config/launch";
 import { getService } from "@/data/services";
 import {
   HONEYPOT,
-  applicationSchema,
   contactSchema,
   fieldErrorsOf,
   orderSchema,
@@ -172,67 +171,15 @@ export async function submitContact(_prev: FormState, form: FormData): Promise<F
   };
 }
 
-// --------------------------------------------------------------- application
-
-export async function submitApplication(_prev: FormState, form: FormData): Promise<FormState> {
-  if (tripped(form)) return { status: "success" };
-
-  const parsed = applicationSchema.safeParse(objectFrom(form));
-  if (!parsed.success) {
-    return {
-      status: "error",
-      message: "Check the highlighted fields.",
-      fieldErrors: fieldErrorsOf(parsed.error),
-    };
-  }
-  const d = parsed.data;
-  const attribution = await attributionFrom(form);
-
-  try {
-    const { error } = await supabase()
-      .from("eng_applications")
-      .insert({
-        site: SITE.siteKey,
-        role: d.role,
-        name: d.name,
-        email: d.email,
-        phone: d.phone,
-        city: d.city,
-        experience: d.experience ?? null,
-        availability: d.availability,
-        has_vehicle: d.hasVehicle === "yes",
-        message: d.message ?? null,
-        ...attribution,
-      });
-    if (error) throw new Error(error.message);
-  } catch (err) {
-    console.error(`[application] insert failed: ${(err as Error).message}`);
-    return { status: "error", message: GENERIC_DB_ERROR };
-  }
-
-  await notify({
-    subject: `Sealed field application: ${d.name} (${d.city})`,
-    replyTo: d.email,
-    lines: [
-      ["Name", d.name],
-      ["Email", d.email],
-      ["Phone", d.phone],
-      ["Based in", d.city],
-      ["Applying for", d.role],
-      ["Availability", d.availability],
-      ["Reliable transport", d.hasVehicle === "yes" ? "Yes" : "No"],
-      ["Experience", d.experience],
-      ["Anything else", d.message],
-    ],
-  });
-
-  return {
-    status: "success",
-    message:
-      "Application received. If the work fits, somebody will call the number above. " +
-      "Field work is scheduled by phone, so keep an eye on it.",
-  };
-}
+// APPLICATION ACTION REMOVED, 2026-08-17.
+//
+// The cross brand keyword registry assigns every careers term to 254
+// Engineering Services, and /careers here is now a routing stub with no form.
+// The eng_applications table stays in the shared schema because 254 writes it;
+// this brand simply no longer does. Leaving a dead action and an unrendered
+// form component behind would be the kind of rot that reads as intentional to
+// the next session. If Sealed ever hires directly, the registry entry is
+// renegotiated first and this comes back with it.
 
 // --------------------------------------------------------------------- order
 

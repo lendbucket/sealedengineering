@@ -43,7 +43,7 @@ export const INDUSTRIES: Industry[] = [
       },
       {
         title: "The letter is never the bottleneck until it is",
-        body: "It is a two page document on a project that took months to sell. It becomes the critical path exactly when a crew is scheduled, and the cost of that day is not the cost of the letter. Turnaround consistency matters more than turnaround speed, because a schedule can absorb a known interval and cannot absorb an unknown one.",
+        body: "It is a two page document on a project that took months to sell, and it becomes the critical path on the morning a crew is already scheduled. Consistency beats speed here: a schedule absorbs a known interval and cannot absorb an unknown one.",
       },
       {
         title: "Restarting intake on every single job",
@@ -51,25 +51,25 @@ export const INDUSTRIES: Industry[] = [
       },
       {
         title: "A rejected letter costs more than the letter did",
-        body: "A rejection means a resubmittal, a new review cycle, and a crew moved. The rejections that actually happen are almost never engineering errors. They are the wrong code edition, a letter that answered a general question instead of the reviewer's specific one, or an exposure category assumed rather than established.",
+        body: "A rejection costs a resubmittal, a review cycle, and a moved crew. Almost none of them are engineering errors.",
       },
     ],
     answers: [
       {
         title: "Your standards are established once",
-        body: "Racking system, module, attachment, fastener, and installation standards get recorded at the account level rather than on each order. Per project intake then narrows to what actually varies: address, roof framing, attic photographs, and the array layout on each plane.",
+        body: "Racking, module, attachment, fastener, and installation standards are recorded once at the account level. Per project intake then narrows to what actually varies.",
       },
       {
         title: "Exposure and wind speed established at the address, every time",
-        body: "The most common defect in template solar letters is an exposure B assumption carried into a site that is exposure C. That single assumption is the difference between an attachment spacing that holds and one that does not, and in West Texas and the Panhandle it is the norm rather than the edge case.",
+        body: "The most common defect in a template solar letter is an exposure B assumption carried into a site that is exposure C. Wind pressure scales with terrain as well as speed, so that single unexamined assumption is the difference between an attachment spacing that holds and one that does not, and across West Texas and the Panhandle exposure C is the norm rather than the edge case. It is the reason two identical arrays four hours apart get two different fastener schedules.",
       },
       {
         title: "One relationship across every jurisdiction you work",
-        body: "The same engineer covers the metro, the surrounding counties, and the coastal counties where a windstorm certificate is in play alongside the structural letter. Nothing gets handed to a second firm halfway through a market.",
+        body: "One engineer covers the metro, the counties around it, and the coastal counties where a windstorm certificate runs alongside the structural letter. Nothing is handed to a second firm halfway through a market, which is what usually happens when an installer expands into the seaward counties and discovers their existing engineer does not do windstorm work.",
       },
       {
         title: "Batch intake for pipeline volume",
-        body: "Projects submitted together, tracked together, and returned as they complete rather than held until the slowest one is ready. Each address still gets its own sealed letter, because an engineer cannot seal one opinion about houses nobody examined.",
+        body: "Projects go in together and come back as they finish, rather than waiting on the slowest one. Each address still gets its own sealed letter.",
       },
     ],
     services: ["solar-structural-letters", "wpi-8-windstorm-certification", "structural-letters-for-permits", "carport-and-patio-cover-plans"],
@@ -181,37 +181,37 @@ export const INDUSTRIES: Industry[] = [
     pains: [
       {
         title: "The option period is the whole constraint",
-        body: "A general inspector flags a foundation, and the clock that matters is already running. Getting an engineer on site, getting a defensible measurement, and getting a written opinion inside that window is the entire job, and an engineer who cannot say when they will be there is not usable.",
+        body: "A general inspector flags a foundation and the clock is already running. An engineer who cannot tell you when they will be on site is not usable, whatever the report would have said.",
       },
       {
         title: "Three repair bids that cannot be compared",
-        body: "When the only documents in a negotiation are proposals from companies that sell the repair, both sides are arguing about scopes that were never the same. A sealed engineering opinion is the only document in that conversation written by somebody who is not paid more if the answer is yes.",
+        body: "Three proposals from three repair companies are three different scopes at three prices, and none of them are comparable. One quotes eighteen piers along the north side, one quotes twelve and a drainage correction, one quotes twenty six and a full perimeter. The buyer is not choosing between prices. They are choosing between three descriptions of a house nobody measured, written by three parties who are each paid more if the answer is yes. A sealed engineering opinion is the only document in that conversation without that problem.",
       },
       {
         title: "Cracks that mean nothing and cracks that mean something",
-        body: "Every Texas house on clay has cracking, and a buyer looking at a photograph cannot tell which kind they are looking at. Neither can a seller. A relative elevation survey turns an argument about appearances into a measurement, which is what ends the argument.",
+        body: "Every Texas house on clay cracks. A photograph cannot tell a buyer which kind they are looking at, and it cannot tell a seller either. An elevation survey replaces the argument with a number.",
       },
       {
         title: "Late conditions on the lender side",
-        body: "Roof certifications and foundation conditions land in underwriting after everything else is done. At that point the transaction coordinator needs a document that closes the condition on the first submission, not one that generates a follow up question.",
+        body: "Roof and foundation conditions land in underwriting after everything else is finished, when what is needed is a document that closes the condition on the first submission rather than one that generates a follow up question. The difference is usually whether the engineer was told what the condition actually said.",
       },
     ],
     answers: [
       {
         title: "Independent, and it says so",
-        body: "No repair work is sold, no contractor is recommended, and no price is quoted. The report states what was measured and what the conditions call for. That independence is exactly what makes it useful to both sides of a negotiation.",
+        body: "No repair work is sold, no contractor recommended, no price quoted. That is what makes the report usable by both sides.",
       },
       {
         title: "Measurement rather than opinion",
-        body: "A relative elevation survey produces a number and a contour. A second survey after a full seasonal cycle can be compared against it. That is the difference between an engineering report and a strongly worded assessment.",
+        body: "A relative elevation survey produces a number and a contour, and a survey taken a year later can be compared against it. Texas clay moves seasonally, so a single reading is a snapshot and two readings a year apart are evidence. That is the difference between an engineering report and a strongly worded assessment, and it is the reason a report written this way survives a second opinion.",
       },
       {
         title: "Written for the reader who has to act on it",
-        body: "Underwriters want the standard named and the conclusion stated. Buyers want to know whether to walk. Sellers want to know what is actually required. The deliverable is structured so all three can find their answer without interpreting it.",
+        body: "Underwriters want the standard named. Buyers want to know whether to walk. Sellers want to know what is actually required. Three readers, one document, and each of them able to find their answer without interpreting anybody else's.",
       },
       {
         title: "One relationship for the whole file",
-        body: "Foundation, roof, repair specification, and permit letters come from the same place, which matters when a single transaction needs two of them and the calendar has no room for two intake processes.",
+        body: "Foundation, roof, repair specification, and permit letters all come from one place. That matters on the transactions that need two of them.",
       },
     ],
     services: ["foundation-inspection-reports", "roof-certification-letters", "repair-specification-letters", "manufactured-home-foundation-certification"],

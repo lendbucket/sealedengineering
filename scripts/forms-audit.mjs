@@ -335,24 +335,10 @@ const CONTACT = {
   expectRow: { form: "contact" },
 };
 
-const CAREERS = {
-  name: "careers",
-  path: "/careers",
-  table: "eng_applications",
-  requiredField: "name",
-  values: {
-    name: "Audit Harness",
-    email: "audit@example.invalid",
-    phone: "5125550000",
-    city: "Waco",
-    role: "Field technician, foundation and elevation surveys",
-    availability: "Full time",
-    hasVehicle: "yes",
-    experience: "Submitted by scripts/forms-audit.mjs",
-    message: "Automated check",
-  },
-  expectRow: { role: "Field technician, foundation and elevation surveys", has_vehicle: true },
-};
+// The careers form was removed when /careers became a routing stub. Hiring
+// belongs to 254 Engineering Services per the cross brand keyword registry,
+// so there is no application to submit here and nothing for this audit to
+// drive. eng_applications is still written, by that brand rather than this one.
 
 const ORDER = {
   name: "order (live mode)",
@@ -394,7 +380,7 @@ async function main() {
     log(`Ready at ${prelaunch.base}\n`);
     log("=== PRELAUNCH MODE ===");
 
-    for (const spec of [WAITLIST, CONTACT, CAREERS]) {
+    for (const spec of [WAITLIST, CONTACT]) {
       await auditForm(browser, prelaunch.base, stub, spec);
     }
 

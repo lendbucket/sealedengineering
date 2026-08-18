@@ -182,3 +182,75 @@ Source URLs are recorded in the header comment of `src/data/services.ts`.
       planning context and that the sealed value is looked up per address, so
       nothing turns on them, but they should be checked against the adopted
       edition per jurisdiction before anyone treats them as design input.
+
+## Playbook reconciliation, 2026-08-17
+
+`TEXAS_ENGINEERING_DOMINANCE.md` is now in the repo and `CLAUDE.md` is rewritten
+from it as standing law. What changed, and what did not.
+
+### Closed by the playbook arriving
+
+- [x] **voice-audit rule list reconciled.** The derived list has been replaced by
+      the playbook's Part 4 item 3 list verbatim (unlock, elevate, seamless,
+      journey, empower, passionate, top-notch, hassle-free, one-stop,
+      cutting-edge, state-of-the-art, look no further, in today's, when it comes
+      to, we've got you covered, rest assured, not only X but also Y), plus the
+      four structural tells and the Part 1 regulatory checks. It lives in
+      `scripts/lib/voice-blocklist.mjs` and is now SHARED with `email-audit`, as
+      Part 4 item 3 requires.
+- [x] **Registry installed and verified.** `src/data/keyword-registry.ts` copied
+      from the 254 repo. `npm run registry-audit` checks all 54 pages: every
+      owned term has a page, no page targets another brand's term, every page is
+      accounted for. Passes.
+- [x] **Careers collision actioned.** `/careers` is now a routing stub to
+      254engineering.com/careers, retitled off the field technician jobs term,
+      with the application form and its server action removed.
+- [x] **Sitemap lastModified fixed.** It emitted `new Date()` on all 54 entries,
+      which is the build timestamp Part 3.4 explicitly forbids. Only the Insights
+      posts carry a real date, so only they carry the field now.
+- [x] **Hyphen as a sentence connector** is now checked (Part 6 style law). It
+      had no home before the playbook arrived.
+
+### Differences reported rather than resolved
+
+- [ ] **METADATA LENGTH FLOORS. OPERATOR DECISION NEEDED.**
+      `WEBSITE_MASTER_PROMPT.md` section 4 specifies titles "under 60 characters"
+      and descriptions "under 155", with no floor. Playbook Part 3.4 specifies
+      **50 to 60** and **140 to 160**. This site was built to the first and
+      measures against the second as follows:
+      **50 of 54 titles are under 50 characters. 25 of 54 descriptions are under
+      140.** The caps were aligned to the playbook (155 raised to 160) and still
+      fail the run. The floors are reported by `meta-audit` as warnings and do
+      NOT fail it, because rewriting 75 operator-facing strings to settle a
+      conflict between two operator documents is not a call this session should
+      make silently. Decide the standard and the rewrite is mechanical.
+
+- [ ] **REGISTRY DIVERGENCE. MUST BE COPIED BACK TO 254.**
+      The careers entry note in `src/data/keyword-registry.ts` was edited here to
+      record the collision as resolved on the sealed side. The registry header
+      states the 254 repo is the source of truth and that editing a copy creates
+      a divergence until copied. **Copy this file's careers note back to
+      254engineering's `data/keyword-registry.ts`.** Until that happens the two
+      repos disagree about whether the collision is open.
+
+### Still open against the playbook
+
+- [ ] **www to apex 308 redirect at the platform level** (Part 3.4). Not
+      configured. Vercel domain settings, not a code change.
+- [ ] **Search Console property, sitemap submission** (Part 3.4 and Part 7 item
+      7). Not done.
+- [ ] **og:url and canonical verified against the LIVE domain after deploy**
+      (Part 3.4). Every audit here measures localhost. The post-deploy check
+      against the real host has not been run.
+- [ ] **No-hover-dependence check** (Part 6). `mobile-audit` asserts 44px targets
+      but does not yet assert that nothing is reachable only on hover.
+- [ ] **Anchor discipline in the linking law** (Part 5.3). `link-map` records
+      anchors per target but does not yet fail on "click here", "learn more", or
+      an anchor phrase repeated more than twice at the same target. Add before
+      the first contextual linking pass, which is when it starts to matter.
+- [ ] **Design register review** (Part 6). The playbook calls for white-dominant
+      and extremely corporate with a distinct register per brand. This site is
+      paper-and-seal-green, which is restrained but not white-dominant, and it
+      was approved by the operator on screenshots before the playbook arrived.
+      Worth an explicit confirmation that it still reads as intended alongside
+      the other two brands.

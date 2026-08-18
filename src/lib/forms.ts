@@ -44,14 +44,6 @@ export const CONTACT_TOPICS = [
   "Something else",
 ] as const;
 
-export const FIELD_ROLES = [
-  "Field technician, foundation and elevation surveys",
-  "Field technician, roof and windstorm inspections",
-  "Either, whichever has work near me",
-] as const;
-
-export const AVAILABILITY = ["Full time", "Part time", "Contract or per job"] as const;
-
 /**
  * The honeypot.
  *
@@ -85,18 +77,6 @@ export const contactSchema = z.object({
   message: trimmed(4000).min(10, "Tell us a little about what you need."),
 });
 
-export const applicationSchema = z.object({
-  name: trimmed(120).min(2, "Enter your name."),
-  email: trimmed(200).email("Enter an email address we can reply to."),
-  phone: trimmed(40).min(7, "Enter a phone number, since field work is scheduled by phone."),
-  city: trimmed(120).min(2, "Which Texas city or area are you based in?"),
-  role: z.enum(FIELD_ROLES, { message: "Choose the work you are applying for." }),
-  availability: z.enum(AVAILABILITY, { message: "Choose your availability." }),
-  hasVehicle: z.enum(["yes", "no"], { message: "Let us know about reliable transport." }),
-  experience: optional(3000),
-  message: optional(3000),
-});
-
 /**
  * The live-mode order form.
  *
@@ -122,7 +102,6 @@ export const orderSchema = z.object({
 
 export type WaitlistInput = z.infer<typeof waitlistSchema>;
 export type ContactInput = z.infer<typeof contactSchema>;
-export type ApplicationInput = z.infer<typeof applicationSchema>;
 export type OrderInput = z.infer<typeof orderSchema>;
 
 /** Slug lists exported for the selects, so a form cannot offer an unknown option. */

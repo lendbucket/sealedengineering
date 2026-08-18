@@ -14,13 +14,41 @@
 const BASE = process.env.BASE_URL || "http://localhost:3125";
 const SITE_URL = "https://sealedengineering.com";
 const BRAND = "Sealed Engineering";
+// Playbook Part 3.4: titles 50 to 60 characters, descriptions 140 to 160.
+//
+// The original build enforced only the upper bounds, and used a tighter cap on
+// descriptions (155) than the playbook states. Both bounds are now checked and
+// the cap is the playbook's. A title under the floor is not an error in the
+// same sense as one over the cap, but it is wasted room in a result Google has
+// already decided to show, which is the cheapest ranking surface there is.
+const TITLE_MIN = 50;
 const TITLE_MAX = 60;
-const DESCRIPTION_MAX = 155;
+const DESCRIPTION_MIN = 140;
+const DESCRIPTION_MAX = 160;
 /** Every Insights post must clear this. Stated in the master prompt. */
 const POST_MIN_WORDS = 1200;
 
 const problems = [];
 const note = (route, message) => problems.push({ route, message });
+
+/**
+ * Warnings, which do NOT fail the run.
+ *
+ * There is exactly one class of these and it exists because two operator
+ * documents disagree. WEBSITE_MASTER_PROMPT.md specifies titles "under 60
+ * characters" and descriptions "under 155" with no floor. The dominance
+ * playbook, Part 3.4, specifies 50 to 60 and 140 to 160. Fifty of this site's
+ * fifty four titles and twenty five of its descriptions were written to the
+ * first spec and sit under the second's floor.
+ *
+ * Silently rewriting seventy five operator-facing strings to resolve a conflict
+ * between two documents the operator wrote is not a call this audit gets to
+ * make, and neither is quietly dropping the playbook rule. So the floor is
+ * measured, reported, and left for the operator to settle. The caps still fail
+ * the run, because those are the ones that truncate in a result.
+ */
+const warnings = [];
+const warn = (route, message) => warnings.push({ route, message });
 
 async function get(path) {
   const res = await fetch(`${BASE}${path}`);
@@ -103,7 +131,11 @@ if (sm.status !== 200) {
       const title = decode(pick(html, /<title>([^<]*)<\/title>/i));
       if (!title) note(route, "no <title>");
       else {
-        if (title.length > TITLE_MAX) note(route, `title is ${title.length} chars: ${JSON.stringify(title)}`);
+        if (title.length > TITLE_MAX) {
+          note(route, `title is ${title.length} chars, over the ${TITLE_MAX} cap: ${JSON.stringify(title)}`);
+        } else if (title.length < TITLE_MIN) {
+          warn(route, `title is ${title.length} chars, under the ${TITLE_MIN} floor: ${JSON.stringify(title)}`);
+        }
         const prior = titles.get(title);
         if (prior) note(route, `title duplicates ${prior}: ${JSON.stringify(title)}`);
         else titles.set(title, route);
@@ -114,7 +146,9 @@ if (sm.status !== 200) {
       if (!description) note(route, "no meta description");
       else {
         if (description.length > DESCRIPTION_MAX) {
-          note(route, `description is ${description.length} chars`);
+          note(route, `description is ${description.length} chars, over the ${DESCRIPTION_MAX} cap`);
+        } else if (description.length < DESCRIPTION_MIN) {
+          warn(route, `description is ${description.length} chars, under the ${DESCRIPTION_MIN} floor`);
         }
         const prior = descriptions.get(description);
         if (prior) note(route, `description duplicates ${prior}`);
@@ -187,6 +221,18 @@ if (sm.status !== 200) {
     console.log(
       `unique titles: ${titles.size}, unique descriptions: ${descriptions.size}, unique H1s: ${h1s.size}`,
     );
+
+    if (warnings.length) {
+      console.log(
+        `
+-- ${warnings.length} length-floor warning(s). NOT a failure: this is the unresolved` +
+          ` conflict between WEBSITE_MASTER_PROMPT.md (no floor) and the dominance playbook` +
+          ` Part 3.4 (titles 50+, descriptions 140+). Operator decision.`,
+      );
+      const t = warnings.filter((w) => w.message.startsWith("title")).length;
+      const d = warnings.length - t;
+      console.log(`   ${t} title(s) and ${d} description(s) below the playbook floor.`);
+    }
 
     if (problems.length === 0) {
       console.log("\nPASS: titles, descriptions, H1s, canonicals, og:site_name, and schema all clean.");

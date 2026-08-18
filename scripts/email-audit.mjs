@@ -19,6 +19,7 @@
 //
 //   npm run email-audit
 import { buildNotification, notify } from "../src/lib/email.ts";
+import { BANNED_PATTERN, CLAIM_RULES, voiceAllowed } from "./lib/voice-blocklist.mjs";
 
 /**
  * Payloads shaped like the real ones in src/app/actions.ts, including the
@@ -183,6 +184,18 @@ for (const c of captured) {
   record(`${c.name}: no em or en dashes`, !DASHES.test(body));
   record(`${c.name}: no emoji`, !EMOJI.test(body));
   record(`${c.name}: no dollar amounts`, !MONEY.test(body));
+
+  // Playbook Part 4 item 3: the banned list is SHARED between site copy and
+  // email templates so the two surfaces cannot disagree. Same module, same
+  // patterns, no private copy here.
+  const banned = [...body.matchAll(BANNED_PATTERN)].map((m) => m[0]).filter((m) => !voiceAllowed(m));
+  record(`${c.name}: no banned phrases`, banned.length === 0, banned.join(", "));
+
+  const claims = [];
+  for (const rule of CLAIM_RULES) {
+    for (const m of body.matchAll(rule.pattern)) claims.push(`${rule.id}: ${m[0]}`);
+  }
+  record(`${c.name}: no guarantee or claim language`, claims.length === 0, claims.join("; "));
 
   if (c.name === "every-field-empty") {
     // The degenerate case. Zero rows is acceptable; what is not acceptable is
