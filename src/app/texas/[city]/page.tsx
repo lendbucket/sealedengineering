@@ -20,6 +20,14 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
+/** UTC so the rendered verification date does not shift by timezone. */
+const VERIFIED_FORMAT = new Intl.DateTimeFormat("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+  timeZone: "UTC",
+});
+
 type Params = { params: Promise<{ city: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
@@ -124,6 +132,35 @@ export default async function CityPage({ params }: Params) {
               </div>
             ))}
           </dl>
+          {/* The verified submittal fact.
+              Given its own block rather than a cell in the grid above, because
+              it is the one thing on this page a contractor would act on before
+              sending anything, and because it carries a citation the grid has
+              no room for. */}
+          <div className="mt-6 rounded-[var(--radius-card)] border border-line-strong bg-wax-100 p-6">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.12em] text-wax-700">
+              Before you submit in {city.name}
+            </h3>
+            <p className="mt-2 text-[0.9375rem] leading-relaxed text-ink">
+              {city.permitOffice.submittal}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-ink-soft">
+              Department name and submittal details verified against{" "}
+              <a
+                href={city.permitOffice.source}
+                rel="noopener noreferrer"
+                className="font-medium text-wax-700 underline underline-offset-2 hover:text-wax-600"
+              >
+                the city&apos;s own site
+              </a>{" "}
+              on{" "}
+              <time dateTime={city.permitOffice.verified}>
+                {VERIFIED_FORMAT.format(new Date(city.permitOffice.verified))}
+              </time>
+              . Municipalities reorganize, so confirm before relying on it for a deadline.
+            </p>
+          </div>
+
           <p className="mt-5 max-w-3xl text-sm leading-relaxed text-ink-soft">
             Wind speeds are the ASCE 7 band for the area and are given as planning context. Every
             sealed document uses the value looked up for the specific site address, along with the

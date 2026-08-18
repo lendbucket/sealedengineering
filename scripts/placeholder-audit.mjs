@@ -17,10 +17,65 @@
 //     way they arrive is by being pasted rather than typed.
 //
 //   BASE_URL=http://localhost:3125 node scripts/placeholder-audit.mjs
+import fs from "node:fs";
+
 const BASE = process.env.BASE_URL || "http://localhost:3125";
 
 /** The one domain company email may live on. */
 const REAL_EMAIL_DOMAIN = "sealedengineering.com";
+
+/**
+ * The credentials this site is allowed to publish, read from
+ * src/config/credentials.ts.
+ *
+ * Parsed out of the TypeScript rather than duplicated here, because two lists
+ * of licence numbers is one list too many and the copy that drifts is always
+ * the one nobody is looking at. If the shape of that file changes, this throws
+ * rather than returning empty arrays: an audit that silently starts allowing
+ * everything is worse than one that breaks loudly.
+ */
+function loadVerifiedCredentials() {
+  const file = new URL("../src/config/credentials.ts", import.meta.url);
+  let source;
+  try {
+    source = fs.readFileSync(file, "utf8");
+  } catch (err) {
+    throw new Error(`placeholder-audit: cannot read src/config/credentials.ts (${err.message})`);
+  }
+
+  const listOf = (name) => {
+    const m = source.match(
+      new RegExp(`export const ${name}: readonly string\\[\\] = \\[([\\s\\S]*?)\\];`),
+    );
+    if (!m) {
+      throw new Error(
+        `placeholder-audit: could not find ${name} in src/config/credentials.ts.\n` +
+          `The audit refuses to run rather than assume an empty allowlist, because an empty\n` +
+          `allowlist read by accident would pass every fabricated credential on the site.`,
+      );
+    }
+    return [...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]);
+  };
+
+  // Firm numbers are derived from the environment in the config, so the audit
+  // reads the same environment rather than trying to evaluate TypeScript.
+  const firmFromEnv =
+    (process.env.LAUNCH_MODE || "prelaunch").trim().toLowerCase() === "live"
+      ? [(process.env.TBPELS_FIRM_NUMBER || "").trim()].filter(Boolean)
+      : [];
+
+  return {
+    names: listOf("VERIFIED_PE_NAMES"),
+    licenses: listOf("VERIFIED_PE_LICENSE_NUMBERS"),
+    firms: firmFromEnv,
+  };
+}
+
+const VERIFIED = loadVerifiedCredentials();
+const normalize = (v) => v.toLowerCase().replace(/[^a-z0-9]/g, "");
+const verifiedNames = new Set(VERIFIED.names.map(normalize));
+const verifiedLicenses = new Set(VERIFIED.licenses.map(normalize));
+const verifiedFirms = new Set(VERIFIED.firms.map(normalize));
 
 /**
  * Deliberate, reviewed exceptions. Each needs a reason, and each is matched as
@@ -93,6 +148,25 @@ const DASHES = /[–—]/g;
 // usually rides along with them.
 const EMOJI = /[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE0F}\u{1F000}-\u{1F02F}]/gu;
 
+/**
+ * Regulated credentials.
+ *
+ * All three require the credential to actually be asserted, which is what keeps
+ * them off the ordinary copy. "a licensed Texas PE" has no comma and no number
+ * and matches nothing. "Reviewed by Jane Doe, P.E., Texas License No. 98765"
+ * matches twice and fails the build unless both are in the verified config.
+ */
+// A personal name immediately followed by a P.E. designation. Requires at
+// least two capitalised words AND a comma, so "licensed Texas PE" is not a hit.
+const PE_NAME = /\b([A-Z][a-zA-Z.'-]+(?:\s+[A-Z][a-zA-Z.'-]+){1,3}),\s*P\.?\s?E\.?(?![a-z])/g;
+// A licence number, which needs the word licence and digits. "valid driver
+// license" and "under its license and registration" have no digits.
+const PE_LICENSE =
+  /\b(?:licen[sc]e|lic\.)\s*(?:no\.?|number|#)?\s*:?\s*#?\s*(\d{3,7})\b/gi;
+// A firm registration number. "Firm registration pending" has no digits.
+const FIRM_NUMBER =
+  /\b(?:TBPELS\s*)?firm\s*(?:registration\s*)?(?:no\.?|number|#)\s*:?\s*#?\s*(F-?[\d-]{3,12}|\d{3,7})\b/gi;
+
 const findings = [];
 const seen = new Set();
 const record = (route, rule, match, where) => {
@@ -116,6 +190,23 @@ function scanText(route, where, text) {
   for (const m of text.matchAll(EMOJI)) record(route, "emoji (content rules ban them)", m[0], where);
   for (const m of text.matchAll(MONEY)) {
     record(route, "dollar amount (pricing is a pending owner item)", m[0], where);
+  }
+
+  // Regulated credentials: anything asserted must be in the verified config.
+  for (const m of text.matchAll(PE_NAME)) {
+    if (!verifiedNames.has(normalize(m[1]))) {
+      record(route, "PE name not in verified credentials config", m[0], where);
+    }
+  }
+  for (const m of text.matchAll(PE_LICENSE)) {
+    if (!verifiedLicenses.has(normalize(m[1]))) {
+      record(route, "licence number not in verified credentials config", m[0], where);
+    }
+  }
+  for (const m of text.matchAll(FIRM_NUMBER)) {
+    if (!verifiedFirms.has(normalize(m[1]))) {
+      record(route, "firm registration number not in verified credentials config", m[0], where);
+    }
   }
 
   for (const m of text.matchAll(EMAIL)) {
@@ -187,6 +278,11 @@ if (sm.status !== 200) {
   if (findings.length === 0) {
     console.log(`\nPASS: no placeholder content in rendered output.`);
     console.log(`allowlisted by design: ${ALLOWLIST.map((a) => `"${a.literal}"`).join(", ")}`);
+    console.log(
+      `verified credentials: ${VERIFIED.names.length} PE name(s), ` +
+        `${VERIFIED.licenses.length} licence number(s), ${VERIFIED.firms.length} firm number(s). ` +
+        `Anything else asserted in rendered output fails this audit.`,
+    );
   } else {
     // Grouped by rule so a failure reads as a problem rather than a wall of routes.
     const byRule = new Map();

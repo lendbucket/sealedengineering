@@ -1,0 +1,954 @@
+{
+  "base": "http://localhost:3125",
+  "routes": 54,
+  "totalEditorialLinks": 627,
+  "byRoute": {
+    "/": {
+      "inbound": 53,
+      "outbound": 26,
+      "inboundFrom": [
+        "/careers",
+        "/contact",
+        "/industries",
+        "/industries/lenders-and-loan-officers",
+        "/industries/realtors-and-title-companies",
+        "/industries/solar-installers",
+        "/insights",
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/insights/what-is-a-sealed-engineering-letter",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/insights/wpi-8-windstorm-certificates-explained",
+        "/privacy",
+        "/services",
+        "/services/beam-and-header-sizing-letters",
+        "/services/carport-and-patio-cover-plans",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/services/roof-certification-letters",
+        "/services/solar-structural-letters",
+        "/services/structural-letters-for-permits",
+        "/services/wpi-8-windstorm-certification",
+        "/terms",
+        "/texas",
+        "/texas/abilene",
+        "/texas/alice",
+        "/texas/amarillo",
+        "/texas/austin",
+        "/texas/beaumont",
+        "/texas/brownsville",
+        "/texas/college-station",
+        "/texas/corpus-christi",
+        "/texas/dallas",
+        "/texas/el-paso",
+        "/texas/fort-worth",
+        "/texas/harlingen",
+        "/texas/houston",
+        "/texas/killeen",
+        "/texas/laredo",
+        "/texas/lubbock",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/round-rock",
+        "/texas/san-angelo",
+        "/texas/san-antonio",
+        "/texas/tyler",
+        "/texas/victoria",
+        "/texas/waco",
+        "/waitlist"
+      ]
+    },
+    "/services": {
+      "inbound": 36,
+      "outbound": 12,
+      "inboundFrom": [
+        "/",
+        "/services/beam-and-header-sizing-letters",
+        "/services/carport-and-patio-cover-plans",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/services/roof-certification-letters",
+        "/services/solar-structural-letters",
+        "/services/structural-letters-for-permits",
+        "/services/wpi-8-windstorm-certification",
+        "/texas/abilene",
+        "/texas/alice",
+        "/texas/amarillo",
+        "/texas/austin",
+        "/texas/beaumont",
+        "/texas/brownsville",
+        "/texas/college-station",
+        "/texas/corpus-christi",
+        "/texas/dallas",
+        "/texas/el-paso",
+        "/texas/fort-worth",
+        "/texas/harlingen",
+        "/texas/houston",
+        "/texas/killeen",
+        "/texas/laredo",
+        "/texas/lubbock",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/round-rock",
+        "/texas/san-angelo",
+        "/texas/san-antonio",
+        "/texas/tyler",
+        "/texas/victoria",
+        "/texas/waco"
+      ]
+    },
+    "/texas": {
+      "inbound": 36,
+      "outbound": 27,
+      "inboundFrom": [
+        "/",
+        "/services/beam-and-header-sizing-letters",
+        "/services/carport-and-patio-cover-plans",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/services/roof-certification-letters",
+        "/services/solar-structural-letters",
+        "/services/structural-letters-for-permits",
+        "/services/wpi-8-windstorm-certification",
+        "/texas/abilene",
+        "/texas/alice",
+        "/texas/amarillo",
+        "/texas/austin",
+        "/texas/beaumont",
+        "/texas/brownsville",
+        "/texas/college-station",
+        "/texas/corpus-christi",
+        "/texas/dallas",
+        "/texas/el-paso",
+        "/texas/fort-worth",
+        "/texas/harlingen",
+        "/texas/houston",
+        "/texas/killeen",
+        "/texas/laredo",
+        "/texas/lubbock",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/round-rock",
+        "/texas/san-angelo",
+        "/texas/san-antonio",
+        "/texas/tyler",
+        "/texas/victoria",
+        "/texas/waco"
+      ]
+    },
+    "/industries": {
+      "inbound": 3,
+      "outbound": 5,
+      "inboundFrom": [
+        "/industries/lenders-and-loan-officers",
+        "/industries/realtors-and-title-companies",
+        "/industries/solar-installers"
+      ]
+    },
+    "/insights": {
+      "inbound": 6,
+      "outbound": 8,
+      "inboundFrom": [
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/insights/what-is-a-sealed-engineering-letter",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/insights/wpi-8-windstorm-certificates-explained"
+      ]
+    },
+    "/waitlist": {
+      "inbound": 49,
+      "outbound": 1,
+      "inboundFrom": [
+        "/",
+        "/industries",
+        "/industries/lenders-and-loan-officers",
+        "/industries/realtors-and-title-companies",
+        "/industries/solar-installers",
+        "/insights",
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/insights/what-is-a-sealed-engineering-letter",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/insights/wpi-8-windstorm-certificates-explained",
+        "/services",
+        "/services/beam-and-header-sizing-letters",
+        "/services/carport-and-patio-cover-plans",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/services/roof-certification-letters",
+        "/services/solar-structural-letters",
+        "/services/structural-letters-for-permits",
+        "/services/wpi-8-windstorm-certification",
+        "/texas",
+        "/texas/abilene",
+        "/texas/alice",
+        "/texas/amarillo",
+        "/texas/austin",
+        "/texas/beaumont",
+        "/texas/brownsville",
+        "/texas/college-station",
+        "/texas/corpus-christi",
+        "/texas/dallas",
+        "/texas/el-paso",
+        "/texas/fort-worth",
+        "/texas/harlingen",
+        "/texas/houston",
+        "/texas/killeen",
+        "/texas/laredo",
+        "/texas/lubbock",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/round-rock",
+        "/texas/san-angelo",
+        "/texas/san-antonio",
+        "/texas/tyler",
+        "/texas/victoria",
+        "/texas/waco"
+      ]
+    },
+    "/careers": {
+      "inbound": 0,
+      "outbound": 1,
+      "inboundFrom": []
+    },
+    "/contact": {
+      "inbound": 0,
+      "outbound": 1,
+      "inboundFrom": []
+    },
+    "/privacy": {
+      "inbound": 0,
+      "outbound": 1,
+      "inboundFrom": []
+    },
+    "/terms": {
+      "inbound": 0,
+      "outbound": 1,
+      "inboundFrom": []
+    },
+    "/services/solar-structural-letters": {
+      "inbound": 22,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/industries/solar-installers",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/services",
+        "/services/carport-and-patio-cover-plans",
+        "/services/wpi-8-windstorm-certification",
+        "/texas/alice",
+        "/texas/amarillo",
+        "/texas/austin",
+        "/texas/brownsville",
+        "/texas/corpus-christi",
+        "/texas/el-paso",
+        "/texas/harlingen",
+        "/texas/houston",
+        "/texas/laredo",
+        "/texas/lubbock",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/round-rock",
+        "/texas/san-antonio",
+        "/texas/victoria"
+      ]
+    },
+    "/services/manufactured-home-foundation-certification": {
+      "inbound": 21,
+      "outbound": 15,
+      "inboundFrom": [
+        "/",
+        "/industries/lenders-and-loan-officers",
+        "/industries/realtors-and-title-companies",
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/services",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/roof-certification-letters",
+        "/texas/abilene",
+        "/texas/alice",
+        "/texas/brownsville",
+        "/texas/harlingen",
+        "/texas/killeen",
+        "/texas/laredo",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/san-angelo",
+        "/texas/san-antonio",
+        "/texas/tyler"
+      ]
+    },
+    "/services/roof-certification-letters": {
+      "inbound": 22,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/industries/lenders-and-loan-officers",
+        "/industries/realtors-and-title-companies",
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/insights/wpi-8-windstorm-certificates-explained",
+        "/services",
+        "/services/manufactured-home-foundation-certification",
+        "/services/wpi-8-windstorm-certification",
+        "/texas/abilene",
+        "/texas/amarillo",
+        "/texas/beaumont",
+        "/texas/brownsville",
+        "/texas/corpus-christi",
+        "/texas/dallas",
+        "/texas/fort-worth",
+        "/texas/harlingen",
+        "/texas/houston",
+        "/texas/killeen",
+        "/texas/lubbock",
+        "/texas/tyler",
+        "/texas/victoria"
+      ]
+    },
+    "/services/foundation-inspection-reports": {
+      "inbound": 32,
+      "outbound": 15,
+      "inboundFrom": [
+        "/",
+        "/industries/lenders-and-loan-officers",
+        "/industries/realtors-and-title-companies",
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/what-is-a-sealed-engineering-letter",
+        "/services",
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/roof-certification-letters",
+        "/texas/abilene",
+        "/texas/alice",
+        "/texas/amarillo",
+        "/texas/austin",
+        "/texas/beaumont",
+        "/texas/college-station",
+        "/texas/corpus-christi",
+        "/texas/dallas",
+        "/texas/fort-worth",
+        "/texas/harlingen",
+        "/texas/houston",
+        "/texas/killeen",
+        "/texas/laredo",
+        "/texas/lubbock",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/round-rock",
+        "/texas/san-angelo",
+        "/texas/san-antonio",
+        "/texas/tyler",
+        "/texas/victoria",
+        "/texas/waco"
+      ]
+    },
+    "/services/wpi-8-windstorm-certification": {
+      "inbound": 11,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/industries/solar-installers",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/insights/wpi-8-windstorm-certificates-explained",
+        "/services",
+        "/services/solar-structural-letters",
+        "/texas/beaumont",
+        "/texas/brownsville",
+        "/texas/corpus-christi",
+        "/texas/harlingen",
+        "/texas/houston"
+      ]
+    },
+    "/services/structural-letters-for-permits": {
+      "inbound": 32,
+      "outbound": 14,
+      "inboundFrom": [
+        "/",
+        "/industries/solar-installers",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/insights/what-is-a-sealed-engineering-letter",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/insights/wpi-8-windstorm-certificates-explained",
+        "/services",
+        "/services/beam-and-header-sizing-letters",
+        "/services/carport-and-patio-cover-plans",
+        "/services/repair-specification-letters",
+        "/services/solar-structural-letters",
+        "/services/wpi-8-windstorm-certification",
+        "/texas/alice",
+        "/texas/amarillo",
+        "/texas/austin",
+        "/texas/brownsville",
+        "/texas/college-station",
+        "/texas/corpus-christi",
+        "/texas/dallas",
+        "/texas/el-paso",
+        "/texas/fort-worth",
+        "/texas/killeen",
+        "/texas/laredo",
+        "/texas/lubbock",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/round-rock",
+        "/texas/san-angelo",
+        "/texas/tyler",
+        "/texas/victoria",
+        "/texas/waco"
+      ]
+    },
+    "/services/beam-and-header-sizing-letters": {
+      "inbound": 16,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/insights/what-is-a-sealed-engineering-letter",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/services",
+        "/services/carport-and-patio-cover-plans",
+        "/services/repair-specification-letters",
+        "/services/solar-structural-letters",
+        "/services/structural-letters-for-permits",
+        "/texas/abilene",
+        "/texas/austin",
+        "/texas/college-station",
+        "/texas/dallas",
+        "/texas/el-paso",
+        "/texas/fort-worth",
+        "/texas/round-rock",
+        "/texas/waco"
+      ]
+    },
+    "/services/repair-specification-letters": {
+      "inbound": 19,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/industries/lenders-and-loan-officers",
+        "/industries/realtors-and-title-companies",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/services",
+        "/services/beam-and-header-sizing-letters",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/roof-certification-letters",
+        "/services/structural-letters-for-permits",
+        "/texas/abilene",
+        "/texas/beaumont",
+        "/texas/college-station",
+        "/texas/el-paso",
+        "/texas/killeen",
+        "/texas/tyler",
+        "/texas/victoria",
+        "/texas/waco"
+      ]
+    },
+    "/services/carport-and-patio-cover-plans": {
+      "inbound": 17,
+      "outbound": 14,
+      "inboundFrom": [
+        "/",
+        "/industries/solar-installers",
+        "/services",
+        "/services/structural-letters-for-permits",
+        "/texas/alice",
+        "/texas/amarillo",
+        "/texas/austin",
+        "/texas/college-station",
+        "/texas/el-paso",
+        "/texas/laredo",
+        "/texas/lubbock",
+        "/texas/mcallen",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/round-rock",
+        "/texas/san-angelo",
+        "/texas/san-antonio"
+      ]
+    },
+    "/services/foundation-repair-plans": {
+      "inbound": 13,
+      "outbound": 15,
+      "inboundFrom": [
+        "/",
+        "/services",
+        "/services/beam-and-header-sizing-letters",
+        "/services/foundation-inspection-reports",
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/texas/beaumont",
+        "/texas/dallas",
+        "/texas/fort-worth",
+        "/texas/houston",
+        "/texas/san-angelo",
+        "/texas/san-antonio",
+        "/texas/waco"
+      ]
+    },
+    "/texas/houston": {
+      "inbound": 16,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/beam-and-header-sizing-letters",
+        "/services/carport-and-patio-cover-plans",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/services/roof-certification-letters",
+        "/services/solar-structural-letters",
+        "/services/structural-letters-for-permits",
+        "/services/wpi-8-windstorm-certification",
+        "/texas",
+        "/texas/beaumont",
+        "/texas/college-station",
+        "/texas/tyler",
+        "/texas/victoria"
+      ]
+    },
+    "/texas/san-antonio": {
+      "inbound": 14,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/beam-and-header-sizing-letters",
+        "/services/carport-and-patio-cover-plans",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/services/roof-certification-letters",
+        "/services/solar-structural-letters",
+        "/texas",
+        "/texas/austin",
+        "/texas/laredo",
+        "/texas/round-rock",
+        "/texas/victoria"
+      ]
+    },
+    "/texas/dallas": {
+      "inbound": 12,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/beam-and-header-sizing-letters",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/repair-specification-letters",
+        "/services/roof-certification-letters",
+        "/services/solar-structural-letters",
+        "/services/structural-letters-for-permits",
+        "/texas",
+        "/texas/fort-worth",
+        "/texas/tyler",
+        "/texas/waco"
+      ]
+    },
+    "/texas/fort-worth": {
+      "inbound": 10,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/beam-and-header-sizing-letters",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/roof-certification-letters",
+        "/services/structural-letters-for-permits",
+        "/texas",
+        "/texas/abilene",
+        "/texas/amarillo",
+        "/texas/dallas"
+      ]
+    },
+    "/texas/austin": {
+      "inbound": 11,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/beam-and-header-sizing-letters",
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/structural-letters-for-permits",
+        "/texas",
+        "/texas/college-station",
+        "/texas/killeen",
+        "/texas/round-rock",
+        "/texas/san-antonio",
+        "/texas/waco"
+      ]
+    },
+    "/texas/el-paso": {
+      "inbound": 7,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/carport-and-patio-cover-plans",
+        "/services/solar-structural-letters",
+        "/services/structural-letters-for-permits",
+        "/texas",
+        "/texas/midland",
+        "/texas/odessa"
+      ]
+    },
+    "/texas/corpus-christi": {
+      "inbound": 10,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/wpi-8-windstorm-certification",
+        "/texas",
+        "/texas/alice",
+        "/texas/beaumont",
+        "/texas/brownsville",
+        "/texas/harlingen",
+        "/texas/houston",
+        "/texas/laredo",
+        "/texas/victoria"
+      ]
+    },
+    "/texas/laredo": {
+      "inbound": 7,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/carport-and-patio-cover-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/texas",
+        "/texas/alice",
+        "/texas/mcallen",
+        "/texas/san-antonio"
+      ]
+    },
+    "/texas/lubbock": {
+      "inbound": 10,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/carport-and-patio-cover-plans",
+        "/services/solar-structural-letters",
+        "/texas",
+        "/texas/abilene",
+        "/texas/amarillo",
+        "/texas/el-paso",
+        "/texas/midland",
+        "/texas/odessa",
+        "/texas/san-angelo"
+      ]
+    },
+    "/texas/mcallen": {
+      "inbound": 7,
+      "outbound": 13,
+      "inboundFrom": [
+        "/",
+        "/services/solar-structural-letters",
+        "/texas",
+        "/texas/alice",
+        "/texas/brownsville",
+        "/texas/harlingen",
+        "/texas/laredo"
+      ]
+    },
+    "/texas/brownsville": {
+      "inbound": 5,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/wpi-8-windstorm-certification",
+        "/texas",
+        "/texas/corpus-christi",
+        "/texas/harlingen",
+        "/texas/mcallen"
+      ]
+    },
+    "/texas/amarillo": {
+      "inbound": 5,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/roof-certification-letters",
+        "/texas",
+        "/texas/abilene",
+        "/texas/fort-worth",
+        "/texas/lubbock"
+      ]
+    },
+    "/texas/killeen": {
+      "inbound": 5,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/manufactured-home-foundation-certification",
+        "/texas",
+        "/texas/college-station",
+        "/texas/round-rock",
+        "/texas/waco"
+      ]
+    },
+    "/texas/waco": {
+      "inbound": 12,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/texas",
+        "/texas/austin",
+        "/texas/college-station",
+        "/texas/dallas",
+        "/texas/fort-worth",
+        "/texas/killeen",
+        "/texas/round-rock",
+        "/texas/tyler"
+      ]
+    },
+    "/texas/tyler": {
+      "inbound": 5,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/manufactured-home-foundation-certification",
+        "/services/repair-specification-letters",
+        "/texas",
+        "/texas/beaumont",
+        "/texas/dallas"
+      ]
+    },
+    "/texas/college-station": {
+      "inbound": 8,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/foundation-inspection-reports",
+        "/services/foundation-repair-plans",
+        "/services/structural-letters-for-permits",
+        "/texas",
+        "/texas/austin",
+        "/texas/houston",
+        "/texas/killeen",
+        "/texas/waco"
+      ]
+    },
+    "/texas/beaumont": {
+      "inbound": 6,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/repair-specification-letters",
+        "/services/wpi-8-windstorm-certification",
+        "/texas",
+        "/texas/houston",
+        "/texas/tyler",
+        "/texas/victoria"
+      ]
+    },
+    "/texas/midland": {
+      "inbound": 7,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/carport-and-patio-cover-plans",
+        "/texas",
+        "/texas/amarillo",
+        "/texas/el-paso",
+        "/texas/lubbock",
+        "/texas/odessa",
+        "/texas/san-angelo"
+      ]
+    },
+    "/texas/odessa": {
+      "inbound": 6,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/carport-and-patio-cover-plans",
+        "/texas",
+        "/texas/el-paso",
+        "/texas/lubbock",
+        "/texas/midland",
+        "/texas/san-angelo"
+      ]
+    },
+    "/texas/round-rock": {
+      "inbound": 7,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/beam-and-header-sizing-letters",
+        "/services/foundation-inspection-reports",
+        "/services/structural-letters-for-permits",
+        "/texas",
+        "/texas/austin",
+        "/texas/killeen",
+        "/texas/san-antonio"
+      ]
+    },
+    "/texas/victoria": {
+      "inbound": 9,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/foundation-repair-plans",
+        "/services/manufactured-home-foundation-certification",
+        "/services/wpi-8-windstorm-certification",
+        "/texas",
+        "/texas/alice",
+        "/texas/beaumont",
+        "/texas/corpus-christi",
+        "/texas/houston",
+        "/texas/san-antonio"
+      ]
+    },
+    "/texas/harlingen": {
+      "inbound": 5,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/wpi-8-windstorm-certification",
+        "/texas",
+        "/texas/brownsville",
+        "/texas/corpus-christi",
+        "/texas/mcallen"
+      ]
+    },
+    "/texas/san-angelo": {
+      "inbound": 5,
+      "outbound": 13,
+      "inboundFrom": [
+        "/texas",
+        "/texas/abilene",
+        "/texas/el-paso",
+        "/texas/midland",
+        "/texas/odessa"
+      ]
+    },
+    "/texas/abilene": {
+      "inbound": 7,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/roof-certification-letters",
+        "/texas",
+        "/texas/amarillo",
+        "/texas/dallas",
+        "/texas/fort-worth",
+        "/texas/lubbock",
+        "/texas/san-angelo"
+      ]
+    },
+    "/texas/alice": {
+      "inbound": 7,
+      "outbound": 13,
+      "inboundFrom": [
+        "/services/manufactured-home-foundation-certification",
+        "/texas",
+        "/texas/brownsville",
+        "/texas/corpus-christi",
+        "/texas/harlingen",
+        "/texas/laredo",
+        "/texas/mcallen"
+      ]
+    },
+    "/industries/solar-installers": {
+      "inbound": 4,
+      "outbound": 9,
+      "inboundFrom": [
+        "/",
+        "/industries",
+        "/industries/lenders-and-loan-officers",
+        "/industries/realtors-and-title-companies"
+      ]
+    },
+    "/industries/lenders-and-loan-officers": {
+      "inbound": 4,
+      "outbound": 9,
+      "inboundFrom": [
+        "/",
+        "/industries",
+        "/industries/realtors-and-title-companies",
+        "/industries/solar-installers"
+      ]
+    },
+    "/industries/realtors-and-title-companies": {
+      "inbound": 4,
+      "outbound": 9,
+      "inboundFrom": [
+        "/",
+        "/industries",
+        "/industries/lenders-and-loan-officers",
+        "/industries/solar-installers"
+      ]
+    },
+    "/insights/what-is-a-sealed-engineering-letter": {
+      "inbound": 6,
+      "outbound": 9,
+      "inboundFrom": [
+        "/insights",
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/insights/wpi-8-windstorm-certificates-explained"
+      ]
+    },
+    "/insights/solar-structural-letter-requirements-texas": {
+      "inbound": 6,
+      "outbound": 9,
+      "inboundFrom": [
+        "/insights",
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/insights/what-is-a-sealed-engineering-letter",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/insights/wpi-8-windstorm-certificates-explained"
+      ]
+    },
+    "/insights/fha-va-manufactured-home-foundation-certifications": {
+      "inbound": 6,
+      "outbound": 9,
+      "inboundFrom": [
+        "/insights",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/insights/what-a-roof-certification-letter-covers",
+        "/insights/what-is-a-sealed-engineering-letter",
+        "/insights/when-a-permit-office-requires-an-engineer-letter",
+        "/insights/wpi-8-windstorm-certificates-explained"
+      ]
+    },
+    "/insights/what-a-roof-certification-letter-covers": {
+      "inbound": 4,
+      "outbound": 9,
+      "inboundFrom": [
+        "/insights",
+        "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/solar-structural-letter-requirements-texas",
+        "/insights/what-is-a-sealed-engineering-letter"
+      ]
+    },
+    "/insights/wpi-8-windstorm-certificates-explained": {
+      "inbound": 1,
+      "outbound": 9,
+      "inboundFrom": [
+        "/insights"
+      ]
+    },
+    "/insights/when-a-permit-office-requires-an-engineer-letter": {
+      "inbound": 1,
+      "outbound": 9,
+      "inboundFrom": [
+        "/insights"
+      ]
+    }
+  }
+}

@@ -44,7 +44,19 @@ export type City = {
   windstormArea: boolean;
   wind: { band: string; note: string };
   soil: { label: string; note: string };
-  permitOffice: { name: string; note: string };
+  /**
+   * The department that performs residential plan review, verified against the
+   * city's own site on the date recorded. `submittal` is one genuinely local
+   * fact worth publishing; `source` is what it was checked against, so the
+   * annual re-verification is a diff rather than a research project.
+   */
+  permitOffice: {
+    name: string;
+    note: string;
+    submittal: string;
+    source: string;
+    verified: string;
+  };
   /** Two to four paragraphs that are true of this market and nowhere else. */
   local: string[];
   /** Service slugs this market actually buys, in order of local weight. */
@@ -75,8 +87,12 @@ export const CITIES: City[] = [
       note: "Plasticity index across much of the county is high enough that seasonal shrink and swell is the default explanation for residential foundation distress, not the exception.",
     },
     permitOffice: {
-      name: "the Houston Permitting Center, operated by Houston Public Works",
-      note: "Unincorporated Harris County is reviewed separately by the Harris County Engineering Department, and the two do not ask for the same things.",
+      name: "Building Code Enforcement at the Houston Permitting Center",
+      note: "The Planning and Development Department performs the site plan review step separately. Unincorporated Harris County is reviewed by the Harris County Engineering Department, and the two do not ask for the same things.",
+      submittal:
+        "All plans are submitted electronically through the iPermits portal.",
+      source: "https://www.houstonpermittingcenter.org/building-code-enforcement/residential-plan-review",
+      verified: "2026-08-17",
     },
     local: [
       "The single most important thing to know about engineering work in Harris County is that the Texas Department of Insurance windstorm boundary runs through it. The designated catastrophe area covers the part of the county east of Highway 146, which puts Seabrook, Kemah, La Porte, and the Baytown side inside the WPI-8 requirement while the rest of the county sits outside it. A reroof on one side of that line needs a certificate of compliance and the identical reroof on the other side does not.",
@@ -130,6 +146,10 @@ export const CITIES: City[] = [
     permitOffice: {
       name: "the City of San Antonio Development Services Department",
       note: "Unincorporated Bexar County is reviewed by Bexar County Public Works, which has a different and generally lighter residential review.",
+      submittal:
+        "Applications go through the BuildSA portal, and a Completeness review comes first. Plan review fees are only assessed once the submittal passes it, so an incomplete package stalls before it ever reaches a reviewer.",
+      source: "https://www.sa.gov/Directory/Departments/DSD/Constructing/Residential/Plan-Review",
+      verified: "2026-08-17",
     },
     local: [
       "The Balcones Escarpment is the fact that organizes engineering work here. North of it, in Stone Oak, Hollywood Park, and out toward Boerne, foundations bear on limestone at shallow depth and the failure mode is not shrink and swell but differential bearing between rock and the fill that was placed over it. South and east, in the areas along the San Antonio River and toward Elmendorf, foundations sit on Blackland clay with high plasticity and behave the way Dallas and Waco foundations behave.",
@@ -156,7 +176,7 @@ export const CITIES: City[] = [
       },
       {
         q: "Are manufactured home foundation certifications common here?",
-        a: "Very. Southern Bexar County and the rural counties around it carry a large manufactured housing stock, and FHA, VA, and USDA loans on those homes all require an engineer's certification against the HUD Permanent Foundations Guide. It is one of the most frequently requested deliverables in this market.",
+        a: "Very. Southern Bexar County and the rural counties around it carry a large manufactured housing stock, and FHA, VA, and USDA loans on those homes all require an engineer's certification against the HUD Permanent Foundations Guide. The requirement follows the loan product rather than local permitting, so it applies to every federally backed purchase and refinance on those homes.",
       },
     ],
   },
@@ -170,7 +190,7 @@ export const CITIES: City[] = [
     description:
       "Sealed engineering letters for Dallas County. Foundation inspection reports, roof certifications, and permit letters sealed by a Texas PE.",
     h1: "Sealed Engineering Letters in Dallas, Texas",
-    lede: "Dallas sits on Houston Black clay, which is the most expansive soil series in the state, under a hail belt that shortens every roof in the county. Those two facts drive most of the engineering work here.",
+    lede: "Dallas sits on Houston Black clay, one of the most expansive soil series in the state, under a hail belt that shortens roofs across the county. Those two facts drive most of the engineering work here.",
     windstormArea: false,
     wind: {
       band: "roughly 105 to 110 mph basic wind speed",
@@ -181,8 +201,12 @@ export const CITIES: City[] = [
       note: "This is the reference soil that Texas foundation engineering practice was largely developed around. Seasonal vertical movement of several inches at the perimeter is not unusual.",
     },
     permitOffice: {
-      name: "the City of Dallas Development Services Department",
-      note: "The metro is a patchwork: Highland Park, University Park, Irving, Garland, and Mesquite each run their own review with their own amendments.",
+      name: "the City of Dallas Development Services Department, Building Inspection Division",
+      note: "Plan Review and Field Service Inspections sit at the Oak Cliff Municipal Center. The metro is a patchwork: Highland Park, University Park, Irving, Garland, and Mesquite each run their own review with their own amendments.",
+      submittal:
+        "Submittals run through the Electronic Plan Review System. The city grants or denies a building permit application no later than the 45th day after submission, extendable by 14 days if the applicant agrees.",
+      source: "https://dallascityhall.com/departments/sustainabledevelopment/buildinginspection/Pages/BI_EPRS.aspx",
+      verified: "2026-08-17",
     },
     local: [
       "Houston Black clay is why foundation work is the largest category of residential engineering in this market. It is a deep, dark, extremely expansive clay with a plasticity index that puts it at the top of the range used in residential design, and the seasonal moisture active zone reaches well below the shallow footings that most Dallas houses were built on. A slab here is not sitting on ground that stays still.",
@@ -235,7 +259,11 @@ export const CITIES: City[] = [
     },
     permitOffice: {
       name: "the City of Fort Worth Development Services Department",
-      note: "Arlington, Grapevine, Keller, and Mansfield each run their own review, and the unincorporated county is handled separately.",
+      note: "Arlington, Grapevine, Keller, and Mansfield each run their own review, and the unincorporated county is handled separately. Some city forms still carry the older Planning and Development masthead.",
+      submittal:
+        "Submittals go through Accela Citizen Access. Every department reviews simultaneously and comments are compiled at the end of each review cycle, so one unanswered comment holds the whole cycle.",
+      source: "https://www.fortworthtexas.gov/departments/development-services/permits/residential-information",
+      verified: "2026-08-17",
     },
     local: [
       "Fort Worth's soil story is different from Dallas's in a way that matters to a repair design. The eastern half of Tarrant County sits on Eagle Ford shale, a clay shale that weathers into a highly plastic soil and holds moisture unevenly. Drilled piers in Eagle Ford frequently have to go deeper than an equivalent house in the Blackland to find material that will not move, and a pier design copied across the metro without checking will end up bearing in the active zone.",
@@ -276,7 +304,7 @@ export const CITIES: City[] = [
     description:
       "Sealed engineering letters for Austin and Travis County. Permit letters, beam sizing, and foundation reports sealed by a licensed Texas PE.",
     h1: "Sealed Engineering Letters in Austin, Texas",
-    lede: "Austin has the most demanding residential plan review of any large Texas city and the geology to match: limestone and karst west of the escarpment, expansive clay east of it, often within the same subdivision.",
+    lede: "Austin sits on two geologies split by the Balcones Escarpment, limestone and karst west of it and expansive clay east, often inside the same subdivision, and it reviews residential submittals against its own adopted amendments.",
     windstormArea: false,
     wind: {
       band: "roughly 105 to 110 mph basic wind speed",
@@ -289,9 +317,13 @@ export const CITIES: City[] = [
     permitOffice: {
       name: "the City of Austin Development Services Department",
       note: "Travis County reviews unincorporated areas, and Austin's extraterritorial jurisdiction adds a layer that catches people out.",
+      submittal:
+        "Applications and status run through the Austin Build and Connect portal. A separate Residential Expedited Plan Review program exists alongside the standard queue.",
+      source: "https://www.austintexas.gov/development-services/residential-plan-review",
+      verified: "2026-08-17",
     },
     local: [
-      "Austin's residential plan review is thorough and slow relative to the rest of the state, and the practical consequence for a contractor is that a rejected letter is far more expensive here than the letter itself. A comment answered precisely, in the reviewer's own terms, citing the code edition the city has actually adopted, is worth more in Austin than anywhere else in Texas.",
+      "Austin runs a separate expedited plan review program alongside its standard residential queue, which tells you something about the demand on the standard one. The practical consequence for a contractor is that a rejected letter costs more than the letter did, so a comment answered precisely, in the reviewer's own terms and against the code edition the city has actually adopted, is worth more here than a fast turnaround.",
       "The geology splits at the Balcones Escarpment, which runs through the city. West of it, in Westlake, Lakeway, and up through the hills, foundations bear on limestone with shallow and highly variable soil cover, and the classic problem is differential bearing between rock and engineered fill rather than shrink and swell. East of I-35 the soil is Blackland clay and the problems look like Waco's.",
       "The renovation market drives an unusual share of the structural letter work here. Central Austin housing stock from the 1930s through the 1960s is being opened up, added onto, and converted at high volume, and wall removals and framing modifications on pier and beam bungalows are the most common single request in this market.",
       "Austin's extraterritorial jurisdiction catches a surprising number of projects. An address outside city limits can still fall under city review for some items while the county reviews others, and establishing which office owns the comment is the first thing the intake does rather than the last.",
@@ -342,6 +374,10 @@ export const CITIES: City[] = [
     permitOffice: {
       name: "the City of El Paso Planning and Inspections Department",
       note: "El Paso County reviews unincorporated areas including the colonias east and south of the city.",
+      submittal:
+        "The One Stop Shop on Texas Avenue is the primary intake and payment point, and plans can also be submitted electronically through the Citizen Access Portal.",
+      source: "https://www.elpasotexas.gov/planning-and-inspections/",
+      verified: "2026-08-17",
     },
     local: [
       "El Paso sits in the highest seismic zone in Texas. The design category is still modest by California standards, but it is not the flat zero that applies across most of the state, and it appears in the design criteria on any plan set sealed for this market. Engineers who work the rest of Texas and drop a set into El Paso get this wrong regularly.",
@@ -395,6 +431,10 @@ export const CITIES: City[] = [
     permitOffice: {
       name: "the City of Corpus Christi Development Services Department",
       note: "Windstorm compliance runs through the Texas Department of Insurance, which is separate from and additional to city permitting.",
+      submittal:
+        "Residential plans go to the department's residential plan review mailbox, with applications tracked in the Dynamic Portal. The city states residential approvals can take up to seven business days.",
+      source: "https://www.cctexas.com/ds",
+      verified: "2026-08-17",
     },
     local: [
       "The defining fact here is that Nueces County is one of the fourteen TDI seaward counties. Construction has to comply with the windstorm building code and that compliance has to be documented with a WPI-8 certificate of compliance before the Texas Windstorm Insurance Association will write or continue coverage. The requirement is not limited to new houses. Reroofs, window and door replacements, additions, and detached structures all trigger it.",
@@ -446,8 +486,12 @@ export const CITIES: City[] = [
       note: "Caliche layers of unpredictable thickness sit over clay, so footing depth and bearing vary considerably across short distances.",
     },
     permitOffice: {
-      name: "the City of Laredo Building Development Services Department",
+      name: "the City of Laredo Building Development Services",
       note: "Webb County reviews unincorporated areas, including the colonias outside the city limits.",
+      submittal:
+        "Completed applications are emailed to the building permits mailbox. Building Development Services is split across six divisions, so a submittal can be complete for one and not another.",
+      source: "https://www.cityoflaredo.com/departments/building-development-services",
+      verified: "2026-08-17",
     },
     local: [
       "Laredo's soil profile is genuinely awkward to design around. Caliche, a cemented calcium carbonate layer, sits at variable depth over expansive clay, and its thickness can change by several feet across a single lot. A footing that finds caliche on one side of a house and clay on the other is a differential bearing problem that looks like ordinary clay movement and is not, and it is a common finding in this market.",
@@ -499,8 +543,12 @@ export const CITIES: City[] = [
       note: "Moderately expansive clay loam over a caliche layer. Homes near playa basins have a distinct moisture regime and behave differently from those on the flats.",
     },
     permitOffice: {
-      name: "the City of Lubbock Building Safety Department",
+      name: "the City of Lubbock Department of Building Safety",
       note: "Lubbock County reviews unincorporated areas, and the smaller South Plains municipalities each run their own.",
+      submittal:
+        "The contractor has to be registered with the Department of Building Safety before a residential permit will issue, which is a separate step from the permit itself and a common cause of delay.",
+      source: "https://ci.lubbock.tx.us/departments/building-safety/permitting/residential-permitting",
+      verified: "2026-08-17",
     },
     local: [
       "Exposure category is the single most useful thing to understand about engineering in Lubbock. ASCE 7 exposure C applies to open terrain with scattered obstructions, which describes most of the South Plains accurately, and it produces meaningfully higher design pressures than the exposure B assumed for typical suburban sites. A solar structural letter written on a default exposure B assumption will specify attachment spacing that is too loose for a Lubbock roof.",
@@ -554,10 +602,14 @@ export const CITIES: City[] = [
     permitOffice: {
       name: "the City of McAllen Building Permits and Inspections Department",
       note: "Edinburg, Mission, Pharr, and Weslaco each run their own review, and Hidalgo County handles the unincorporated areas and colonias.",
+      submittal:
+        "A recorded plat is required before a building permit application can even be submitted. Plan review is charged at 18 percent of the permit fee, and submittals must be legible and correctly oriented.",
+      source: "https://www.mcallen.net/departments/permits/home",
+      verified: "2026-08-17",
     },
     local: [
       "The most common mistake made about the Rio Grande Valley is assuming that being off the coast means being out of the wind. Hidalgo County is not one of the fourteen TDI seaward counties, so there is no WPI-8 requirement here, but the ASCE 7 design wind speed is far higher than anywhere at a comparable distance inland on the rest of the Texas coast. A solar array or a patio cover in McAllen is engineered much closer to Corpus Christi than to San Antonio.",
-      "Solar adoption in the Valley has been among the fastest in the state, driven by irradiance and by cooling load. That makes structural letters the highest volume deliverable in this market, and the wind number is what makes the letter matter rather than a formality.",
+      "High irradiance and a long cooling season make rooftop solar an obvious proposition in the Valley, and structural letters follow the arrays. The wind number is what makes the letter matter here rather than a formality.",
       "Manufactured housing is a very large share of the Valley's housing stock, and FHA, VA, and USDA lending on those homes carries the HUD foundation certification requirement. Loan volume here means the certification is a routine item for local loan officers rather than an occasional surprise.",
       "Deltaic soils with a long irrigation history behave differently from the natural profile. Sections of the Valley have been irrigated for a century, and the resulting moisture regime is neither the natural one nor a stable one, which is worth reading into a foundation report rather than around.",
     ],
@@ -580,7 +632,7 @@ export const CITIES: City[] = [
       },
       {
         q: "Are manufactured home foundation certifications common in the Valley?",
-        a: "Very. Manufactured housing is a large share of the housing stock across Hidalgo County, and FHA, VA, and USDA loans on those homes all require an engineer's certification against the HUD Permanent Foundations Guide. It is one of the most frequently ordered deliverables in this market.",
+        a: "Very. Manufactured housing is a large share of the housing stock across Hidalgo County, and FHA, VA, and USDA loans on those homes all require an engineer's certification against the HUD Permanent Foundations Guide. The requirement follows the loan product rather than local permitting, so it applies to every federally backed purchase and refinance on those homes.",
       },
     ],
   },
@@ -605,8 +657,12 @@ export const CITIES: City[] = [
       note: "Soil movement is a real issue and it competes for attention with a wind problem that is larger.",
     },
     permitOffice: {
-      name: "the City of Brownsville Planning and Development Services Department",
-      note: "Windstorm compliance is a separate Texas Department of Insurance process, and Cameron County reviews the unincorporated areas.",
+      name: "the City of Brownsville Building Permits and Inspections Division",
+      note: "A separate Planning and Redevelopment Department handles land use, and windstorm compliance is a separate Texas Department of Insurance process. Cameron County reviews the unincorporated areas.",
+      submittal:
+        "Plan review is stated as three to five business days when the submittal is complete, and permits may only be pulled by a general contractor registered with the city.",
+      source: "https://www.brownsvilletx.gov/1914/Building-Permits-and-Inspections-Divisio",
+      verified: "2026-08-17",
     },
     local: [
       "Cameron County is a TDI seaward county, so the WPI-8 requirement applies in full. Construction has to comply with the windstorm building code and be documented with a certificate of compliance before TWIA will write or continue coverage. Reroofs, window and door replacements, additions, and detached structures all trigger it, not just new houses.",
@@ -660,6 +716,10 @@ export const CITIES: City[] = [
     permitOffice: {
       name: "the City of Amarillo Building Safety Department",
       note: "Amarillo spans Potter and Randall counties, and each county reviews its own unincorporated areas.",
+      submittal:
+        "Permits and contractor licensing run through MGO Connect. Plans marked Not for Construction or Preliminary Plans Only are refused, which matters directly for a sealed submittal: send the final sealed set, not a draft.",
+      source: "https://www.amarillo.gov/building-safety/",
+      verified: "2026-08-17",
     },
     local: [
       "Amarillo sits in one of the most persistently windy populated areas in the United States, and the practical engineering consequence is that anything attached to the outside of a building has a shorter service life and a higher design demand than the mapped wind speed alone would suggest. Exposure C applies to most sites, and it is not a technicality: it materially raises the pressures on a roof covering, an array, and a patio cover.",
@@ -711,8 +771,12 @@ export const CITIES: City[] = [
       note: "Bell County straddles the transition, so foundation behavior changes across the metro rather than being uniform.",
     },
     permitOffice: {
-      name: "the City of Killeen Planning and Development Services Department",
+      name: "the City of Killeen Development Services Department, Building Inspections division",
       note: "Harker Heights, Copperas Cove, and Nolanville run their own reviews, and Bell County handles the unincorporated areas.",
+      submittal:
+        "All permits are submitted through the MGO Connect portal. One and two family projects are reviewed by a building inspector within three to five days.",
+      source: "https://www.killeentexas.gov/204/Building-Inspections",
+      verified: "2026-08-17",
     },
     local: [
       "Fort Cavazos shapes this market completely. The housing turnover around a large installation runs on PCS cycles, which means closings are scheduled tightly around orders and a condition that adds two weeks is a genuine problem rather than an inconvenience. VA loans are a very large share of the volume, and VA manufactured home foundation certifications are correspondingly common.",
@@ -764,8 +828,12 @@ export const CITIES: City[] = [
       note: "The same soil series that dominates Dallas, and the reason foundation work is the largest engineering category in this market.",
     },
     permitOffice: {
-      name: "the City of Waco Inspection Services Department",
+      name: "the City of Waco Development Services Department, Inspection Services division",
       note: "McLennan County reviews the unincorporated areas, and Woodway, Hewitt, and Bellmead each run their own.",
+      submittal:
+        "The city publishes a submission checklist per permit type defining the minimum plan submittal. Reading the one for your permit type before submitting removes most first cycle comments.",
+      source: "https://www.waco-texas.com/Departments/Development-Services/Inspection-Services",
+      verified: "2026-08-17",
     },
     local: [
       "Waco sits on Houston Black clay, which is the reference expansive soil of Texas residential engineering. Seasonal vertical movement at a slab perimeter measured in inches is normal here rather than alarming, and the entire purpose of an elevation survey in this market is to distinguish that ordinary seasonal behavior from progressive movement that will not reverse.",
@@ -819,11 +887,15 @@ export const CITIES: City[] = [
     permitOffice: {
       name: "the City of Tyler Development Services Department",
       note: "Smith County has a lighter review for unincorporated areas, and a large share of the region's housing sits outside city limits.",
+      submittal:
+        "All permits and plans must be submitted electronically through the city's inspections portal, which runs on eTRAKiT and ProjectDox. Residential new construction approval is stated as usually no more than five working days.",
+      source: "https://www.cityoftyler.org/government/departments/development-services-3527",
+      verified: "2026-08-17",
     },
     local: [
       "The East Texas moisture regime changes what goes wrong with buildings. Rainfall here is roughly double what West Texas sees, and soils stay damp, which means the seasonal clay cycle is gentler than in the Blackland Prairie. What replaces it is decay: sill plate rot, beam end rot in crawl spaces, termite damage, and floor framing failures at bathrooms and exterior walls. Repair specification letters are a larger share of the work here than they are anywhere west of I-45.",
       "Heavy pine and hardwood cover produces a specific kind of structural damage. A pine coming down through a roof is a routine East Texas event, and the resulting repair scope, damaged rafters, broken trusses, and compromised sheathing, is exactly what a sealed repair specification exists to define before a contractor starts cutting.",
-      "Manufactured and modular housing is a very large share of the Smith County and surrounding regional housing stock, and much of it sits outside city limits where county review is light. FHA, VA, and USDA lending on those homes carries the HUD foundation certification requirement, which makes it one of the most frequently ordered deliverables in this market.",
+      "Manufactured and modular housing is a very large share of the Smith County and surrounding regional housing stock, and much of it sits outside city limits where county review is light. FHA, VA, and USDA lending on those homes carries the HUD foundation certification requirement, and the requirement follows the loan product rather than local permitting.",
       "Crawl space construction is more common here than in the slab dominated metros, which changes what a foundation inspection looks like. Piers, beams, joists, shims, and ventilation are inspected directly rather than inferred from an elevation survey alone, and the survey becomes one input rather than the whole report.",
     ],
     emphasis: [
@@ -870,8 +942,12 @@ export const CITIES: City[] = [
       note: "Variable. Lower lying areas near the river bottoms behave quite differently from the sandier uplands, sometimes within the same subdivision.",
     },
     permitOffice: {
-      name: "the City of College Station Planning and Development Services Department",
+      name: "the City of College Station Planning and Development Services, Building Division",
       note: "Bryan runs a separate review, and Brazos County handles the unincorporated areas.",
+      submittal:
+        "The Building Division reviews the application, the site plan, and all construction documents before a residential permit issues, and checks zoning compatibility for the proposed use as part of the same pass.",
+      source: "https://www.cstx.gov/business-development/planning-and-development-services/",
+      verified: "2026-08-17",
     },
     local: [
       "The rental stock is what makes this market unusual. A very large fraction of the housing in College Station and Bryan is investor owned and tenant occupied, which produces a steady flow of repair specifications, conversion permits, and code enforcement responses that a comparable city of this size would not generate. Turnover is annual and concentrated, and work gets scheduled into narrow windows.",
@@ -925,6 +1001,10 @@ export const CITIES: City[] = [
     permitOffice: {
       name: "the City of Beaumont Building Codes Division",
       note: "Port Arthur, Nederland, and Groves run their own reviews, and windstorm compliance runs separately through TDI.",
+      submittal:
+        "The city holds free pre-development meetings every Thursday morning, first come first served, with department plan reviewers present. Inspections are scheduled only through the online portal and never by phone.",
+      source: "https://www.beaumonttexas.gov/707/Building-Codes",
+      verified: "2026-08-17",
     },
     local: [
       "Jefferson County is one of the fourteen TDI seaward counties, so windstorm certification applies to construction here in full. Reroofs, window and door replacements, additions, and detached structures all trigger the requirement, and undocumented past work is the most common reason a Beaumont file reaches an engineer.",
@@ -977,7 +1057,11 @@ export const CITIES: City[] = [
     },
     permitOffice: {
       name: "the City of Midland Development Services Department",
-      note: "Midland County reviews the unincorporated areas, where a large share of the region's housing sits.",
+      note: "Plan review is orchestrated by the Code Administration Division and typically pulls in Engineering, Transportation, Utilities, the Fire Marshal, and Health. Midland County reviews the unincorporated areas.",
+      submittal:
+        "Applications run through the PermitMidland portal. The property has to be platted and zoned residential, construction must start within 180 days of issue, and it cannot pause for more than 180 consecutive days.",
+      source: "https://www.midlandtexas.gov/1259/Permitting-and-Inspections",
+      verified: "2026-08-17",
     },
     local: [
       "Midland's soil is a relief compared with the rest of the state. Caliche and calcareous loam with low to moderate expansion potential means the classic Texas shrink and swell foundation failure is uncommon here. What replaces it is fill quality and drainage: rapid growth cycles produce subdivisions built quickly on placed fill, and a foundation that is moving in Midland is more often sitting on poorly compacted material or taking water it should not than reacting to clay.",
@@ -1029,8 +1113,12 @@ export const CITIES: City[] = [
       note: "Stable relative to Central and East Texas. Fill quality and drainage are the more common sources of residential foundation distress.",
     },
     permitOffice: {
-      name: "the City of Odessa Development Services Department",
+      name: "the City of Odessa Building Inspection Division",
       note: "Ector County reviews the unincorporated areas, which carry a substantial share of the region's housing.",
+      submittal:
+        "Odessa names its adopted codes explicitly, including the 2018 International Residential Code. A letter written against the current published edition rather than the adopted one is the most common avoidable rejection here.",
+      source: "https://www.odessa-tx.gov/1222/Building-Inspection-Permits",
+      verified: "2026-08-17",
     },
     local: [
       "Odessa carries a heavier concentration of workforce and manufactured housing than Midland does, particularly outside the city limits. That makes FHA, VA, and USDA foundation certifications a larger share of the work here, and it makes crawl space access the practical constraint on timing far more often than the engineering does.",
@@ -1082,8 +1170,12 @@ export const CITIES: City[] = [
       note: "The escarpment transition runs through the county the same way it does through Austin and San Antonio.",
     },
     permitOffice: {
-      name: "the City of Round Rock Planning and Development Services Department",
+      name: "the City of Round Rock Planning and Development Services Department, Building Inspection Division",
       note: "Georgetown, Cedar Park, Leander, and Hutto each run their own review, and Williamson County handles the unincorporated areas.",
+      submittal:
+        "Round Rock runs a strict one permit system: every relevant contractor has to be listed on the application before the permit can be issued, so a missing subcontractor holds the whole thing.",
+      source: "https://www.roundrocktexas.gov/city-departments/planning-and-development-services/building-inspection/",
+      verified: "2026-08-17",
     },
     local: [
       "Round Rock's housing stock is unusually young, and that changes what an engineer is looking at. In an older market the question is what sixty years of movement and modification have done. Here the question is more often what happened during construction: fill placed and compacted under schedule pressure, drainage established before the landscaping went in, and post tensioned slabs on lots that were cut and filled to make a subdivision work.",
@@ -1136,7 +1228,11 @@ export const CITIES: City[] = [
     },
     permitOffice: {
       name: "the City of Victoria Development Services Department",
-      note: "Victoria County reviews unincorporated areas. Projects a short drive toward Port Lavaca or Refugio cross into seaward county territory.",
+      note: "The Development and Permitting Center coordinates building plan review, permits, inspections, and floodplain management. Victoria County reviews unincorporated areas, and projects a short drive toward Port Lavaca or Refugio cross into seaward county territory.",
+      submittal:
+        "Plan review for one and two family construction and remodeling is optional in Victoria, which is unusual in Texas. Where it is requested, review generally runs up to ten working days and a fee applies after the third review.",
+      source: "https://www.victoriatx.gov/229/Development-Services",
+      verified: "2026-08-17",
     },
     local: [
       "The most important thing to establish about a Victoria area project is which county it is actually in. Victoria County is not one of the fourteen TDI seaward counties, so there is no WPI-8 requirement here. Calhoun County to the southeast and Refugio County to the south both are. That boundary is a short drive, and a great many properties in this trade area sit on the wrong side of the assumption somebody made.",
@@ -1188,8 +1284,12 @@ export const CITIES: City[] = [
       note: "Long agricultural irrigation history across the surrounding land has shaped the local moisture regime.",
     },
     permitOffice: {
-      name: "the City of Harlingen Planning and Development Department",
-      note: "Windstorm compliance runs separately through the Texas Department of Insurance, and Cameron County handles unincorporated areas.",
+      name: "the City of Harlingen Building Permits and Inspections Division",
+      note: "A separate Planning and Development Department guides land use across the city and its extraterritorial jurisdiction. Windstorm compliance runs separately through TDI, and Cameron County handles unincorporated areas.",
+      submittal:
+        "Harlingen has adopted the 2024 International Building Code and the 2024 International Residential Code. Review is stated as two to fourteen days depending on complexity.",
+      source: "https://harlingentx.gov/departments/building_inspections/index.php",
+      verified: "2026-08-17",
     },
     local: [
       "The windstorm requirement is decided by county, not by distance from the water, and Cameron County is a designated TDI seaward county in full. Harlingen sits roughly twenty five miles inland and is inside the requirement exactly as South Padre Island is. Owners and contractors are caught out by this every year, usually after a reroof.",
@@ -1241,8 +1341,12 @@ export const CITIES: City[] = [
       note: "Depth to rock varies sharply, which produces differential bearing between parts of the same foundation.",
     },
     permitOffice: {
-      name: "the City of San Angelo Development Services Department",
-      note: "Tom Green County reviews the unincorporated areas, which carry a large share of the surrounding housing.",
+      name: "the City of San Angelo Planning and Development Services",
+      note: "Building Permits and Inspections sits in the Community Development Building on West College Avenue. Tom Green County reviews the unincorporated areas, which carry a large share of the surrounding housing.",
+      submittal:
+        "The application and drawings are emailed to the permits department first. A project number comes back by email, and the documents are then uploaded for electronic review and approval.",
+      source: "https://www.cosatx.us/departments-services/building-permits-inspections",
+      verified: "2026-08-17",
     },
     local: [
       "The Edwards Plateau meets the Rolling Plains around San Angelo, and depth to rock changes sharply across short distances as a result. A foundation with part of its perimeter bearing on limestone at two feet and part bearing on clay at eight feet is a differential bearing problem, and it produces distress that looks like ordinary clay movement and does not respond to the same repair.",
@@ -1294,8 +1398,12 @@ export const CITIES: City[] = [
       note: "Less severe than the Blackland Prairie but sufficient to produce ordinary seasonal foundation movement.",
     },
     permitOffice: {
-      name: "the City of Abilene Building Inspections Division",
+      name: "the City of Abilene Planning and Development Services, Building Inspections Division",
       note: "Taylor County reviews the unincorporated areas, and the surrounding smaller municipalities run their own.",
+      submittal:
+        "Permits are applied for and tracked through MyGov. Abilene publishes a dedicated carport application separate from the general building permit application, so a carport here is its own submittal rather than a variation on one.",
+      source: "https://abilenetx.gov/428/Building-Inspections",
+      verified: "2026-08-17",
     },
     local: [
       "Abilene sits squarely in the West Texas hail corridor, and roof condition is a live question in most transactions here. What an underwriter wants from a roof certification in this market is a clear separation between damage that has shortened the covering's remaining service life and damage that is cosmetic, because both are almost always present on a roof that has been in place ten years.",
@@ -1347,8 +1455,12 @@ export const CITIES: City[] = [
       note: "Variable profile with a sandy surface over clay subsoil. Moisture reaches the clay unevenly, which is what produces the movement.",
     },
     permitOffice: {
-      name: "the City of Alice Building and Permitting Department",
-      note: "Jim Wells County reviews the unincorporated areas, where a large share of the county's housing sits.",
+      name: "Building Inspection, a division of the City of Alice Community Development Department",
+      note: "Permits are handled through Code Enforcement, and Fire Prevention permits run separately under the Fire Marshal. Jim Wells County reviews the unincorporated areas, where a large share of the county's housing sits.",
+      submittal:
+        "Building Inspection administers contractor and subcontractor registration alongside permits, so a contractor who is not registered cannot pull one regardless of how complete the plans are.",
+      source: "https://www.cityofalice.org/government/departments/community_development/building_inspection/index.php",
+      verified: "2026-08-17",
     },
     local: [
       "Manufactured housing is a very large share of the Jim Wells County stock, both inside Alice and across the surrounding unincorporated county. That makes FHA, VA, and USDA foundation certifications the single most requested deliverable in this market, and it makes crawl space access the practical constraint on how fast a file moves.",

@@ -27,24 +27,21 @@ export function emailConfigured(): boolean {
   return Boolean(process.env.RESEND_API_KEY);
 }
 
-export async function notify({
-  subject,
-  lines,
-  replyTo,
-}: {
-  subject: string;
-  /** Label and value pairs, rendered in order. Nulls are dropped. */
-  lines: [string, string | null | undefined][];
-  replyTo?: string | null;
-}): Promise<MailResult> {
-  const key = process.env.RESEND_API_KEY;
-  if (!key) {
-    // Not an error in development, where nobody has a key. Logged so a missing
-    // key in production is visible in the function logs rather than silent.
-    console.warn(`[email] RESEND_API_KEY not set, skipping notification: ${subject}`);
-    return { sent: false, reason: "not configured" };
-  }
+export type Line = [string, string | null | undefined];
 
+/**
+ * Assemble the body of a notification.
+ *
+ * Exported and separated from notify() so scripts/email-audit.mjs can exercise
+ * the real assembly rather than a copy of it. The first version of that audit
+ * re-implemented this logic to inspect it, which meant it was checking its own
+ * mirror: breaking the filter below left the audit green. An audit that cannot
+ * fail when the thing it audits is broken is not an audit.
+ *
+ * Nothing here touches the network or reads configuration, so it is safe to
+ * call from anywhere.
+ */
+export function buildNotification(lines: Line[]): { rows: string[]; text: string; html: string } {
   const rows = lines
     .filter(([, v]) => v !== null && v !== undefined && String(v).trim() !== "")
     .map(([label, value]) => `${label}: ${value}`);
@@ -61,6 +58,29 @@ export async function notify({
       })
       .join("") +
     `</div>`;
+
+  return { rows, text, html };
+}
+
+export async function notify({
+  subject,
+  lines,
+  replyTo,
+}: {
+  subject: string;
+  /** Label and value pairs, rendered in order. Nulls are dropped. */
+  lines: Line[];
+  replyTo?: string | null;
+}): Promise<MailResult> {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) {
+    // Not an error in development, where nobody has a key. Logged so a missing
+    // key in production is visible in the function logs rather than silent.
+    console.warn(`[email] RESEND_API_KEY not set, skipping notification: ${subject}`);
+    return { sent: false, reason: "not configured" };
+  }
+
+  const { text, html } = buildNotification(lines);
 
   try {
     const resend = new Resend(key);

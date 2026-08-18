@@ -78,14 +78,20 @@ npm run build
 npx next start -p 3125          # the audits below read this server
 
 npm run audit                   # links, redirects, orphans, soft 404s
+npm run cta-audit               # conversion path present and launch-mode correct on every page
+npm run voice-audit             # regulatory phrasing, guarantees, claim language, puffery
+npm run link-map -- --baseline  # record the internal link map; --compare to diff
 npm run meta-audit              # title/description length + uniqueness, H1s,
                                 # canonicals, og:site_name, schema, post length
-npm run placeholder-audit       # 555 numbers, TODOs, dollar amounts, em dashes, emoji
+npm run placeholder-audit       # 555 numbers, TODOs, dollar amounts, em dashes, emoji,
+                                # and any PE name, licence, or firm number not in
+                                # src/config/credentials.ts
 npm run seo-audit               # Lighthouse SEO category, asserts 100 everywhere
 
 BASE_URL=http://localhost:3125 npm run contrast-audit   # axe WCAG A/AA at 390 and 1280
 BASE_URL=http://localhost:3125 npm run mobile-audit     # 320/375/390/430, targets, drawer
 npm run forms-audit             # every form, both launch modes, end to end
+npm run email-audit             # every Resend template, rendered offline, no mail sent
 ```
 
 `contrast-audit` and `mobile-audit` spawn their own `next dev` when `BASE_URL`
@@ -116,6 +122,13 @@ careful does not catch that.
 - No dollar amounts anywhere until a price sheet exists. Same audit.
 - No phone number until one is decided. Same audit.
 - No review or rating schema until real reviews exist. `meta-audit` fails on it.
+- No PE name, licence number, or firm registration number that is not listed in
+  `src/config/credentials.ts`. All three lists are empty today, so any credential
+  appearing anywhere fails the build. Publishing one is a deliberate edit to that
+  file, never a side effect of writing copy.
+- No outcome guarantees, no claim solicitation, no unsupportable superlatives.
+  `voice-audit` owns these and deliberately does not re-check the mechanical
+  rules above.
 - Titles under 60 characters, descriptions under 155, both unique sitewide, one
   H1 per page, canonical pointing at itself. `meta-audit`, and `lib/seo.ts`
   throws in development before it ever reaches the audit.
