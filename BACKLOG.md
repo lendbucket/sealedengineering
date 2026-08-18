@@ -134,3 +134,51 @@ purpose: an invented value is invisible in review and ships.
       `permitOffice.verified`. Re-verification is now a diff against those URLs
       rather than a research project. Municipalities reorganize: six of the 25
       were already wrong at first build.
+
+## Source standard applied to service pages, 2026-08-17
+
+Section 3 of the upgrade brief. Every technical claim on the ten service pages
+was checked against a primary source. What changed:
+
+- [x] **WPI-8 was materially wrong and is corrected.** The pages described one
+      "engineer path" as an alternative to filing a WPI-1. TDI actually runs two
+      separate processes. Ongoing construction: Form WPI-1 before work starts,
+      inspections during the work by a TDI inspector or an **appointed**
+      engineer, WPI-2-BC forms, WPI-8 certificate. Completed construction: **any**
+      TBPELS licensed engineer may inspect, Form **WPI-2E** with a sealed
+      post-construction report, **WPI-8E** certificate. WPI-8C was a TWIA
+      certificate issued only between 2017-01-01 and 2020-05-31. All of this is
+      now stated correctly on the service page and in the Insights post.
+- [x] **Harris County boundary corrected.** The copy named Kemah, which is in
+      Galveston County, and Baytown, which TDI does not list. Both were inferred
+      from a road on a map. TDI's own wording is "parts of Harris County east of
+      Highway 146", naming La Porte, Morgan's Point, Pasadena, Seabrook, and
+      Shoreacres. Corrected in three places.
+- [x] **HUD standard named precisely.** HUD publishes the September 1996
+      Permanent Foundations Guide as HUD-7584 and cites it as HUD-4930.3G. Both
+      designations are HUD's own and both are now given. HUD's requirement that
+      the certifier be licensed **in the state where the home is located** is now
+      quoted rather than asserted as our own view.
+- [x] **VA and USDA claims restated.** The pages asserted that VA carries "an
+      equivalent requirement in its own lender handbook" and that USDA programs
+      "generally do as well". Neither could be traced to a VA or USDA primary
+      source: Circular 26-18-7 does not address manufactured home foundations,
+      and the Chapter 12 MPR document redirects to a portal that could not be
+      read. The copy now says what is verified, that HUD's guide is the standard,
+      and attributes the instruction to obtain a certification to the lender's
+      written condition.
+- [x] **Texas Section ASCE guidelines named with version.** Now cited as
+      Guidelines for the Evaluation and Repair of Residential Foundations,
+      adopted 2002, Version 3 adopted March 2022.
+- [x] **The three to five psf array dead load was removed.** A working rule of
+      thumb, not a published figure. The copy now says the number is taken from
+      the module and racking cut sheets for the system being installed, which is
+      both accurate and more useful.
+
+Source URLs are recorded in the header comment of `src/data/services.ts`.
+
+- [ ] **Still unverified, and currently stated generally rather than removed:**
+      the ASCE 7 wind bands in `src/data/cities.ts`. Every page says they are
+      planning context and that the sealed value is looked up per address, so
+      nothing turns on them, but they should be checked against the adopted
+      edition per jurisdiction before anyone treats them as design input.

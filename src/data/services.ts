@@ -12,6 +12,21 @@ import type { Service } from "@/data/types";
  * Two rules the content obeys and the audits enforce:
  *   - No dollar figures. Pricing is a pending owner item, and a number in here
  *     would be quoted back to us for years after it changed.
+ *
+ * PRIMARY SOURCES for the technical claims on these pages, verified 2026-08-17:
+ *   Windstorm, WPI-8 and WPI-8E, forms WPI-1, WPI-2-BC and WPI-2E:
+ *     https://www.tdi.texas.gov/wind/inspectionproc.html
+ *     https://www.tdi.texas.gov/wind/completed-construction-certificates.html
+ *     https://www.tdi.texas.gov/tips/need-windstorm-inspection.html
+ *   Manufactured home foundations, HUD-7584 / HUD-4930.3G, and the rule that
+ *   the certifier be licensed in the state where the home sits:
+ *     https://archives.hud.gov/offices/hsg/sfh/ref/sfhp1-9d.cfm
+ *     https://www.huduser.gov/portal/publications/destech/permfound.html
+ *   Residential foundation evaluation, Texas Section ASCE guidelines:
+ *     https://www.texasce.org/resources/publications/residential-foundations/
+ *
+ * A claim that cannot be traced to one of these is stated generally rather
+ * than repeated with a number attached. See BACKLOG.md.
  *   - No outcome guarantees. An engineer seals what the evidence supports. A
  *     page that promises an approval is writing a check the evidence has not
  *     agreed to cover.
@@ -48,7 +63,7 @@ export const SERVICES: Service[] = [
         heading: "What a solar structural letter actually says",
         paragraphs: [
           "A solar structural letter is a short engineering opinion, sealed and signed, addressed to the authority having jurisdiction. It answers three questions and stops there.",
-          "First, whether the existing roof framing can carry the array. A residential PV array adds roughly three to five pounds per square foot of dead load, distributed through the standoffs into the rafters or truss top chords. That is a modest number, which is exactly why the answer is usually yes, and exactly why the letter still has to be written by somebody who checked rather than assumed. A 2x4 truss at 24 inches on center spanning 24 feet with an existing tile roof is a different conversation than a 2x6 rafter at 16 inches under composition shingle.",
+          "First, whether the existing roof framing can carry the array. The added dead load is modest and it is taken from the module and racking cut sheets for the system actually being installed rather than from a rule of thumb, because that is the number the calculation has to stand on. It is distributed through the standoffs into the rafters or truss top chords. Being modest is exactly why the answer is usually yes, and exactly why the letter still has to be written by somebody who checked rather than assumed. A 2x4 truss at 24 inches on center spanning 24 feet with an existing tile roof is a different conversation than a 2x6 rafter at 16 inches under composition shingle.",
           "Second, whether the attachments resist wind uplift at that specific address. Uplift is where roof mounted PV is actually governed, and it is not a national number. ASCE 7 assigns a basic wind speed by location, and Texas spans a very wide range of them. An array in Amarillo and the same array in Corpus Christi are two different uplift problems with two different attachment spacings.",
           "Third, whether the specific attachment being used develops the capacity the calculation demands. Lag screw diameter, embedment depth into the framing member, the species and grade of that member, and the spacing along and across the array all appear in the check. This is the part that most often changes a design: the framing passes and the attachment spacing has to tighten.",
         ],
@@ -150,8 +165,8 @@ export const SERVICES: Service[] = [
       {
         heading: "What the certification is measured against",
         paragraphs: [
-          "Both FHA and VA point at the same technical document: the HUD Permanent Foundations Guide for Manufactured Housing, published as HUD-7584. FHA carries the requirement in Handbook 4000.1, which asks for a certification by a licensed professional engineer or registered architect that the foundation complies with that guide. VA carries an equivalent requirement in its own lender handbook.",
-          "This matters because it defines what the engineer is looking at. The certification is not a home inspection and it is not an appraisal. It is an observation of the foundation system against a published federal standard, and the answer is either that it complies or that specific items do not.",
+          "The technical standard is HUD's: the Permanent Foundations Guide for Manufactured Housing, dated September 1996, which HUD publishes as HUD-7584 and cites in its own reference material as HUD-4930.3G. HUD requires the certification to be completed by a licensed professional engineer or registered architect who is licensed or registered in the state where the manufactured home is located, attesting that the foundation complies with that guide.",
+          "VA and USDA files routinely carry the same condition, and in practice the same document satisfies it, but the requirement in any given file comes from the lender's written condition rather than from a single rule that reads the same across every program. That is why the loan type and the condition language are both asked for at intake instead of assumed.",
         ],
       },
       {
@@ -366,7 +381,7 @@ export const SERVICES: Service[] = [
       {
         heading: "Texas clay, and why movement is not automatically damage",
         paragraphs: [
-          "Much of populated Texas sits on highly expansive clay. Those soils swell when they take on water and shrink when they lose it, and a slab on grade foundation built on them moves seasonally by design. The Texas Section of the American Society of Civil Engineers publishes guidelines for evaluating residential foundations on exactly this problem, and the central idea in them is that deflection has to be judged against what the structure tolerates rather than against a flat plane.",
+          "Much of populated Texas sits on highly expansive clay. Those soils swell when they take on water and shrink when they lose it, and a slab on grade foundation built on them moves seasonally by design. The Texas Section of the American Society of Civil Engineers publishes Guidelines for the Evaluation and Repair of Residential Foundations, adopted in 2002 and now in its third version adopted in March 2022, addressing exactly this problem. The guidelines define levels of investigation, and the central idea in them is that deflection has to be judged against what the structure tolerates rather than against a flat plane.",
           "This is why an honest report frequently concludes that a foundation is performing within tolerance despite visible cracking, and why a report that concludes every foundation needs piers is telling you more about who wrote it than about the house.",
         ],
       },
@@ -454,16 +469,18 @@ export const SERVICES: Service[] = [
       {
         heading: "Where the requirement applies",
         paragraphs: [
-          "The Texas Department of Insurance designates a catastrophe area along the coast. It covers fourteen seaward counties in full, Aransas, Brazoria, Calhoun, Cameron, Chambers, Galveston, Jefferson, Kenedy, Kleberg, Matagorda, Nueces, Refugio, San Patricio, and Willacy, plus the part of Harris County east of Highway 146.",
-          "Inside that area, construction has to comply with the TDI windstorm building code, and compliance has to be documented before the Texas Windstorm Insurance Association will write or continue coverage on it. The document that records compliance is the certificate of compliance, form WPI-8.",
+          "The Texas Department of Insurance designates a catastrophe area along the coast. It covers fourteen seaward counties in full, Aransas, Brazoria, Calhoun, Cameron, Chambers, Galveston, Jefferson, Kenedy, Kleberg, Matagorda, Nueces, Refugio, San Patricio, and Willacy, plus, in the department's own wording, parts of Harris County east of Highway 146. TDI names La Porte, Morgan's Point, Pasadena, Seabrook, and Shoreacres among the Harris County areas covered.",
+          "Inside that area, construction has to comply with the windstorm building code, and compliance has to be documented before the Texas Windstorm Insurance Association will write or continue wind and hail coverage on it. The document that records it is a certificate of compliance, and which certificate depends on whether the work is ongoing or already finished.",
         ],
       },
       {
-        heading: "The two paths, and why the engineer path exists",
+        heading: "Ongoing construction and completed construction are two different processes",
         paragraphs: [
-          "There are two ways to get a WPI-8. The first is to file a WPI-1 application before work begins and have a TDI appointed inspector inspect the work at the required stages. That path is free and it moves at the speed of the inspector queue, which after a storm season is not fast.",
-          "The second is the engineer path. A Texas licensed professional engineer inspects the work, evaluates it against the applicable windstorm building code, and submits the certification to TDI, which then issues the certificate. This is the path that exists for work already completed without a WPI-1, for schedules that cannot wait on the queue, and for anything unusual enough that an engineer needs to evaluate it rather than an inspector checking it against a list.",
-          "The engineer path is also the only remedy available when work was completed years ago and nobody filed anything, which is by far the most common reason a coastal file reaches this page.",
+          "This is the distinction that decides everything else, and it is the one most often got wrong. TDI treats work that has not started yet and work that is already finished as separate processes with separate forms and separate certificates.",
+          "For ongoing construction, Form WPI-1, the Application for Certificate of Compliance, is filed with TDI before construction begins. Inspections are then performed while the work is underway, by either a TDI windstorm inspector or an appointed Texas licensed professional engineer. TDI is explicit that inspections must happen during the work rather than before or after it, which is precisely why covering something up ends this route. On completion the inspector or engineer submits the WPI-1 and the applicable WPI-2-BC forms, and TDI issues the WPI-8 Certificate of Compliance. TDI charges no fee for its own inspectors, and that path moves at the speed of the inspector queue.",
+          "For completed construction, where no WPI-1 was ever filed, the route is different in a way that matters. TDI states that any professional engineer licensed by the Texas Board of Professional Engineers and Land Surveyors may perform inspections on completed construction, so appointment is not required here as it is for ongoing work. The engineer submits Form WPI-2E, the Completed Construction Inspection Form, together with a sealed post-construction inspection report and supporting documentation, or a sealed design. TDI then issues a WPI-8E certificate rather than a WPI-8.",
+          "One piece of history worth knowing if you are reading old paperwork: certificates numbered WPI-8C were issued by the Texas Windstorm Insurance Association for completed construction between January 1, 2017 and May 31, 2020. A WPI-8C in a file is not a WPI-8E and was issued by a different body.",
+          "Work finished years ago with nothing filed is the most common reason a coastal file reaches an engineer, and the completed construction route is the remedy for it.",
         ],
       },
       {
@@ -489,12 +506,12 @@ export const SERVICES: Service[] = [
       },
     ],
     deliverable: [
-      "Site inspection of the work by a licensed Texas professional engineer.",
-      "Evaluation against the applicable TDI windstorm building code requirements.",
-      "The engineer's certification prepared for submission to the Texas Department of Insurance.",
+      "Site inspection of the work by a professional engineer licensed by the Texas Board of Professional Engineers and Land Surveyors.",
+      "Evaluation against the applicable windstorm building code requirements for the site.",
+      "For completed construction: Form WPI-2E with a sealed post-construction inspection report and supporting documentation, prepared for submission to TDI.",
       "A photo and documentation record supporting the certification.",
       "Any items that must be corrected before certification, itemized.",
-      "Coordination through to the TDI issued certificate of compliance.",
+      "Coordination through to the certificate TDI issues, a WPI-8E for completed construction.",
     ],
     evidence: [
       "Property address and county, so the applicable requirements are the right ones.",
@@ -512,7 +529,7 @@ export const SERVICES: Service[] = [
       },
       {
         q: "The roof was replaced two years ago and nobody filed anything. Is it too late?",
-        a: "It is not too late, and the engineer path is exactly the remedy for it. What determines whether certification is possible is the evidence: what can be inspected now, what can be exposed, and what documentation exists from the work. Photographs taken during the reroof make an enormous difference to that answer.",
+        a: "Not necessarily. That is completed construction, and TDI has a route for it: any engineer licensed by the Texas Board of Professional Engineers and Land Surveyors may inspect completed work and submit Form WPI-2E with a sealed post-construction report, after which TDI can issue a WPI-8E. What determines whether it succeeds is the evidence: what can be inspected now, what can be exposed, and what documentation exists from the original work. Photographs taken during the reroof make an enormous difference.",
       },
       {
         q: "Does a WPI-8 mean my house is hurricane proof?",
@@ -524,7 +541,7 @@ export const SERVICES: Service[] = [
       },
       {
         q: "Can the certification be issued without the engineer coming out?",
-        a: "No. The engineer's certification is a statement about work that was inspected. That inspection is the certification, and there is no document route around it.",
+        a: "No. The engineer's certification is a statement about work that was inspected, and TDI's completed construction route is built around a sealed post-construction inspection report. That inspection is the certification, and there is no document route around it.",
       },
     ],
     related: ["roof-certification-letters", "structural-letters-for-permits", "solar-structural-letters"],

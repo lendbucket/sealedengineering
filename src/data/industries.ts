@@ -128,7 +128,7 @@ export const INDUSTRIES: Industry[] = [
     answers: [
       {
         title: "Written to the HUD standard the underwriter is citing",
-        body: "FHA and VA both point at the HUD Permanent Foundations Guide for Manufactured Housing, HUD-7584. The certification names that standard, describes the foundation as observed against it, and states compliance or itemizes what does not comply. That is what the condition asks for, in the terms it asks for it.",
+        body: "HUD's Permanent Foundations Guide for Manufactured Housing, published as HUD-7584 and cited by HUD as HUD-4930.3G, is the standard the foundation is measured against, and HUD requires the certification to come from a professional engineer or registered architect licensed in the state where the home sits. The certification names that standard, describes the foundation as observed against it, and states compliance or itemizes what does not. That is what the condition asks for, in the terms it asks for it.",
       },
       {
         title: "Addressee, borrower, and serial numbers captured before the visit",
@@ -165,7 +165,7 @@ export const INDUSTRIES: Industry[] = [
       },
       {
         q: "Do you work with VA and USDA files as well as FHA?",
-        a: "Yes. All three point at the same HUD standard for the foundation itself. What differs is how the certification is addressed and what else each program's file requires beside it, which is why loan type is captured at intake rather than assumed.",
+        a: "Yes. HUD's guide is the standard the foundation is measured against in each case, and in practice the same document satisfies all three. What differs is where the instruction comes from: it arrives in a specific lender's written condition rather than as one rule worded identically across programs. That is why the loan type and the condition language are both captured at intake rather than assumed.",
       },
     ],
   },

@@ -66,7 +66,7 @@ export const post: Post = {
     },
     { h3: "Hail" },
     {
-      p: "Hail is a regional certainty across North, Central, and West Texas. On any roof more than a few years old in Dallas, Fort Worth, Abilene, or Amarillo, the question is not whether it has taken hail but whether the resulting damage is functional or cosmetic.",
+      p: "Hail is a regional constant across North, Central, and West Texas. On an older roof in Dallas, Fort Worth, Abilene, or Amarillo the useful question is usually not whether it has taken hail but whether the resulting damage is functional or cosmetic.",
     },
     {
       p: "That distinction is the single most useful thing in a Texas roof certification. Functional damage has fractured the mat, displaced granules to the point of exposing the substrate, or compromised the covering's ability to shed water, and it shortens remaining life. Cosmetic damage is a dent in metal or a mark that has not compromised anything. A letter that treats every hail mark as failure is useless, and so is one that ignores hail entirely.",

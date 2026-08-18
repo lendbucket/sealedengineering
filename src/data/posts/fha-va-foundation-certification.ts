@@ -24,10 +24,10 @@ export const post: Post = {
 
     { h2: "The standard everything points at" },
     {
-      p: "FHA and VA both point at the same technical document: the HUD Permanent Foundations Guide for Manufactured Housing, published as HUD-7584. FHA carries the requirement in its single family handbook, which asks for certification by a licensed professional engineer or registered architect that the foundation complies with that guide. VA carries an equivalent requirement, and USDA programs generally do as well.",
+      p: "The technical standard is HUD's, and it is worth naming precisely because two designations for the same document circulate. HUD publishes the Permanent Foundations Guide for Manufactured Housing, dated September 1996, as HUD-7584, and cites it in its own reference material as HUD-4930.3G. They are the same guide. HUD requires the certification to be completed by a licensed professional engineer or registered architect who is licensed or registered in the state where the manufactured home is located, attesting that the foundation complies with it.",
     },
     {
-      p: "That single fact resolves most of the confusion in this area. The technical scope of an FHA certification and a VA certification is the same, because both are measured against the same federal document. What differs between programs is how the lender wants the certification addressed and what else the file requires alongside it.",
+      p: "VA and USDA files routinely carry the same condition and are usually satisfied by the same document, because the underlying question is the same one. What differs is where the requirement comes from: HUD's standard is what the foundation is measured against, and the instruction to obtain a certification arrives in a specific lender's written condition. Read that condition rather than assuming the program dictates a single form of words.",
     },
     {
       p: "It also explains why the certification is not a home inspection. The engineer is answering one question against one published standard: does this foundation system comply. Roof, plumbing, electrical, appliances, and general condition are somebody else's scope entirely.",
@@ -99,7 +99,7 @@ export const post: Post = {
         "Clear the crawl space before the visit. Removable skirting, stored belongings, and standing water are the three recurring obstacles, and every one of them turns one visit into two.",
         "Send the underwriter's condition language verbatim. It frequently names the exact form of words the lender wants, and matching it avoids a reissue.",
         "Give the borrower name exactly as it appears in the loan file, and the lender name exactly as the certification should be addressed. Clerical mismatch is a leading cause of a technically correct document being sent back.",
-        "State the loan type at the start. FHA, VA, and USDA point at the same standard and are addressed differently.",
+        "State the loan type at the start, and send the condition language with it. The foundation is measured against the same HUD guide either way; the addressee and the form of words come from the lender.",
         "Ask about reuse before ordering. If a prior certification exists from an earlier transaction, some underwriters accept it. What usually blocks reuse is a borrower name from the previous sale, an addressee that is a different lender, or a gap long enough that current conditions are wanted.",
       ],
     },

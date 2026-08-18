@@ -95,7 +95,7 @@ export const CITIES: City[] = [
       verified: "2026-08-17",
     },
     local: [
-      "The single most important thing to know about engineering work in Harris County is that the Texas Department of Insurance windstorm boundary runs through it. The designated catastrophe area covers the part of the county east of Highway 146, which puts Seabrook, Kemah, La Porte, and the Baytown side inside the WPI-8 requirement while the rest of the county sits outside it. A reroof on one side of that line needs a certificate of compliance and the identical reroof on the other side does not.",
+      "The single most important thing to know about engineering work in Harris County is that the Texas Department of Insurance windstorm boundary runs through it. TDI describes the designated catastrophe area as covering parts of Harris County east of Highway 146, and names La Porte, Morgan's Point, Pasadena, Seabrook, and Shoreacres among the areas covered, while the rest of the county sits outside it. A reroof inside that area needs a certificate of compliance and the identical reroof outside it does not.",
       "Foundations here are a moisture problem before they are a structural one. Beaumont clay swells and shrinks by a large fraction of its volume across a wet spring and a dry August, and Houston gets both in the same year. A relative elevation survey on a Houston slab taken in May and taken in September will differ on a foundation that is behaving exactly as designed, which is why an inspection report that reads the season is worth more than one that only reads the number.",
       "Rooftop solar volume in the Houston metro is heavily driven by installers working across dozens of jurisdictions at once. The city, the county, and every incorporated suburb from Pearland to Cypress to Katy have their own plan review, and the structural letter that satisfies one is not automatically formatted for the next. The address, the framing, and the array layout are what change the analysis; the code edition adopted locally is what changes the letter.",
       "Flat terrain and a high water table shape the rest of it. Drainage is a structural item here in a way it is not in the Hill Country, and a foundation report that does not look hard at grade, gutter discharge, and where irrigation is placed has skipped the most likely cause of what it just measured.",
@@ -111,7 +111,7 @@ export const CITIES: City[] = [
     faqs: [
       {
         q: "Is my Houston address inside the windstorm area?",
-        a: "It depends on which side of Highway 146 it sits. The Texas Department of Insurance catastrophe area covers the part of Harris County east of Highway 146, so addresses in Seabrook, Kemah, La Porte, and the Baytown area fall inside it and most of the rest of the county does not. If the property is near that line, confirm before assuming either way, because the consequence of guessing wrong is a windstorm coverage gap.",
+        a: "It depends where in the county it sits. TDI describes the catastrophe area as covering parts of Harris County east of Highway 146, and names La Porte, Morgan's Point, Pasadena, Seabrook, and Shoreacres among the covered areas. Most of the rest of the county is outside it. Because the department defines this by area rather than by one clean line on a map, confirm a specific address with TDI rather than assuming: the consequence of guessing wrong is a windstorm coverage gap.",
       },
       {
         q: "Why does my Houston slab crack every summer?",
@@ -176,7 +176,7 @@ export const CITIES: City[] = [
       },
       {
         q: "Are manufactured home foundation certifications common here?",
-        a: "Very. Southern Bexar County and the rural counties around it carry a large manufactured housing stock, and FHA, VA, and USDA loans on those homes all require an engineer's certification against the HUD Permanent Foundations Guide. The requirement follows the loan product rather than local permitting, so it applies to every federally backed purchase and refinance on those homes.",
+        a: "Very. Southern Bexar County and the rural counties around it carry a large manufactured housing stock, and federally backed lending on those homes turns on the foundation meeting HUD's Permanent Foundations Guide for Manufactured Housing, and lenders routinely condition closing on an engineer's certification against it. The requirement follows the loan file rather than local permitting, so it can apply where no permit ever did.",
       },
     ],
   },
@@ -632,7 +632,7 @@ export const CITIES: City[] = [
       },
       {
         q: "Are manufactured home foundation certifications common in the Valley?",
-        a: "Very. Manufactured housing is a large share of the housing stock across Hidalgo County, and FHA, VA, and USDA loans on those homes all require an engineer's certification against the HUD Permanent Foundations Guide. The requirement follows the loan product rather than local permitting, so it applies to every federally backed purchase and refinance on those homes.",
+        a: "Very. Manufactured housing is a large share of the housing stock across Hidalgo County, and federally backed lending on those homes turns on the foundation meeting HUD's Permanent Foundations Guide for Manufactured Housing, and lenders routinely condition closing on an engineer's certification against it. The requirement follows the loan file rather than local permitting, so it can apply where no permit ever did.",
       },
     ],
   },
