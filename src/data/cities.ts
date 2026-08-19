@@ -302,7 +302,7 @@ export const CITIES: City[] = [
     region: "Central Texas",
     title: "Sealed Engineering Letters Austin TX | Texas PE",
     description:
-      "Sealed engineering letters for Austin and Travis County. Permit letters, beam sizing, and foundation reports sealed by a licensed Texas PE.",
+      "Sealed engineering letters for Austin and Travis County. Permit letters, beam sizing, and foundation reports requiring a licensed Texas PE seal.",
     h1: "Sealed Engineering Letters in Austin, Texas",
     lede: "Austin sits on two geologies split by the Balcones Escarpment, limestone and karst west of it and expansive clay east, often inside the same subdivision, and it reviews residential submittals against its own adopted amendments.",
     windstormArea: false,
@@ -359,7 +359,7 @@ export const CITIES: City[] = [
     region: "West Texas",
     title: "Sealed Engineering Letters El Paso TX | Texas PE",
     description:
-      "Sealed engineering letters for El Paso County. Solar structural letters, permit letters, and carport plans sealed by a licensed Texas PE.",
+      "Sealed engineering letters for El Paso County. Solar structural letters, permit letters, and carport plans requiring a licensed Texas PE seal.",
     h1: "Sealed Engineering Letters in El Paso, Texas",
     lede: "El Paso is the one Texas market where seismic design actually enters the conversation, and the one where the soil problem is collapse under wetting rather than swell.",
     windstormArea: false,
@@ -473,7 +473,7 @@ export const CITIES: City[] = [
     region: "South Texas",
     title: "Sealed Engineering Letters Laredo TX | Texas PE",
     description:
-      "Sealed engineering letters for Laredo and Webb County. Permit letters, carport plans, and foundation reports sealed by a licensed Texas PE.",
+      "Sealed engineering letters for Laredo and Webb County. Permit letters, carport plans, and foundation reports requiring a licensed Texas PE seal.",
     h1: "Sealed Engineering Letters in Laredo, Texas",
     lede: "Laredo builds fast on caliche and clay in one of the hottest sustained climates in the country, and shade structures here are infrastructure rather than an upgrade.",
     windstormArea: false,
@@ -815,7 +815,7 @@ export const CITIES: City[] = [
     region: "Central Texas",
     title: "Sealed Engineering Letters Waco TX | Texas PE",
     description:
-      "Sealed engineering letters for Waco and McLennan County. Foundation reports, repair plans, and permit letters sealed by a licensed Texas PE.",
+      "Sealed engineering letters for Waco and McLennan County. Foundation reports, repair plans, and permit letters requiring a licensed Texas PE seal.",
     h1: "Sealed Engineering Letters in Waco, Texas",
     lede: "Waco sits in the heart of the Blackland Prairie on some of the most expansive soil in Texas, and the renovation boom of the last decade has put an unusual amount of old framing under new loads.",
     windstormArea: false,
@@ -1145,7 +1145,7 @@ export const CITIES: City[] = [
       },
       {
         q: "Can a carport plan from another state be used here?",
-        a: "Only if it is sealed by a Texas engineer and carries the design criteria for this address. Stock plans drawn for a lower wind speed or a sheltered exposure are the most common rejection in this category, and open Permian terrain frequently qualifies as exposure C, which raises uplift substantially.",
+        a: "Only if a Texas engineer sealed it and it carries the design criteria for this address. Stock plans drawn for a lower wind speed or a sheltered exposure are the most common rejection in this category, and open Permian terrain frequently qualifies as exposure C, which raises uplift substantially.",
       },
     ],
   },

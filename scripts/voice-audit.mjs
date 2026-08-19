@@ -26,11 +26,15 @@ import {
   BOLD_LEADIN_EXEMPT,
   voiceAllowed,
   BANNED_PATTERN,
-  CLAIM_RULES,
   HYPHEN_AS_CONNECTOR,
   NOT_ONLY_BUT_ALSO,
-  REGULATORY_RULES,
+  PUFFERY_RULES,
 } from "./lib/voice-blocklist.mjs";
+// SYNCHRONIZED from the 254 repo, copied verbatim. Carries both the active and
+// the PASSIVE voice of every regulated claim. The passive half is the reason
+// this module exists: a sibling site passed an active-voice-only list while
+// claiming in twenty places that a licensed engineer was already sealing work.
+import { ALL_REGULATED, NEVER_CLAIMS, findClaims } from "./lib/regulatory.mjs";
 
 const BASE = process.env.BASE_URL || "http://localhost:3125";
 const LAUNCH_MODE = (process.env.LAUNCH_MODE || "prelaunch").trim().toLowerCase();
@@ -209,7 +213,12 @@ if (sm.status !== 200) {
     console.error("voice-audit: sitemap contained no URLs; refusing to pass on zero routes");
     process.exitCode = 1;
   } else {
-    const activeRegulatory = REGULATORY_RULES.filter((r) => !r.prelaunchOnly || IS_PRELAUNCH);
+    // Both gates are down on this site: the TBPELS firm registration is
+    // pending AND no PE is hired. ALL_REGULATED is the union of the active
+    // voice offer claims (firm gate) and the passive voice sealing claims
+    // (engineer of record gate), which is exactly the right set for that state.
+    // NEVER_CLAIMS applies in every gate state, forever.
+    const regulated = IS_PRELAUNCH ? ALL_REGULATED : [];
     const stats = [];
 
     for (const route of routes) {
@@ -232,14 +241,18 @@ if (sm.status !== 200) {
         record(route, "not-only-but-also", "Playbook Part 4 item 3, listed construction.", m[0].trim());
       }
 
-      // 2. Regulatory, and 3. claims. Both guarded: only assertions count.
-      for (const rule of activeRegulatory) {
-        for (const m of stripped.matchAll(rule.pattern)) {
-          if (!isAssertion(stripped, m.index)) continue;
-          record(route, rule.id, rule.why, m[0].trim());
-        }
+      // 2. Regulated claims, gate dependent. Read against the disclosure
+      // stripped text so the compliance notice does not flag itself.
+      for (const hit of findClaims(stripped, regulated)) {
+        if (!isAssertion(stripped, hit.index)) continue;
+        record(route, "regulated-claim", `Shared regulatory library: ${hit.why}.`, hit.match.trim());
       }
-      for (const rule of CLAIM_RULES) {
+      // 3. Claims no engineering firm may make in any gate state, ever.
+      for (const hit of findClaims(text, NEVER_CLAIMS)) {
+        if (!isAssertion(text, hit.index)) continue;
+        record(route, "never-claim", `Shared regulatory library: ${hit.why}.`, hit.match.trim());
+      }
+      for (const rule of PUFFERY_RULES) {
         for (const m of text.matchAll(rule.pattern)) {
           if (!isAssertion(text, m.index)) continue;
           record(route, rule.id, rule.why, m[0].trim());
@@ -298,8 +311,9 @@ if (sm.status !== 200) {
     console.log("=== VOICE AUDIT ===");
     console.log(
       `scanned ${routes.length} sitemap routes against ${BASE} in ${LAUNCH_MODE} mode.\n` +
-        `rules: playbook banned list, ${activeRegulatory.length} regulatory, ` +
-        `${CLAIM_RULES.length} claim, 4 structural tells, 1 style law.`,
+        `rules: playbook banned list, ${regulated.length} regulated from the shared library ` +
+        `(active and passive voice), ${NEVER_CLAIMS.length} never-claims, ` +
+        `${PUFFERY_RULES.length} puffery, 4 structural tells, 1 style law.`,
     );
 
     if (SHOW_STATS) {

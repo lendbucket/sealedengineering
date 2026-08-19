@@ -66,11 +66,10 @@ purpose: an invented value is invisible in review and ships.
 - [ ] **Admin view for `eng_leads` and `eng_applications`.** Rows are being
       written and there is currently no way to read them except SQL. Not urgent
       in prelaunch, urgent the week ordering opens.
-- [ ] **Tier 2 city pages.** Expand in waves only after Tier 1 indexes and
-      ranks. The rule from the master prompt stands: a page that cannot say
-      something true and specific about its market does not ship. Candidate
-      next wave: Denton, Sugar Land, Conroe, New Braunfels, Temple, Longview,
-      Texarkana, Del Rio, Eagle Pass, Big Spring.
+- [x] **Tier 2 city pages: CANCELLED PERMANENTLY 2026-08-18** on measured zero
+      demand. The candidate wave list is withdrawn. The existing 25 stay as
+      built; no new city page ships on this brand without new demand evidence.
+      Full ruling below.
 - [ ] **Per-service intake forms.** The waitlist collects a service slug today.
       In live mode each deliverable should ask for the evidence its own service
       page lists, rather than sharing one generic intake.
@@ -314,3 +313,57 @@ Recorded so a future session does not re-litigate it:
       the header in every copy, and copy this repo's resolved careers note into
       it. Until then the divergence declared in the previous session is still
       open and pointing at a repo that does not have the file.
+
+## Rulings executed, 2026-08-18
+
+- [x] **Registry: unqualified national forms are now the primary targets.**
+      `manufactured home foundation certification` (50/mo, KD 8) and
+      `wpi-8 windstorm certification` are registered to this brand as primary,
+      with the Texas-qualified forms retained as secondary variants on the same
+      URLs rather than deleted, because deleting them would erase the record of
+      the concession from 254. Edited in the 254 repo as the source of truth and
+      synced here. The pages remain Texas-specific throughout.
+- [x] **Lookup-intent page built.** `/insights/how-to-look-up-a-texas-windstorm-certificate`,
+      1,616 words, verified against TDI's own pages. Terms registered before
+      writing, per registry law.
+- [x] **TIER 2 CITY EXPANSION IS CANCELLED PERMANENTLY.** Ruled 2026-08-18 on the
+      measured zero from the authorised keyword batch: no Texas city-crossed
+      engineering term returned any volume, and the Texas qualifier measured
+      lower than the unqualified form on both money terms. The existing 25 city
+      pages **stay as built**: they carry verified primary-source substance,
+      they cost nothing to keep, and the registry forbids 254 from building city
+      pages so deindexing them would vacate the territory. **No new city page
+      ships on this brand without new demand evidence.** The candidate Tier 2
+      list previously in this file is withdrawn.
+- [x] **Phase 2 content proposal written** and awaiting approval:
+      `docs/content-proposal-phase-2.md`. Eight pieces, both measured clusters,
+      two of them depth on existing pages rather than new URLs.
+
+## Regulatory library, adopted 2026-08-18
+
+`scripts/lib/regulatory.mjs` is copied verbatim from the 254 repo and is a
+SYNCHRONIZED file. The local `REGULATORY_RULES` and `CLAIM_RULES` in
+`voice-blocklist.mjs` are deleted; `voice-audit` and `email-audit` both import
+from the shared module now.
+
+**It found a real compliance failure on this site immediately.** The chrome said,
+on every page, that documents are "reviewed and sealed by a licensed Texas
+Professional Engineer". Present tense, passive voice, and no PE is hired. It
+survived months of an active-voice-only check because it contains none of the
+words that check looks for, which is exactly the lesson the shared module was
+written to encode.
+
+Fixed by making the phrasing a gate-aware constant, `SEALING_PHRASE` in
+`src/config/launch.ts`, used by the layout metadata, Organization schema,
+footer, og image, and both llms files. The day the PE is hired is now a one line
+change rather than a sweep. Four city descriptions, the lenders description, and
+one service lede were reworded gate-neutral instead, since they are static
+strings in data files.
+
+- [ ] **Two divergences to copy back to 254.** The registry entries for the two
+      lookup-intent terms were added to 254's working tree and are not yet on its
+      main. If `regulatory.mjs` gains patterns here, it must be copied back too.
+- [ ] **Correction to an earlier entry in this file:** a previous session recorded
+      that the 254 repo had no registry file. That was wrong. It is at
+      `254engineering/data/keyword-registry.ts`, on main, and is the source of
+      truth. The earlier "source of truth is mislabelled" item is withdrawn.

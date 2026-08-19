@@ -1,10 +1,10 @@
 {
   "base": "http://localhost:3125",
-  "routes": 54,
-  "totalEditorialLinks": 628,
+  "routes": 55,
+  "totalEditorialLinks": 638,
   "byRoute": {
     "/": {
-      "inbound": 53,
+      "inbound": 54,
       "outbound": 26,
       "inboundFrom": [
         "/careers",
@@ -15,6 +15,7 @@
         "/industries/solar-installers",
         "/insights",
         "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/solar-structural-letter-requirements-texas",
         "/insights/what-a-roof-certification-letter-covers",
         "/insights/what-is-a-sealed-engineering-letter",
@@ -156,10 +157,11 @@
       ]
     },
     "/insights": {
-      "inbound": 6,
-      "outbound": 8,
+      "inbound": 7,
+      "outbound": 9,
       "inboundFrom": [
         "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/solar-structural-letter-requirements-texas",
         "/insights/what-a-roof-certification-letter-covers",
         "/insights/what-is-a-sealed-engineering-letter",
@@ -168,7 +170,7 @@
       ]
     },
     "/waitlist": {
-      "inbound": 49,
+      "inbound": 50,
       "outbound": 1,
       "inboundFrom": [
         "/",
@@ -178,6 +180,7 @@
         "/industries/solar-installers",
         "/insights",
         "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/solar-structural-letter-requirements-texas",
         "/insights/what-a-roof-certification-letter-covers",
         "/insights/what-is-a-sealed-engineering-letter",
@@ -298,13 +301,14 @@
       ]
     },
     "/services/roof-certification-letters": {
-      "inbound": 22,
+      "inbound": 23,
       "outbound": 13,
       "inboundFrom": [
         "/",
         "/industries/lenders-and-loan-officers",
         "/industries/realtors-and-title-companies",
         "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/what-a-roof-certification-letter-covers",
         "/insights/wpi-8-windstorm-certificates-explained",
         "/services",
@@ -364,11 +368,12 @@
       ]
     },
     "/services/wpi-8-windstorm-certification": {
-      "inbound": 11,
+      "inbound": 12,
       "outbound": 13,
       "inboundFrom": [
         "/",
         "/industries/solar-installers",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/solar-structural-letter-requirements-texas",
         "/insights/wpi-8-windstorm-certificates-explained",
         "/services",
@@ -381,11 +386,12 @@
       ]
     },
     "/services/structural-letters-for-permits": {
-      "inbound": 32,
+      "inbound": 33,
       "outbound": 14,
       "inboundFrom": [
         "/",
         "/industries/solar-installers",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/solar-structural-letter-requirements-texas",
         "/insights/what-is-a-sealed-engineering-letter",
         "/insights/when-a-permit-office-requires-an-engineer-letter",
@@ -892,11 +898,12 @@
       ]
     },
     "/insights/what-is-a-sealed-engineering-letter": {
-      "inbound": 6,
+      "inbound": 7,
       "outbound": 9,
       "inboundFrom": [
         "/insights",
         "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/solar-structural-letter-requirements-texas",
         "/insights/what-a-roof-certification-letter-covers",
         "/insights/when-a-permit-office-requires-an-engineer-letter",
@@ -904,11 +911,12 @@
       ]
     },
     "/insights/solar-structural-letter-requirements-texas": {
-      "inbound": 6,
+      "inbound": 7,
       "outbound": 9,
       "inboundFrom": [
         "/insights",
         "/insights/fha-va-manufactured-home-foundation-certifications",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/what-a-roof-certification-letter-covers",
         "/insights/what-is-a-sealed-engineering-letter",
         "/insights/when-a-permit-office-requires-an-engineer-letter",
@@ -916,10 +924,11 @@
       ]
     },
     "/insights/fha-va-manufactured-home-foundation-certifications": {
-      "inbound": 6,
+      "inbound": 7,
       "outbound": 9,
       "inboundFrom": [
         "/insights",
+        "/insights/how-to-look-up-a-texas-windstorm-certificate",
         "/insights/solar-structural-letter-requirements-texas",
         "/insights/what-a-roof-certification-letter-covers",
         "/insights/what-is-a-sealed-engineering-letter",
@@ -938,6 +947,13 @@
       ]
     },
     "/insights/wpi-8-windstorm-certificates-explained": {
+      "inbound": 1,
+      "outbound": 9,
+      "inboundFrom": [
+        "/insights"
+      ]
+    },
+    "/insights/how-to-look-up-a-texas-windstorm-certificate": {
       "inbound": 1,
       "outbound": 9,
       "inboundFrom": [

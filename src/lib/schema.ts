@@ -1,5 +1,5 @@
 import { SITE, SITE_NAME } from "@/config/site";
-import { IS_LIVE, TBPELS_FIRM_NUMBER } from "@/config/launch";
+import { IS_LIVE, SEALING_PHRASE, TBPELS_FIRM_NUMBER } from "@/config/launch";
 import { canonical } from "@/lib/seo";
 
 /**
@@ -31,7 +31,7 @@ export function organizationSchema(): Json {
     url: SITE.url,
     description:
       "Sealed engineering letters, certifications, and small plan sets for Texas property, " +
-      "reviewed and sealed by a licensed Texas Professional Engineer.",
+      `${SEALING_PHRASE}.`,
     parentOrganization: {
       "@type": "Organization",
       "@id": PARENT_ID,

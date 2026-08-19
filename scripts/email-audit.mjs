@@ -19,7 +19,8 @@
 //
 //   npm run email-audit
 import { buildNotification, notify } from "../src/lib/email.ts";
-import { BANNED_PATTERN, CLAIM_RULES, voiceAllowed } from "./lib/voice-blocklist.mjs";
+import { BANNED_PATTERN, voiceAllowed } from "./lib/voice-blocklist.mjs";
+import { NEVER_CLAIMS, findClaims } from "./lib/regulatory.mjs";
 
 /**
  * Payloads shaped like the real ones in src/app/actions.ts, including the
@@ -144,9 +145,9 @@ console.log(`${CASES.length} templates rendered offline. No mail is sent by this
 
 for (const c of captured) {
   record(
-    `${c.name}: skips send when unconfigured`,
-    c.result.sent === false && c.result.reason === "not configured",
-    `sent=${c.result.sent} reason=${c.result.reason}`,
+    `${c.name}: skips send when unconfigured, with the right outcome`,
+    c.result.sent === false && c.result.outcome === "skipped" && c.result.reason === "not configured",
+    `sent=${c.result.sent} outcome=${c.result.outcome} reason=${c.result.reason}`,
   );
 }
 
@@ -191,10 +192,10 @@ for (const c of captured) {
   const banned = [...body.matchAll(BANNED_PATTERN)].map((m) => m[0]).filter((m) => !voiceAllowed(m));
   record(`${c.name}: no banned phrases`, banned.length === 0, banned.join(", "));
 
-  const claims = [];
-  for (const rule of CLAIM_RULES) {
-    for (const m of body.matchAll(rule.pattern)) claims.push(`${rule.id}: ${m[0]}`);
-  }
+  // NEVER_CLAIMS from the shared regulatory library: claims no engineering firm
+  // may make in any gate state. An operator-facing email is still this brand
+  // writing, and a guarantee is exactly as wrong in an inbox as on a page.
+  const claims = findClaims(body, NEVER_CLAIMS).map((h) => `${h.why}: ${h.match}`);
   record(`${c.name}: no guarantee or claim language`, claims.length === 0, claims.join("; "));
 
   if (c.name === "every-field-empty") {

@@ -141,7 +141,7 @@ export const SERVICES: Service[] = [
     description:
       "Sealed FHA and VA manufactured home foundation certifications in Texas, written to the HUD Permanent Foundations Guide and addressed to your lender.",
     h1: "Manufactured Home Foundation Certifications in Texas, FHA and VA",
-    lede: "The engineer's certification an FHA, VA, or USDA file needs before a manufactured home closes: the foundation observed against the HUD Permanent Foundations Guide and sealed by a licensed Texas PE.",
+    lede: "The engineer's certification an FHA, VA, or USDA file needs before a manufactured home closes: the foundation observed against the HUD Permanent Foundations Guide, requiring a licensed Texas PE seal.",
     evidenceMode: "site-visit",
     whoNeedsIt: [
       {

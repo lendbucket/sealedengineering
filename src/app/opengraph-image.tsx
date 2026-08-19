@@ -1,6 +1,9 @@
 import { ImageResponse } from "next/og";
 import { SITE } from "@/config/site";
-import { IS_PRELAUNCH } from "@/config/launch";
+import { IS_PRELAUNCH, SEALING_PHRASE } from "@/config/launch";
+
+// Sentence case for the card, which reads as a line rather than a clause.
+const SEALING_PHRASE_CARD = SEALING_PHRASE.charAt(0).toUpperCase() + SEALING_PHRASE.slice(1);
 
 /**
  * The default social card.
@@ -72,7 +75,7 @@ export default function Image() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           <div style={{ color: "#c6d5cd", fontSize: 24 }}>
-            Reviewed and sealed by a licensed Texas Professional Engineer
+            {SEALING_PHRASE_CARD}
           </div>
           {/* One string, not two expressions. Satisfy's layout engine requires an
               explicit display on any element with more than one child, and two

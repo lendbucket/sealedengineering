@@ -5,7 +5,7 @@ import { Header, type NavLink } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { SITE, SITE_NAME } from "@/config/site";
-import { PRIMARY_CTA_HREF, PRIMARY_CTA_LABEL } from "@/config/launch";
+import { PRIMARY_CTA_HREF, PRIMARY_CTA_LABEL, SEALING_PHRASE } from "@/config/launch";
 import { graph, organizationSchema, websiteSchema } from "@/lib/schema";
 
 /**
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Sealed engineering letters, certifications, and small plan sets for Texas property, reviewed and sealed by a licensed Texas Professional Engineer.",
+    `Sealed engineering letters, certifications, and small plan sets for Texas property, ${SEALING_PHRASE}.`,
   applicationName: SITE_NAME,
   authors: [{ name: SITE.legalEntity, url: SITE.parentUrl }],
   creator: SITE.legalEntity,

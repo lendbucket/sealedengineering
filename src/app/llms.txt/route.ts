@@ -1,5 +1,5 @@
 import { SITE } from "@/config/site";
-import { IS_LIVE, TBPELS_FIRM_NUMBER, licensureLines } from "@/config/launch";
+import { IS_LIVE, SEALING_PHRASE, TBPELS_FIRM_NUMBER, licensureLines } from "@/config/launch";
 import { SERVICES } from "@/data/services";
 import { CITIES } from "@/data/cities";
 import { INDUSTRIES } from "@/data/industries";
@@ -26,7 +26,7 @@ export function GET() {
   lines.push("");
   lines.push(
     `> Productized, flat rate sealed engineering deliverables for property anywhere in Texas, ` +
-      `reviewed and sealed by a licensed Texas Professional Engineer.`,
+      `${SEALING_PHRASE}.`,
   );
   lines.push("");
 

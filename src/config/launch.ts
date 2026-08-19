@@ -60,6 +60,34 @@ export function licensureLines(): string[] {
   ];
 }
 
+/**
+ * How the site describes the seal, gate aware.
+ *
+ * WHY THIS IS A CONSTANT AND NOT A SENTENCE
+ * -----------------------------------------
+ * Until 2026-08-18 the chrome of this site said, on every page, that documents
+ * are "reviewed and sealed by a licensed Texas Professional Engineer". Present
+ * tense, passive voice, and no PE is hired. That is a claim the engineer of
+ * record gate does not permit, and it survived an active voice regulatory check
+ * for months because it contains none of the words that check looks for. The
+ * shared library at scripts/lib/regulatory.mjs exists because a sibling site
+ * made the identical mistake.
+ *
+ * Passive voice is how this claim gets made without anybody noticing they made
+ * it. Removing the agent does not remove the assertion.
+ *
+ * So the phrasing lives here, switched by the gate, which also means the day the
+ * PE is hired is a one line change rather than a sweep across fifty four pages.
+ */
+export const SEALING_PHRASE = IS_LIVE
+  ? "reviewed and sealed by a licensed Texas Professional Engineer"
+  : "each requiring the seal of a licensed Texas Professional Engineer";
+
+/** Short form, for descriptions and cards where the long one does not fit. */
+export const SEALING_PHRASE_SHORT = IS_LIVE
+  ? "sealed by a licensed Texas PE"
+  : "requiring a licensed Texas PE seal";
+
 /** The label every primary CTA carries, so one word change moves the whole site. */
 export const PRIMARY_CTA_LABEL = IS_LIVE ? "Order now" : "Join the waitlist";
 export const PRIMARY_CTA_HREF = IS_LIVE ? "/order" : "/waitlist";

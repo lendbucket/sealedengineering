@@ -6,20 +6,26 @@
  * and scripts/email-audit.mjs import from here, and neither keeps a private
  * copy. A rule that exists twice is a rule that will exist in two versions.
  *
- * THREE GROUPS, AND WHY THEY ARE SEPARATE
- * ---------------------------------------
- *   BANNED_PHRASES   The playbook's literal list, verbatim.
- *   REGULATORY       Part 1: the licensure claims that are a legal problem
- *                    rather than a style one. These carry the heaviest weight.
- *   CLAIMS           Rules derived from this brand's own compliance section in
- *                    WEBSITE_MASTER_PROMPT.md that the playbook does not name
- *                    explicitly: outcome guarantees and insurance claim
- *                    language. Kept because they are stricter, not looser, and
- *                    marked as an extension so the next reconciliation can see
- *                    what came from where.
+ * WHAT MOVED OUT, 2026-08-18
+ * --------------------------
+ * This file used to carry its own REGULATORY_RULES and CLAIM_RULES. Both are
+ * deleted. They now live in scripts/lib/regulatory.mjs, which is a SYNCHRONIZED
+ * file copied verbatim from the 254 repo and shared across all three brands.
  *
- * Every rule carries the reason it exists. "voice-audit failed" without a
- * reason sends somebody hunting through a style guide.
+ * That was the right call and it was not merely tidier. The local rules were
+ * written in the active voice, hunting for "we seal" and "we provide
+ * engineering". The shared module was built after a sibling site passed exactly
+ * those rules while claiming in twenty places that a licensed engineer was
+ * already reviewing and sealing work, because every one of those claims was
+ * written in the PASSIVE voice. "Work is reviewed and sealed by a licensed
+ * Professional Engineer" makes the same claim as "we seal" and shares none of
+ * its words.
+ *
+ * Do not re-add regulatory patterns here. Add them to regulatory.mjs, in both
+ * voices, and copy that file back to 254.
+ *
+ * What remains in this file is the playbook's style list and the structural
+ * exemptions, which are voice concerns rather than licensure ones.
  */
 
 /** Playbook Part 4 item 3, verbatim. */
@@ -63,103 +69,24 @@ const lit = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
  * Word boundaries on both ends so "unlock" does not fire inside "unlocked" in a
  * technical sentence, and so "journey" does not fire inside a street name.
  */
-export const BANNED_PATTERN = new RegExp(
-  `\\b(?:${BANNED_PHRASES.map(lit).join("|")})\\b`,
-  "gi",
-);
+export const BANNED_PATTERN = new RegExp(`\\b(?:${BANNED_PHRASES.map(lit).join("|")})\\b`, "gi");
 
 /**
- * Regulatory phrase checks, Part 1 item 3.
+ * Puffery and superlative claims about this business.
  *
- * "Engineer", "engineering", and "sealed" are regulated terms in Texas. While
- * the firm registration is pending, a present-tense claim that this brand
- * performs engineering is the specific thing the gate exists to prevent.
- */
-export const REGULATORY_RULES = [
-  {
-    id: "present-tense-engineering",
-    why: "Part 1 item 3. Firm registration is pending, so no present-tense claim that this brand performs or offers engineering services may ship.",
-    prelaunchOnly: true,
-    pattern:
-      /\bwe\s+(?:currently\s+)?(?:seal|stamp|perform|provide|offer|deliver|are\s+(?:sealing|stamping|performing|providing|offering))\b(?:[^.?!]{0,40}\bengineering\b)?/gi,
-  },
-  {
-    id: "our-engineers-plural",
-    why: "Part 1 item 2. No 'our engineers' plural fiction before the PE hire is real.",
-    prelaunchOnly: true,
-    pattern: /\bour\s+(?:team\s+of\s+)?engineers\b/gi,
-  },
-  {
-    id: "sealed-deliverables-available",
-    why: "Part 1 item 2. No claim that stamped or sealed deliverables are currently available, and no turnaround promise for sealed work, before the gate opens.",
-    prelaunchOnly: true,
-    pattern:
-      /\b(?:sealed|stamped)\s+(?:documents?|letters?|plans?|deliverables?)\s+(?:are|is)\s+(?:available|delivered|provided)\b/gi,
-  },
-  {
-    id: "order-today",
-    why: "Part 1. An invitation to transact while ordering is not open.",
-    prelaunchOnly: true,
-    pattern: /\b(?:order|buy|purchase|book)\s+(?:yours?\s+)?(?:today|now)\b/gi,
-  },
-  {
-    id: "turnaround-promise",
-    why: "Part 1 item 2. A turnaround commitment made before the business can take work.",
-    prelaunchOnly: true,
-    pattern: /\b(?:same[- ]day|24[- ]hour|next[- ]day|48[- ]hour)\s+(?:turnaround|delivery|service|seal)\b/gi,
-  },
-];
-
-/**
- * Claim and guarantee rules.
+ * Kept here rather than moved to regulatory.mjs because these are marketing
+ * excess rather than licensure exposure, and the shared module is deliberately
+ * scoped to claims a Texas engineering board would care about.
  *
- * EXTENSION beyond the playbook's named list, derived from the compliance
- * section of WEBSITE_MASTER_PROMPT.md: never guarantee approvals, never promise
- * conclusions in advance, never solicit insurance claims or use claim
- * maximization language. Retained through the playbook reconciliation because
- * they are stricter than anything it removes.
+ * Both patterns require the superlative to attach to a business noun. Bare
+ * "leading" and "best" match ordinary English that is not a claim: "a leading
+ * cause of a document being sent back", "best practice". Both were flagged by
+ * an earlier version of these rules and both were correct writing.
  */
-export const CLAIM_RULES = [
-  {
-    id: "outcome-guarantee",
-    why: "An engineer seals what the evidence supports. Promising the conclusion in advance is a licensure problem and a claim the business cannot honour.",
-    // Requires US as the subject: an earlier version matched any sentence
-    // containing "guarantee" and every hit was the site correctly disclaiming.
-    pattern:
-      /\b(?:we|our\s+(?:team|engineers?|firm)|sealed\s+engineering)\s+(?:\w+\s+){0,2}(?:guarantee|promise|assure|warrant)s?\b/gi,
-  },
-  {
-    id: "guaranteed-approval-phrase",
-    why: "The same rule as an adjective, which is how it usually reaches a landing page.",
-    pattern:
-      /\bguaranteed\s+(?:\w+\s+){0,2}(?:approval|approved|pass(?:ing)?|acceptance|permit|certification|results?|outcome)\b|\b(?:approval|permit|certification)\s+(?:is\s+)?guaranteed\b/gi,
-  },
-  {
-    id: "we-will-certify",
-    why: "Committing to certify before observing is committing to a conclusion.",
-    pattern: /\bwe\s+(?:will|can)\s+(?:certify|approve|pass)\s+(?:your|the)\b/gi,
-  },
-  {
-    id: "claim-solicitation",
-    why: "This brand does not prepare, solicit, or support insurance claim work, and must not appear to.",
-    pattern:
-      /\b(?:maximi[sz]e|maximi[sz]ing|increase|boost|fight|win)\s+(?:your\s+)?(?:insurance\s+)?(?:claim|settlement|payout)\b/gi,
-  },
-  {
-    id: "claim-help",
-    why: "Offering to help with a claim is claim work regardless of the wording.",
-    pattern: /\b(?:help|assist)\s+(?:you\s+)?(?:with\s+)?(?:your\s+)?insurance\s+claim\b/gi,
-  },
-  {
-    id: "denied-claim",
-    why: "Claim denial language is claim adjusting territory and outside this brand's scope.",
-    pattern: /\bdenied\s+(?:insurance\s+)?claim\b/gi,
-  },
+export const PUFFERY_RULES = [
   {
     id: "puffery",
     why: "Unsupportable superlative about this business.",
-    // Must attach to a business noun: bare "leading" and "best" match ordinary
-    // English ("a leading cause", "best practice") that is not a claim.
     pattern:
       /\b(?:#\s?1|number one|best|leading|premier|top[- ]rated|world[- ]class|unmatched|unrivall?ed|foremost)\s+(?:\w+\s+){0,2}(?:engineer|engineers|engineering|firm|company|provider|service|choice|source|team)\b/gi,
   },
@@ -183,8 +110,7 @@ export const CLAIM_RULES = [
  * scripts/placeholder-audit.mjs and are deliberately NOT repeated here. The one
  * Part 6 law that had no home until the playbook arrived is the hyphen used as
  * a sentence connector, which is a different thing from a hyphen inside a
- * compound modifier and is what this pattern isolates: a hyphen with a space on
- * at least one side, joining clauses the way an em dash would.
+ * compound modifier and is what this pattern isolates.
  */
 export const HYPHEN_AS_CONNECTOR = /\s-\s|\s-[a-z]|[a-z]-\s/g;
 

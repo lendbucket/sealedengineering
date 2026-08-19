@@ -1,5 +1,5 @@
 import { SITE } from "@/config/site";
-import { IS_LIVE, TBPELS_FIRM_NUMBER, licensureLines } from "@/config/launch";
+import { IS_LIVE, SEALING_PHRASE, TBPELS_FIRM_NUMBER, licensureLines } from "@/config/launch";
 import { SERVICES } from "@/data/services";
 import { CITIES } from "@/data/cities";
 import { INDUSTRIES } from "@/data/industries";
@@ -45,7 +45,7 @@ export function GET() {
   push("");
   push(
     `${SITE.brand} sells a fixed catalog of sealed engineering deliverables for property in ` +
-      `Texas. Every document is reviewed and sealed by a professional engineer licensed in Texas.`,
+      `Texas. Every document is ${SEALING_PHRASE}.`,
   );
   push("");
 

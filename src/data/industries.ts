@@ -104,7 +104,7 @@ export const INDUSTRIES: Industry[] = [
     name: "For Lenders and Loan Officers",
     title: "Foundation Certifications for Lenders | Texas PE",
     description:
-      "Manufactured home foundation certifications built around closing timelines. FHA, VA, and USDA, sealed by a licensed Texas PE.",
+      "Manufactured home foundation certifications built around closing timelines. FHA, VA, and USDA, requiring a licensed Texas PE seal.",
     h1: "Foundation Certifications Built Around Your Closing Date",
     lede: "The condition shows up late, the borrower has movers booked, and the certification is now the only thing between the file and the table. That is the problem this is designed around.",
     pains: [

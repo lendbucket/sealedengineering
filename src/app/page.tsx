@@ -87,8 +87,8 @@ export default function HomePage() {
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-on-seal-soft">
               The exact document your permit office, your underwriter, or your insurer is asking
-              for. Flat rate, defined scope, and reviewed and sealed by a licensed Texas
-              Professional Engineer who seals only what the evidence supports.
+              for. Flat rate, defined scope, and built for the seal of a licensed Texas
+              Professional Engineer, who will seal only what the evidence supports.
             </p>
 
             <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">

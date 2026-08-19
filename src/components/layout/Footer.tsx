@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { Container } from "@/components/ui/Container";
 import { SITE } from "@/config/site";
-import { licensureLines } from "@/config/launch";
+import { SEALING_PHRASE, licensureLines } from "@/config/launch";
 import { SERVICES } from "@/data/services";
 import { CITIES } from "@/data/cities";
 import { INDUSTRIES } from "@/data/industries";
@@ -27,7 +27,7 @@ export function Footer() {
             <Wordmark tone="paper" />
             <p className="mt-4 max-w-xs text-sm leading-relaxed">
               Sealed engineering letters, certifications, and small plan sets for property anywhere
-              in Texas, reviewed and sealed by a licensed Texas Professional Engineer.
+              in Texas, {SEALING_PHRASE}.
             </p>
           </div>
 
