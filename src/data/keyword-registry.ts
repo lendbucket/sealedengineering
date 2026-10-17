@@ -1,442 +1,482 @@
 /**
- * THE CROSS BRAND KEYWORD REGISTRY
+ * THE CROSS BRAND DIFFERENTIATION RECORD
  *
- * SYNCHRONIZED FILE. This is the single source of truth for which of the three
- * brands owns which search term, and it is copied verbatim into
+ * SYNCHRONIZED FILE. This is the single source of truth for how the three
+ * brands treat a shared subject, and it is copied verbatim into
  * sealedengineering and stampmyplans. If you edit it here, you have created a
  * divergence until it is copied. See BACKLOG.md in every repo.
  *
- * WHY THIS FILE EXISTS
- * --------------------
- * Three sites, one operator, one keyword space. To a search engine that is
- * indistinguishable from a doorway network unless each brand has a genuinely
- * distinct identity and corpus. Where two of them target the same primary term,
- * Google picks one canonical winner and suppresses the other, so the second
- * page is not merely wasted, it is a drag on the first.
+ * THIS WAS AN OWNERSHIP MAP UNTIL 2026-08-30. IT IS NOT ONE NOW.
+ * ==============================================================
+ * The superseded model assigned each keyword to exactly one brand and forbade
+ * the other two from touching it. The fear behind it was correct: three sites
+ * owned by one operator, covering the same terms in the same words, is a doorway
+ * network, and Google resolves a doorway network by picking one page and
+ * suppressing the rest.
  *
- * The rule is absolute and has no exceptions: two brands never target the same
- * primary keyword. Before writing any page or post on any brand, look the term
- * up here. If it is absent, add it here first with an owner. If it belongs to
- * another brand, this brand does not target it.
+ * The operator ruled on 2026-08-30 that the model solved the wrong problem.
+ * All three businesses offer the same full service menu, and each earns
+ * in-depth content on every service. A procurement officer evaluating a firm,
+ * a homeowner ordering a document, and a contractor submitting a plan set are
+ * three different people who are not competing for one result. Dividing the
+ * keywords cost the flagship its most defensible territory and bought nothing.
  *
- * THE TERRITORY RULING. FINAL. DO NOT REOPEN.
- * -------------------------------------------
- * The assignment below was contested three times during the session that built
- * this file, each time proposing that StampMyPlans take the homeowner and
- * consumer territory and Sealed Engineering take contractor plan review. The
- * operator ruled, and the ruling is:
+ * WHAT CREATES THE DOORWAY RISK IS DUPLICATION, NOT OVERLAP
+ * ---------------------------------------------------------
+ * Two pages on one subject, written independently for different readers, with
+ * different structure and different intent, are two legitimate pages. Two pages
+ * sharing copy, structure, or intent are a doorway however carefully the
+ * keywords were divided. So one prohibition survives, and it is the one that was
+ * always doing the work:
  *
- *   Sealed Engineering owns homeowner education AND all transactional
- *   commercial service terms.
+ *   NO PAGE MAY SHARE SUBSTANTIAL COPY, STRUCTURE, HEADINGS, OR PARAPHRASE WITH
+ *   A SIBLING PAGE ON THE SAME SUBJECT. EACH IS WRITTEN INDEPENDENTLY FROM
+ *   PRIMARY SOURCES FOR ITS OWN BUYER.
  *
- *   StampMyPlans owns contractor direct response and contractor process content
- *   ONLY.
+ *   THE TEST: any page that could be find-and-replaced into a sibling page
+ *   FAILS and is rewritten. Not edited. Rewritten, from the sources, for the
+ *   other reader.
  *
- *   254 Engineering Services owns the institutional flag: firm level terms,
- *   county geo, government and municipal content, and careers.
+ * scripts/registry-audit.mjs enforces exactly that now. It no longer flags topic
+ * overlap, because topic overlap is the point. It fetches all three sitemaps and
+ * reports similarity scores across titles, H1s, descriptions, and heading
+ * structures, and fails on near-duplicates.
  *
- * Any earlier or later message implying the reverse is superseded by this
- * ruling. It is recorded here rather than in a chat log because the live sites
- * already match it and re-deciding it would mean telling two shipped brands to
- * trade their entire corpora: sealedengineering.com runs the homeowner explainer
- * corpus, 25 city pages, and the lender, realtor, and solar installer pages,
- * while stampmyplans.com runs upload, pricing, volume, and the plan stamping FAQ.
- *
- * If you are reading this because you were about to swap them, the answer is no.
- * Take it to the operator with this paragraph quoted.
- *
- * HOW TO READ AN ENTRY
- * --------------------
- * `owner` is the brand entitled to rank for the term. `status` says what exists
- * today, which is a different question from ownership: a term can be owned and
- * unbuilt (`planned`), owned and live (`live`), or deliberately handed to
- * another brand after having been targeted here (`conceded`).
- *
- * `conceded` entries are the valuable ones. They record a decision and its
- * reason, so that a future session cannot re-target the term by accident and
- * call it an improvement.
+ * The previous model is recorded rather than deleted, because a rule that has
+ * been reversed once gets re-proposed by somebody who reads only the current
+ * state and assumes the loosening was an oversight. It was a decision.
  */
 
 export type Brand = "254" | "sealed" | "stamp";
 
-export type KeywordStatus =
-  | "live" // A page exists on the owning brand and targets this term.
-  | "planned" // Owned, not yet built.
-  | "conceded"; // Owned by another brand; this note records why it moved.
-
-export type KeywordKind =
-  | "branded"
-  | "institutional" // Firm level: who the firm is, how it contracts.
-  | "capability" // What the firm can do, framed for evaluation not ordering.
-  | "transactional" // Somebody ready to order a specific document.
-  | "geo-county"
-  | "geo-city"
-  | "education"
-  | "careers";
-
-export type RegistryEntry = {
-  /** The primary term, lowercased, as a searcher would type it. */
-  keyword: string;
-  owner: Brand;
-  kind: KeywordKind;
-  /** Grouping for content planning. */
-  cluster: string;
-  status: KeywordStatus;
-  /** Path on the owning brand, where one exists. */
-  path?: string;
-  /** Required on `conceded`, and on any entry whose ownership is not obvious. */
-  note?: string;
-};
-
+/**
+ * The three stances.
+ *
+ * Every per service angle below is an application of one of these. If a proposed
+ * page cannot be written from its brand's stance, it is the wrong brand's page.
+ */
 export const BRANDS: Record<
   Brand,
-  { name: string; domain: string; audience: string; owns: string; doesNotOwn: string }
+  { name: string; domain: string; audience: string; stance: string }
 > = {
   "254": {
     name: "254 Engineering Services",
     domain: "254engineering.com",
     audience:
-      "Municipal and government procurement officers, commercial clients, lenders, insurers, B2B partners, and engineering and field technician recruits.",
-    owns: "Institutional and firm level terms, all county level geo, government and municipal content, and careers.",
-    doesNotOwn:
-      "Transactional commercial service terms, city geo, homeowner education, and contractor direct response.",
+      "Municipal, county, state, and federal procurement officers; commercial clients; lenders and carriers evaluating a provider; and engineering and field technician recruits.",
+    stance:
+      "The flagship, written for a buyer EVALUATING A FIRM. What the requirement is in law or code, what a defensible deliverable rests on, how the work is produced at volume across a state, and what a firm must be able to demonstrate. Cites statute and rule by number. Never writes an ordering page.",
   },
   sealed: {
     name: "Sealed Engineering",
     domain: "sealedengineering.com",
-    audience: "Homeowners, solar installers, lenders, realtors, and title companies ordering a specific document.",
-    owns: "Transactional service terms, city level geo, homeowner and ordering-party education.",
-    doesNotOwn: "Firm level institutional terms, county geo, government procurement content, careers.",
+    audience:
+      "Homeowners, realtors, solar installers, lenders, and title companies who need a specific document.",
+    stance:
+      "Written for a buyer ORDERING A DOCUMENT. Whether you need one, what it will say, what it costs you in time, and how to get it. Plain language, this week's problem.",
   },
   stamp: {
     name: "StampMyPlans",
     domain: "stampmyplans.com",
     audience: "Contractors, builders, installers, and dealers submitting plan sets.",
-    owns: "Plan stamping and plan review process, speed, pricing, and volume terms.",
-    doesNotOwn: "Firm level terms, geo of any kind, homeowner education, careers.",
+    stance:
+      "Written for a buyer SUBMITTING PLANS. What a reviewer checks, what gets rejected and why, turnaround, volume, and how to prepare a set that clears the first time.",
   },
 };
 
-/**
- * The registry.
+/* ------------------------------------------------------------------ records */
+
+export type TopicStatus = "live" | "planned" | "none";
+
+export type BrandAngle = {
+  /** The angle, specific enough that two brands cannot write the same page. */
+  angle: string;
+  path?: string;
+  status: TopicStatus;
+};
+
+export type Topic = {
+  topic: string;
+  cluster: string;
+  /** Every brand that has an angle. A service topic normally has all three. */
+  angles: Partial<Record<Brand, BrandAngle>>;
+  /** Measured demand only. Dated, sourced, never estimated. */
+  evidence?: string;
+  note?: string;
+};
+
+/*
+ * MEASURED EVIDENCE, 2026-08-30, Ahrefs overview, US, 330 units.
  *
- * Seeded from the live sitemaps and rendered titles of all three brands as they
- * stood when this file was created, so the starting state is what is actually
- * indexed rather than what was intended.
+ * 1. Proximity intent dominates. "structural engineer near me" 6,700/mo at KD 0,
+ *    traffic potential 2,100. Proximity is won by local entity signals and
+ *    genuinely local pages, not by national content.
+ *
+ * 2. The Texas qualifier destroys volume, without exception in the terms tested.
+ *    Every "texas" suffixed variant collapsed to 20 or below while its
+ *    unqualified form carried demand. Target unqualified head terms and carry
+ *    geography through entity signals rather than words in a title.
+ *
+ * 3. WPI-8 is the most defensible territory available. 200/mo at KD 4 with 1,200
+ *    traffic potential: the cluster is six times the head term.
+ *
+ * A prior Sealed pull measured ZERO for every Texas city crossed engineering
+ * keyword tested; city expansion was permanently cancelled on that evidence.
+ * That finding stands and is not to be re-proposed without new measurement.
  */
-export const registry: RegistryEntry[] = [
-  // ---------------------------------------------------------------- branded
-  { keyword: "254 engineering", owner: "254", kind: "branded", cluster: "brand", status: "live", path: "/" },
-  { keyword: "254 engineering services", owner: "254", kind: "branded", cluster: "brand", status: "live", path: "/" },
-  { keyword: "sealed engineering", owner: "sealed", kind: "branded", cluster: "brand", status: "live", path: "/" },
-  { keyword: "stampmyplans", owner: "stamp", kind: "branded", cluster: "brand", status: "live", path: "/" },
 
-  // ---------------------------------------------------------- institutional
-  // The head terms this brand exists to own. Nothing else may target them.
-  { keyword: "texas engineering firm", owner: "254", kind: "institutional", cluster: "firm identity", status: "live", path: "/" },
-  { keyword: "texas engineering services", owner: "254", kind: "institutional", cluster: "firm identity", status: "live", path: "/" },
-  { keyword: "statewide engineering services texas", owner: "254", kind: "institutional", cluster: "firm identity", status: "live", path: "/" },
-  { keyword: "veteran owned engineering firm texas", owner: "254", kind: "institutional", cluster: "firm identity", status: "live", path: "/about" },
-  { keyword: "engineering firm serving all texas counties", owner: "254", kind: "institutional", cluster: "firm identity", status: "live", path: "/coverage" },
-  { keyword: "texas engineering firm registration", owner: "254", kind: "institutional", cluster: "licensing", status: "planned", note: "Editorial. What a TBPELS firm registration is and why it matters to a buyer." },
-  { keyword: "engineer in responsible charge texas", owner: "254", kind: "institutional", cluster: "licensing", status: "live", path: "/about" },
-
-  // ------------------------------------------------------- government terms
-  { keyword: "government engineering services texas", owner: "254", kind: "institutional", cluster: "government", status: "live", path: "/government" },
-  { keyword: "municipal engineering services texas", owner: "254", kind: "institutional", cluster: "government", status: "live", path: "/government" },
-  { keyword: "on call engineering services texas", owner: "254", kind: "institutional", cluster: "government", status: "live", path: "/government" },
-  { keyword: "qualifications based selection texas engineering", owner: "254", kind: "institutional", cluster: "government", status: "live", path: "/government" },
-  { keyword: "sdvosb engineering firm texas", owner: "254", kind: "institutional", cluster: "government", status: "planned", note: "Blocked. Certification is pending and the term may not be targeted until it is issued." },
-  { keyword: "how texas cities procure engineering services", owner: "254", kind: "education", cluster: "government", status: "planned" },
-
-  // --------------------------------------------------------------- careers
-  // Careers belongs to 254 for the whole family. See the collision note below.
-  { keyword: "engineering careers texas", owner: "254", kind: "careers", cluster: "careers", status: "live", path: "/careers" },
-  { keyword: "professional engineer jobs texas", owner: "254", kind: "careers", cluster: "careers", status: "live", path: "/careers" },
-  { keyword: "review engineer jobs texas", owner: "254", kind: "careers", cluster: "careers", status: "live", path: "/careers" },
+export const topics: Topic[] = [
   {
-    keyword: "field inspection technician jobs texas",
-    owner: "254",
-    kind: "careers",
+    topic: "windstorm WPI-8 certification",
+    cluster: "service",
+    evidence:
+      "2026-08-30: 'wpi-8 certificate' 200/mo, KD 4, traffic potential 1,200, CPC $1.80. 'windstorm certification texas' 20/mo. 'texas windstorm inspection' 0/mo.",
+    angles: {
+      "254": {
+        angle:
+          "The program and the authority inside it: TWIA designation and what it obliges, the TDI appointed engineer role, what the inspection examines, coastal transaction requirements, and what attaches to a re-roof or window replacement. Written from inside the program by a Coastal Bend firm whose engineer of record will hold the appointment.",
+        path: "/windstorm",
+        status: "planned",
+      },
+      sealed: {
+        angle: "Consumer explainer and order path. What it is, whether this property needs one, how to obtain it. Also the navigational lookup content, because a searcher after the TDI tool wants a tool.",
+        path: "/services/wpi-8-windstorm-certification",
+        status: "live",
+      },
+      stamp: {
+        angle: "What a coastal submittal must carry for windstorm compliance and what gets a set returned.",
+        status: "none",
+      },
+    },
+  },
+  {
+    topic: "roof inspection and certification",
+    cluster: "service",
+    evidence: "2026-08-30: 'roof certification' 500/mo, KD 0, traffic potential 1,400, CPC $7.00, parent topic 'roof inspection near me'. 'roof certification letter' 50/mo, KD 0.",
+    angles: {
+      "254": {
+        angle: "What a sealed opinion on remaining service life actually rests on, what lenders and carriers rely on it for, and how a firm produces it consistently across a state.",
+        path: "/services/roof-inspections",
+        status: "live",
+      },
+      sealed: { angle: "Getting the letter for a file, and reading it.", status: "live" },
+      stamp: { angle: "Roofing scope on a permitted set.", status: "none" },
+    },
+  },
+  {
+    topic: "foundation inspection and certification",
+    cluster: "service",
+    evidence: "2026-08-30: 'engineer foundation inspection' 40/mo, KD 5, traffic potential 150. 'foundation inspection texas' 10/mo.",
+    angles: {
+      "254": {
+        angle: "Floor elevation measurement as evidence, what a foundation opinion can and cannot conclude, and soil behaviour by region.",
+        path: "/services/foundation-inspections",
+        status: "live",
+      },
+      sealed: { angle: "Ordering a report and understanding what it says about the house.", status: "live" },
+      stamp: { angle: "Foundation design on a submitted set.", status: "none" },
+    },
+  },
+  {
+    topic: "manufactured home foundation certification",
+    cluster: "service",
+    evidence: "2026-08-30: 50/mo, KD 3, traffic potential 80, CPC $2.50. Driven by FHA, VA, and USDA lending.",
+    angles: {
+      "254": {
+        angle: "The lending requirement, the HUD permanent foundations guide it is measured against, and certifying at volume for lenders and dealers.",
+        path: "/services/manufactured-home-foundation-certifications",
+        status: "live",
+      },
+      sealed: { angle: "A borrower or dealer who needs it to close.", status: "live" },
+      stamp: { angle: "Dealer set preparation.", status: "none" },
+    },
+  },
+  {
+    topic: "solar structural letters",
+    cluster: "service",
+    angles: {
+      "254": {
+        angle: "Framing capacity, attachment detail, and wind loading as an engineering review, and what a jurisdiction is checking before it issues.",
+        path: "/services/solar-structural-letters",
+        status: "live",
+      },
+      sealed: { angle: "Installers and homeowners ordering the letter.", status: "live" },
+      stamp: { angle: "Solar plan sets and what reviewers reject.", status: "planned" },
+    },
+  },
+  {
+    topic: "structural letters for permits",
+    cluster: "service",
+    evidence: "2026-08-30: 'engineer letter for permit' 0/mo. No measurable head term; the intent arrives through permitting and alteration questions.",
+    angles: {
+      "254": {
+        angle: "What a plans examiner is checking for and what a sealed letter asserts.",
+        path: "/services/structural-letters",
+        status: "live",
+      },
+      sealed: { angle: "A homeowner told to bring an engineer letter.", status: "live" },
+      stamp: { angle: "What reviewers reject and how to fix it.", status: "planned" },
+    },
+  },
+  {
+    topic: "repair specifications",
+    cluster: "service",
+    angles: {
+      "254": {
+        angle: "Why a defined scope makes bids comparable and a permit issuable, written for the party paying for the repair.",
+        path: "/services/repair-specifications",
+        status: "live",
+      },
+      sealed: { angle: "A homeowner with a repair to commission.", status: "live" },
+      stamp: { angle: "Building to a specification without a rejection.", status: "none" },
+    },
+  },
+  {
+    topic: "residential and light commercial design",
+    cluster: "service",
+    angles: {
+      "254": {
+        angle: "Design for expansive soil and framing, and what a permitted drawing set has to carry.",
+        path: "/services/residential-light-commercial-design",
+        status: "live",
+      },
+      sealed: { angle: "An owner commissioning a design.", status: "live" },
+      stamp: { angle: "Getting a design set stamped and submitted.", status: "live" },
+    },
+  },
+  {
+    topic: "forensic and insurance engineering",
+    cluster: "service",
+    angles: {
+      "254": {
+        angle: "Independent investigation documented to one standard whichever party asked, and why the obligation runs to the facts.",
+        path: "/insights/inspection-vs-forensic-report",
+        status: "live",
+      },
+      sealed: { angle: "An owner after a loss who needs an assessment.", status: "live" },
+      stamp: { angle: "None.", status: "none" },
+    },
+  },
+  {
+    topic: "plan stamping and plan review",
+    cluster: "plans",
+    angles: {
+      stamp: {
+        angle: "The whole subject: process, turnaround, pricing, volume, deferred submittals, rejection reasons. StampMyPlans' core.",
+        status: "live",
+      },
+      "254": { angle: "How a firm reviews and seals at volume, for a buyer evaluating capacity.", status: "none" },
+    },
+  },
+  {
+    topic: "structural engineer, proximity intent",
+    cluster: "proximity",
+    evidence: "2026-08-30: 'structural engineer near me' 6,700/mo, KD 0, traffic potential 2,100, CPC $4.00. The highest volume term measured across the three brands.",
+    angles: {
+      "254": {
+        angle: "What a structural engineer does and when you need one, engineer versus inspector, what a report will and will not tell you, how to choose one. Answers the question behind the search. Converted by local entity signals rather than by the word Texas.",
+        status: "planned",
+      },
+      sealed: { angle: "The document pages and the city geo that serve an ordering buyer.", status: "live" },
+    },
+  },
+  {
+    topic: "Texas engineering firm registration",
+    cluster: "institutional",
+    angles: {
+      "254": {
+        angle: "What the Occupations Code and board rules require of a business entity, cited by rule number.",
+        path: "/insights/texas-engineering-firm-registration",
+        status: "live",
+      },
+    },
+  },
+  {
+    topic: "engineer of record and responsible charge",
+    cluster: "institutional",
+    angles: {
+      "254": {
+        angle: "That engineer of record is not a defined term in Texas law, and what the seal and responsible charge actually govern.",
+        path: "/insights/engineer-of-record-texas",
+        status: "live",
+      },
+    },
+  },
+  {
+    topic: "Texas PE licence lookup",
+    cluster: "institutional",
+    evidence: "'tbpe roster' 600/mo at KD 55, traffic potential 1,400. KD 55 against a domain with no authority does not rank yet; the page exists because the question is real.",
+    angles: {
+      "254": {
+        angle: "The roster versus an official verification, and what the roster stopped publishing.",
+        path: "/insights/texas-pe-license-lookup",
+        status: "live",
+      },
+    },
+  },
+  {
+    topic: "public sector procurement of engineering services",
+    cluster: "institutional",
+    angles: {
+      "254": {
+        angle: "Government Code Chapter 2254, qualifications based selection, and what a compliant process looks like.",
+        path: "/insights/texas-professional-services-procurement-act",
+        status: "live",
+      },
+    },
+  },
+  {
+    topic: "county level geography",
+    cluster: "geo",
+    evidence:
+      "UNMEASURED as of 2026-08-30 and must be measured before anything is built. The city pattern measured ZERO on a prior Sealed pull. Counties are a different search behaviour and may or may not carry demand; assumption is not evidence in either direction.",
+    angles: {
+      "254": {
+        angle: "Permitting authority, whether unincorporated areas require permits, TWIA designation, soil belt and its engineering implication, adopted code edition. Region pages exist; county pages do not.",
+        path: "/coverage",
+        status: "live",
+      },
+    },
+    note: "The doorway rule is absolute here whatever the differentiation model permits: a geo page ships only with substantial information true of that place specifically, which could not be produced by find and replacing the place name.",
+  },
+  {
+    topic: "city level geography",
+    cluster: "geo",
+    evidence: "Measured ZERO across every Texas city crossed engineering keyword tested on a prior Sealed pull. City expansion permanently cancelled.",
+    angles: {
+      sealed: { angle: "The 25 city pages that already exist. Not to be extended without new measurement.", status: "live" },
+    },
+  },
+  {
+    topic: "careers and hiring",
     cluster: "careers",
-    status: "live",
-    path: "/careers",
-    note:
-      "COLLISION, RESOLVED 2026-08-17 on the sealed side. sealedengineering.com/careers was titled 'Field Technician Jobs in Texas' and targeted this term. It is now a routing stub titled 'Hiring Runs Through 254 Engineering Services', carrying no application form and no job term in its title, linking to 254engineering.com/careers. stampmyplans.com/careers already routed correctly. 254 owns this term outright.",
+    angles: {
+      "254": {
+        angle: "The firm's seats, engagement models, and standards. The master entity hires; the sibling brands do not.",
+        path: "/careers",
+        status: "live",
+      },
+    },
   },
-
-  // ------------------------------------------------------- county geo (254)
-  // Pattern entry rather than 254 rows. The county tier is generated from
-  // data/counties.ts and a county page ships only when its record has verified
-  // substance. City geo is explicitly NOT owned here.
+  /*
+   * THE WINDSTORM SECTION, POSTS 11 TO 17 ON THIS SITE, 2026-10-16.
+   *
+   * One entry per primary keyword, each recording this brand's angle so that a
+   * Sealed Engineering page on the same subject is written as a different
+   * document for its ordering buyer. Status is "planned" until the branch
+   * content/blog-windstorm merges; whoever merges it sets these to "live".
+   * Post 12 ("wpi8 search") was folded into /insights/texas-windstorm-certificate-lookup
+   * and has no entry of its own. Plan: docs/blog/windstorm-section-plan.md.
+   */
   {
-    keyword: "engineering services {county} county texas",
-    owner: "254",
-    kind: "geo-county",
-    cluster: "county geo",
-    status: "planned",
-    path: "/counties/{slug}",
-    note: "Pattern, not a literal term. One page per county, generated from data/counties.ts, shipped only where the record clears the substance threshold.",
-  },
-  {
-    keyword: "{county} county permit requirements texas",
-    owner: "254",
-    kind: "geo-county",
-    cluster: "county geo",
-    status: "planned",
-    path: "/counties/{slug}",
-    note: "Pattern. The permitting authority question is the single most searched county level engineering query.",
-  },
-  {
-    keyword: "wpi-8 requirements {county} county",
-    owner: "254",
-    kind: "geo-county",
-    cluster: "county geo",
-    status: "planned",
-    path: "/counties/{slug}",
-    note: "Pattern, TWIA designated counties only. Inland county pages must not carry windstorm sections.",
-  },
-
-  // -------------------------------------------------- capability variants (254)
-  // The ruling: the seven colliding service pages are rewritten as firm
-  // capability pages. They keep their depth and lose the transactional framing.
-  // These are the terms they may target. The transactional twins below are
-  // conceded to Sealed.
-  { keyword: "roof certification engineering firm texas", owner: "254", kind: "capability", cluster: "capability", status: "planned", path: "/services/roof-inspections" },
-  { keyword: "windstorm engineering firm texas", owner: "254", kind: "capability", cluster: "capability", status: "planned", path: "/services/windstorm-wpi-8" },
-  { keyword: "foundation engineering firm texas", owner: "254", kind: "capability", cluster: "capability", status: "planned", path: "/services/foundation-inspections" },
-  { keyword: "solar structural engineering firm texas", owner: "254", kind: "capability", cluster: "capability", status: "planned", path: "/services/solar-structural-letters" },
-  { keyword: "manufactured housing engineering firm texas", owner: "254", kind: "capability", cluster: "capability", status: "planned", path: "/services/manufactured-home-foundation-certifications" },
-  { keyword: "structural engineering firm permits texas", owner: "254", kind: "capability", cluster: "capability", status: "planned", path: "/services/structural-letters" },
-  { keyword: "repair specification engineering firm texas", owner: "254", kind: "capability", cluster: "capability", status: "planned", path: "/services/repair-specifications" },
-  // These two never collided. Sealed does not offer them.
-  { keyword: "residential structural design texas", owner: "254", kind: "capability", cluster: "capability", status: "live", path: "/services/residential-light-commercial-design" },
-  { keyword: "light commercial structural design texas", owner: "254", kind: "capability", cluster: "capability", status: "live", path: "/services/residential-light-commercial-design" },
-  { keyword: "forensic engineering texas", owner: "254", kind: "capability", cluster: "capability", status: "live", path: "/services/forensic-engineering" },
-  { keyword: "insurance engineering texas", owner: "254", kind: "capability", cluster: "capability", status: "live", path: "/services/forensic-engineering" },
-
-  // --------------------------------------- transactional service terms (sealed)
-  // The seven conceded terms. 254 targeted every one of these before the split
-  // was enforced; the `conceded` status is what stops a future session putting
-  // them back.
-  {
-    keyword: "roof certification letter texas",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "conceded",
-    path: "/services/roof-certification-letters",
-    note: "254 previously targeted this as 'Roof Inspections and Certifications in Texas'. Rewritten as a capability page.",
-  },
-  // PRIMARY TARGET as of 2026-08-18, by operator ruling on measured data.
-  // The unqualified national form carries the volume; the Texas-qualified form
-  // below measured zero. Texans type the unqualified form and Google localises,
-  // so this is accurate targeting rather than a reach. The page is Texas
-  // specific throughout and does not change.
-  {
-    keyword: "wpi-8 windstorm certification",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "live",
-    path: "/services/wpi-8-windstorm-certification",
-    note: "Primary target. Evidence: sealedengineering/docs/keyword-batch-phase-1.md. Related lookup-intent terms ('wpi-8 windstorm certificate search', 30/mo at KD 2, and 'texas windstorm wpi-8 certificate search', 80/mo at KD 9) are navigational toward the TDI lookup and are served by a dedicated page rather than by this one. County level windstorm geo remains 254's.",
-  },
-  {
-    keyword: "wpi-8 windstorm certification texas",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "conceded",
-    path: "/services/wpi-8-windstorm-certification",
-    note: "SECONDARY variant of the entry above as of 2026-08-18; measured zero volume. Retained rather than deleted because it records the concession: 254 previously targeted this as 'Windstorm WPI-8 Certifications in Texas' and rewrote it as a capability page. County level windstorm geo stays with 254.",
-  },
-  {
-    keyword: "foundation inspection report texas",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "conceded",
-    path: "/services/foundation-inspection-reports",
-    note: "254 previously targeted this as 'Foundation Inspections and Certifications, Texas'.",
-  },
-  {
-    keyword: "solar structural letter texas",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "conceded",
-    path: "/services/solar-structural-letters",
-    note: "Same slug on both brands. 254 previously targeted 'Solar Structural Letters for Texas Installations'.",
-  },
-  // PRIMARY TARGET as of 2026-08-18, by operator ruling on measured data.
-  // Same reasoning as the WPI-8 pair above: 50/mo unqualified against zero for
-  // the Texas-qualified form.
-  {
-    keyword: "manufactured home foundation certification",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "live",
-    path: "/services/manufactured-home-foundation-certification",
-    note: "Primary target. Evidence: sealedengineering/docs/keyword-batch-phase-1.md, 50/mo at KD 8. The 'hud manufactured home foundation certification' variant (20/mo) is served by the same page, which cites HUD-7584 and HUD-4930.3G directly.",
-  },
-  {
-    keyword: "manufactured home foundation certification texas",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "conceded",
-    path: "/services/manufactured-home-foundation-certification",
-    note: "SECONDARY variant of the entry above as of 2026-08-18; measured zero volume. Retained because it records that 254 previously targeted this near-identically.",
-  },
-  {
-    keyword: "engineer letter for permit texas",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "conceded",
-    path: "/services/structural-letters-for-permits",
-    note: "254 previously targeted 'Structural Letters for Permits in Texas'.",
-  },
-  {
-    keyword: "repair specification letter texas",
-    owner: "sealed",
-    kind: "transactional",
-    cluster: "service",
-    status: "conceded",
-    path: "/services/repair-specification-letters",
-    note: "254 previously targeted 'Engineered Repair Specifications in Texas'.",
-  },
-  // Sealed-only services, never contested.
-  { keyword: "sealed engineering letters texas", owner: "sealed", kind: "transactional", cluster: "service", status: "live", path: "/" },
-  { keyword: "beam and header sizing letter texas", owner: "sealed", kind: "transactional", cluster: "service", status: "live", path: "/services/beam-and-header-sizing-letters" },
-  { keyword: "carport and patio cover plans texas", owner: "sealed", kind: "transactional", cluster: "service", status: "live", path: "/services/carport-and-patio-cover-plans" },
-  { keyword: "foundation repair plans texas", owner: "sealed", kind: "transactional", cluster: "service", status: "live", path: "/services/foundation-repair-plans" },
-
-  // ---------------------------------------------------------- city geo (sealed)
-  {
-    keyword: "sealed engineering letters {city} tx",
-    owner: "sealed",
-    kind: "geo-city",
-    cluster: "city geo",
-    status: "live",
-    path: "/texas/{city}",
-    note: "Pattern. 25 city pages live: Houston, San Antonio, Dallas, Fort Worth, Austin, El Paso, Corpus Christi, Laredo, Lubbock, McAllen, Brownsville, Amarillo, Killeen, Waco, Tyler, College Station, Beaumont, Midland, Odessa, Round Rock, Victoria, Harlingen, San Angelo, Abilene, Alice. 254 must not build city pages.",
-  },
-
-  // ------------------------------------------------------ education (sealed)
-  { keyword: "what is a sealed engineering letter", owner: "sealed", kind: "education", cluster: "homeowner education", status: "live", path: "/insights/what-is-a-sealed-engineering-letter" },
-  { keyword: "solar structural letter requirements texas", owner: "sealed", kind: "education", cluster: "homeowner education", status: "live", path: "/insights/solar-structural-letter-requirements-texas" },
-  { keyword: "fha va manufactured home foundation certification", owner: "sealed", kind: "education", cluster: "homeowner education", status: "live", path: "/insights/fha-va-manufactured-home-foundation-certifications" },
-  { keyword: "what a roof certification letter covers", owner: "sealed", kind: "education", cluster: "homeowner education", status: "live", path: "/insights/what-a-roof-certification-letter-covers" },
-  {
-    keyword: "wpi-8 windstorm certificates explained",
-    owner: "sealed",
-    kind: "education",
-    cluster: "homeowner education",
-    status: "live",
-    path: "/insights/wpi-8-windstorm-certificates-explained",
-    note: "CAUTION for 254 content planning. The consumer explainer belongs to Sealed. 254 may write the windstorm PROGRAM AUTHORITY angle (how the TDI appointment works, what the program requires of a firm) because that is institutional, but must not write a second 'what is a WPI-8' explainer.",
-  },
-  { keyword: "when a permit office requires an engineer letter", owner: "sealed", kind: "education", cluster: "homeowner education", status: "live", path: "/insights/when-a-permit-office-requires-an-engineer-letter" },
-  // Lookup intent, registered 2026-08-18 before the page was written, per the
-  // registry law. These are the highest volume terms found in the whole
-  // Sealed keyword space, and their intent is NAVIGATIONAL: somebody trying to
-  // find whether a certificate already exists, not somebody hiring. Served by a
-  // page that answers the lookup honestly and picks up the commercial intent
-  // only at the point the lookup comes back empty. A sales page against this
-  // query would deserve to lose to TDI.
-  {
-    keyword: "texas windstorm wpi-8 certificate search",
-    owner: "sealed",
-    kind: "education",
+    topic: "WPI-8 certificate, the document and its forms",
     cluster: "windstorm",
-    status: "live",
-    path: "/insights/how-to-look-up-a-texas-windstorm-certificate",
-    note: "80/mo at KD 9. Evidence: sealedengineering/docs/keyword-batch-phase-1.md. 254 may still write the windstorm PROGRAM AUTHORITY angle; it must not write a second lookup guide.",
+    evidence: "2026-10-16, operator's Ahrefs pull, US, supplied with the brief: primary 'wpi8' 600/mo, KD 0. Supporting: 'wpi-8', 'wpi 8 certificate', 'windstorm certificate texas'.",
+    angles: {
+      "254": {
+        angle: "The certificate family (WPI-8, WPI-8-E, WPI-8-C) and the forms that produce each, read from TDI's forms and process pages: the WPI-1, the WPI-2-BC series assigned by construction start date, the WPI-2E, what one certificate records, and address corrections. Not the statute walk-through, which is /insights/windstorm-certificate-of-compliance.",
+        path: "/insights/wpi-8-certificate",
+        status: "planned",
+      },
+      sealed: {
+        angle: "Whether this property needs one and how to get it, in plain language, on Sealed's own order path. Must not reuse this post's form-by-form structure or its headings.",
+        status: "none",
+      },
+    },
   },
   {
-    keyword: "wpi-8 windstorm certificate search",
-    owner: "sealed",
-    kind: "education",
+    topic: "Texas windstorm inspection, the inspection itself",
     cluster: "windstorm",
-    status: "live",
-    path: "/insights/how-to-look-up-a-texas-windstorm-certificate",
-    note: "30/mo at KD 2. Same page as the entry above.",
+    evidence: "2026-10-16, operator's Ahrefs pull, US, supplied with the brief: primary 'texas windstorm' 1,700/mo, KD 5. Supporting: 'tdi windstorm', 'windstorm engineer'. 'windstorm inspection' is deliberately left to the coastal buyers post.",
+    angles: {
+      "254": {
+        angle: "Where the requirement reaches and its 1987 origin, the adopted code editions and zones it measures against, who may inspect which work under Insurance Code 2210.254, the load path an inspector needs to see open, timing and deficiencies, and the city permit beside it. Distinct from the /windstorm hub, which explains the program's actors.",
+        path: "/insights/texas-windstorm-inspections",
+        status: "planned",
+      },
+      sealed: {
+        angle: "Booking and preparing for an inspection on a specific job. Not this post's code and load path treatment.",
+        status: "none",
+      },
+    },
   },
-  { keyword: "structural letters for solar installers", owner: "sealed", kind: "transactional", cluster: "industries", status: "live", path: "/industries/solar-installers" },
-  { keyword: "foundation certifications for lenders", owner: "sealed", kind: "transactional", cluster: "industries", status: "live", path: "/industries/lenders-and-loan-officers" },
-  { keyword: "transaction letters for realtors texas", owner: "sealed", kind: "transactional", cluster: "industries", status: "live", path: "/industries/realtors-and-title-companies" },
-
-  // ------------------------------------------------------------- stampmyplans
-  { keyword: "plan stamping texas", owner: "stamp", kind: "transactional", cluster: "plan stamping", status: "live", path: "/" },
-  { keyword: "get plans stamped by a texas engineer", owner: "stamp", kind: "transactional", cluster: "plan stamping", status: "live", path: "/" },
-  { keyword: "texas pe stamp plans", owner: "stamp", kind: "transactional", cluster: "plan stamping", status: "live", path: "/" },
-  { keyword: "plan stamping pricing texas", owner: "stamp", kind: "transactional", cluster: "plan stamping", status: "live", path: "/pricing" },
-  { keyword: "volume plan stamping texas", owner: "stamp", kind: "transactional", cluster: "plan stamping", status: "live", path: "/volume" },
-  { keyword: "plan review turnaround texas", owner: "stamp", kind: "transactional", cluster: "plan stamping", status: "live", path: "/faq" },
-  { keyword: "what plan reviewers reject", owner: "stamp", kind: "education", cluster: "contractor education", status: "planned" },
-  { keyword: "deferred submittals texas", owner: "stamp", kind: "education", cluster: "contractor education", status: "planned" },
+  {
+    topic: "TWIA, the association and its policy",
+    cluster: "windstorm",
+    evidence: "2026-10-16, operator's Ahrefs pull, US, supplied with the brief: primary 'twia' 1,500/mo, KD 0. Supporting: 'texas windstorm insurance', 'twia requirements'.",
+    angles: {
+      "254": {
+        angle: "What the association is and how a policy works, from TWIA's and TDI's published pages: declination, agent, insurable condition, wind and hail only, 2026 limits and deductibles, the V zone flood requirement, funding layers, claim deadlines under 2210.573. Certificates get one section and link to /insights/twia-eligibility-requirements, which owns 'twia insurance' and the statute reading.",
+        path: "/insights/twia-insurance-and-windstorm-certificates",
+        status: "planned",
+      },
+      sealed: {
+        angle: "A homeowner told TWIA needs a certificate, and what to do this week. Not an institutional explainer.",
+        status: "none",
+      },
+    },
+  },
+  {
+    topic: "buying a coastal house without a windstorm certificate",
+    cluster: "windstorm",
+    evidence: "2026-10-16, operator's Ahrefs pull, US, supplied with the brief: primary 'windstorm inspection' 100/mo, KD 12. Supporting: 'buying a house without a windstorm certificate'.",
+    angles: {
+      "254": {
+        angle: "A buyer's decision path when the certificate is missing: which reason applies (pre-1988, WPI-8-C held by TWIA, uncertified later work), the 2210.258 exceptions a buyer can and cannot use, the completed construction route and its timing, CBRA and the V zone flood rule. Lookup mechanics are linked to /insights/texas-windstorm-certificate-lookup, not repeated.",
+        path: "/insights/windstorm-inspection-coastal-buyers",
+        status: "planned",
+      },
+      sealed: {
+        angle: "The order path for a buyer or realtor who needs the certificate before closing.",
+        status: "none",
+      },
+    },
+  },
+  {
+    topic: "hurricane damage, structural assessment",
+    cluster: "storm damage",
+    evidence: "2026-10-16, operator's Ahrefs pull, US, supplied with the brief: primary 'hurricane damage' 4,100/mo, KD 24. Supporting: 'what damage can a hurricane cause', 'hurricane damage repair'.",
+    angles: {
+      "254": {
+        angle: "Damage modes by NHC category and a structural checklist along FEMA's load path, roof deck to foundation, with the windstorm certificate consequences of permanent repair. Structural scope only: no covering, leak or MEP advice.",
+        path: "/insights/hurricane-damage-structural-checklist",
+        status: "planned",
+      },
+      sealed: {
+        angle: "An owner after a loss who needs an assessment ordered. Not this checklist.",
+        status: "none",
+      },
+    },
+  },
+  {
+    topic: "hurricane damage and homeowners insurance",
+    cluster: "storm damage",
+    evidence: "2026-10-16, operator's Ahrefs pull, US, supplied with the brief: primary 'does homeowners insurance cover hurricane damage' 500/mo, KD 3. Supporting: 'does home insurance cover hurricane damage'.",
+    angles: {
+      "254": {
+        angle: "Which policy answers which peril, quoted from TDI, OPIC, FEMA and the Insurance Code, deductibles, claim deadlines under 542.055, 542.056 and 2210.573, and where an engineer's report on cause fits. States that the firm is not an insurance adviser. Never claim advocacy.",
+        path: "/insights/hurricane-damage-insurance-claim",
+        status: "planned",
+      },
+      sealed: {
+        angle: "None. A claim page on the ordering brand reads as solicitation.",
+        status: "none",
+      },
+    },
+  },
 ];
 
-// ---------------------------------------------------------------- helpers
+/* ---------------------------------------------------------------- accessors */
 
-const normalize = (keyword: string) => keyword.trim().toLowerCase();
+export const topicsFor = (brand: Brand): Topic[] =>
+  topics.filter((t) => t.angles[brand] !== undefined && t.angles[brand]!.status !== "none");
 
-/** The brand entitled to a term, or null when the term is not yet registered. */
-export function ownerOf(keyword: string): Brand | null {
-  return registry.find((e) => normalize(e.keyword) === normalize(keyword))?.owner ?? null;
-}
+export const topicByName = (name: string): Topic | undefined =>
+  topics.find((t) => t.topic === name);
 
-/**
- * The cannibalization check to run before writing anything.
- *
- * Returns the reason a brand may not target a term, or null when it may. An
- * unregistered term returns a reason too: "not in the registry" is a blocker,
- * not a pass, because the whole point is that ownership is decided before the
- * page is written rather than inferred from the page afterward.
- */
-export function blockedReason(keyword: string, brand: Brand): string | null {
-  const entry = registry.find((e) => normalize(e.keyword) === normalize(keyword));
-  if (!entry) {
-    return `"${keyword}" is not in the registry. Add it with an owner before writing.`;
-  }
-  if (entry.owner !== brand) {
-    return `"${keyword}" is owned by ${BRANDS[entry.owner].name} (${BRANDS[entry.owner].domain})${entry.path ? ` at ${entry.path}` : ""}.${entry.note ? ` ${entry.note}` : ""}`;
-  }
-  return null;
-}
-
-/** Every term a brand owns, for planning a content phase. */
-export function keywordsFor(brand: Brand): RegistryEntry[] {
-  return registry.filter((e) => e.owner === brand);
-}
-
-/**
- * Terms this brand gave up, and why.
- *
- * Read this before proposing any service page change. Every entry here was
- * targeted by 254 once, and the note says what replaced it.
- */
-export function concededBy(brand: Brand): RegistryEntry[] {
-  return registry.filter((e) => e.status === "conceded" && e.note?.includes("254") && e.owner !== brand);
-}
-
-/**
- * Integrity check: no term may appear twice with different owners.
- *
- * A registry that contradicts itself is worse than no registry, because it is
- * consulted and trusted. Run this whenever the file is edited.
- */
-export function duplicateOwners(): { keyword: string; owners: Brand[] }[] {
-  const byKeyword = new Map<string, Set<Brand>>();
-  for (const entry of registry) {
-    const key = normalize(entry.keyword);
-    if (!byKeyword.has(key)) byKeyword.set(key, new Set());
-    byKeyword.get(key)!.add(entry.owner);
-  }
-  return [...byKeyword.entries()]
-    .filter(([, owners]) => owners.size > 1)
-    .map(([keyword, owners]) => ({ keyword, owners: [...owners] }));
+/** Paths a brand claims, for the audit's live resolution check. */
+export function claimedPaths(brand: Brand): { topic: string; path: string; status: TopicStatus }[] {
+  return topics
+    .filter((t) => t.angles[brand]?.path)
+    .map((t) => ({ topic: t.topic, path: t.angles[brand]!.path!, status: t.angles[brand]!.status }));
 }
