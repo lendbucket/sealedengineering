@@ -16,10 +16,10 @@
 //   S2. Every sitemap route answers 200.
 //   S3. Every topic this brand marks live with a path has that path in the
 //       sitemap. STRICTER: a topic with status none may not carry a path.
-//   S4. The city pages the registry claims are present. WEAKER ON IDENTITY: the
-//       new registry states a COUNT of city pages and names none, so the count
-//       is asserted and the names cannot be. A registry with no city claim for
-//       this brand is a FAIL, never a skip.
+//   S4. Every city the registry's pattern names has a page. STRICTER: every
+//       /texas/ page in the sitemap must also be named, so a city page added
+//       without the registry is caught. A registry with no city claim for this
+//       brand is a FAIL, never a skip, and a pattern naming no cities is a FAIL.
 //   S5. No page here targets, in its title or H1, a topic this brand has
 //       declined (status none) or has no angle on while another brand does. The
 //       old form was "a term the registry assigns to another brand"; nothing is
@@ -129,7 +129,23 @@ if (sm.status !== 200) {
     const pattern = ours.find((t) => angleOf(t).path && angleOf(t).path.includes("{city}"));
     const geo = ours.find((t) => t.cluster === "geo" && angleOf(t).status === "live");
     if (pattern) {
-      fail(`"${pattern.topic}" carries a city pattern path, which this port has no reader for. Port the reader before trusting this audit.`);
+      const slugs = angleOf(pattern).slugs ?? [];
+      const base = angleOf(pattern).path.split("{city}")[0];
+      if (slugs.length === 0) {
+        fail(`"${pattern.topic}" carries the pattern ${angleOf(pattern).path} and names no cities, so no city page can be checked.`);
+      } else {
+        const missing = slugs.filter((c) => !pages.has(`${base}${c}`));
+        const unnamed = cityPages.filter((p) => !slugs.includes(p.slice(base.length)));
+        if (missing.length) {
+          fail(`city pattern names ${slugs.length} cities; missing pages: ${missing.join(", ")}`);
+        }
+        if (unnamed.length) {
+          fail(`the sitemap carries city pages the registry does not name: ${unnamed.join(", ")}`);
+        }
+        if (!missing.length && !unnamed.length) {
+          notes.push(`city pattern: all ${slugs.length} named city pages present, and no unnamed one.`);
+        }
+      }
     } else if (!geo) {
       fail(`the registry carries no live city geography for this brand, so the ${cityPages.length} /texas/ pages are claimed by nothing.`);
     } else {
