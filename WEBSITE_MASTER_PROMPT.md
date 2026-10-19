@@ -9,7 +9,7 @@ Mode: BUILD new site.
 Sealed Engineering is its own consumer and contractor facing brand: productized, flat rate, fast turnaround sealed engineering deliverables ordered online and delivered anywhere in Texas. Solar structural letters, foundation certifications, roof certification letters, windstorm certificates, permit letters, repair specifications, and small plan sets, each reviewed and sealed by a licensed Texas Professional Engineer. It operates under the license and legal entity of 254 Engineering Services LLC, but this site stands alone as a complete brand with its own identity, voice, and customers. It is the commercial search capture engine: when a solar installer in Lubbock or a loan officer in McAllen searches for what they need, this site is the answer.
 
 - Brand: Sealed Engineering
-- Legal footer line on every page: "Sealed Engineering is a brand of 254 Engineering Services LLC" plus the TBPELS line per the compliance gate.
+- Legal footer line on every page: "Sealed Engineering is a brand of 254 Engineering LLC" plus the TBPELS line per the compliance gate.
 - Domain: sealedengineering.com. engineersealed.com 301 redirects to it if owned.
 - Audience: solar installers, mortgage loan officers and lenders, realtors and title companies, general contractors, homeowners.
 - Voice: confident but professional, direct, plain English, measured Hormozi. Clarity over cleverness. Flat rate framing everywhere pricing is implied, but NO specific dollar amounts anywhere until Robert supplies the price sheet; use quote and waitlist flows and flag pricing as a pending owner item.
@@ -78,7 +78,7 @@ Own identity, distinct from the 254 flagship. No logo yet; typographic wordmark 
 ## 8. SEO AND SCHEMA
 
 - This site owns ALL commercial intent service and geo terms for the brand family. Priority keyword families: solar structural letter, manufactured home foundation certification engineer, roof certification letter, foundation inspection report, windstorm certificate WPI-8, engineer letter for permit, each crossed with Texas and the Tier 1 city names. The institutional and government terms belong to 254engineering.com; branded direct response stamp terms belong to stampmyplans.com. Stay in lane.
-- Schema: Organization reference pointing to 254 Engineering Services LLC as parentOrganization with Sealed Engineering as brand. WebSite schema named "Sealed Engineering" for correct SERP site name. Service schema per service page. FAQPage where FAQs exist. BreadcrumbList sitewide. og:site_name "Sealed Engineering" everywhere.
+- Schema: Organization named Sealed Engineering, legalName 254 Engineering LLC, parentOrganization Craftline Brands (ruled 2026-10-19), with Sealed Engineering as brand. WebSite schema named "Sealed Engineering" for correct SERP site name. Service schema per service page. FAQPage where FAQs exist. BreadcrumbList sitewide. og:site_name "Sealed Engineering" everywhere.
 - robots.ts allowing GPTBot, ClaudeBot, PerplexityBot, Google-Extended and standard crawlers. /llms.txt and /llms-full.txt with brand, parent entity, and NAP data. Clean canonical sitemap.xml.
 - If the Ahrefs MCP is available in session and keyword validation is needed, make at most one small batched matching terms call for the primary service terms, minimal columns and row limits, and state the expected unit cost before calling. No broad exploratory pulls; the plan is Lite.
 

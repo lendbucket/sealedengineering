@@ -400,14 +400,29 @@ async function main() {
         waitUntil: "networkidle",
       });
       const footer = await page.locator("footer").innerText();
+      // Ruled 2026-10-19: the footer states the registration in both modes and
+      // names the registrant. Both literals are written out here rather than
+      // imported, so a drifted config reads as drifted.
       record(
-        "gate: footer discloses pending firm registration",
-        footer.includes("Firm registration pending with the Texas Board"),
+        "gate: footer states the firm registration",
+        footer.includes(
+          "254 Engineering LLC is a Texas registered engineering firm, TBPELS Firm Registration F-29811.",
+        ),
+        "",
+      );
+      record(
+        "gate: footer no longer says registration is pending",
+        !/registration (is )?pending/i.test(footer),
         "",
       );
       record(
         "gate: footer carries the parent entity line",
-        footer.includes("Sealed Engineering is a brand of 254 Engineering Services LLC"),
+        footer.includes("Sealed Engineering is a brand of 254 Engineering LLC"),
+        "",
+      );
+      record(
+        "gate: footer names no entity called 254 Engineering Services LLC",
+        !footer.includes("254 Engineering Services LLC"),
         "",
       );
       const cta = await page.locator("main").innerText();

@@ -6,10 +6,13 @@ import { canonical } from "@/lib/seo";
  * JSON-LD builders.
  *
  * The entity model matters more here than the markup does. Sealed Engineering
- * is a brand; 254 Engineering Services LLC is the legal person that holds the
- * engineering license. Google is being told exactly that: an Organization for
- * the brand, with `parentOrganization` pointing at the LLC and a stable @id per
- * node so the graph resolves to one entity rather than fifty copies.
+ * is a brand; 254 Engineering LLC is the legal person that holds the
+ * engineering registration, stated as `legalName`. Operator ruling, 2026-10-19:
+ * every site's Organization node carries the registrant as legalName, the
+ * firm's one address, and Craftline Brands as `parentOrganization`. Until then
+ * the parent edge pointed at 254engineering.com's node under the name
+ * "254 Engineering Services LLC", an entity that does not exist. A stable @id
+ * per node keeps the graph resolving to one entity rather than fifty copies.
  *
  * What is deliberately absent: AggregateRating and Review. There are no real
  * reviews yet, and rating schema without them is both a policy violation and a
@@ -18,7 +21,6 @@ import { canonical } from "@/lib/seo";
 
 const ORG_ID = `${SITE.url}/#organization`;
 const WEBSITE_ID = `${SITE.url}/#website`;
-const PARENT_ID = `${SITE.parentUrl}/#organization`;
 
 type Json = Record<string, unknown>;
 
@@ -29,15 +31,13 @@ export function organizationSchema(): Json {
     name: SITE_NAME,
     legalName: SITE.legalEntity,
     url: SITE.url,
+    // The mark at 512px, the largest raster this site publishes.
+    logo: `${SITE.url}/favicon-512.png`,
     description:
       "Sealed engineering letters, certifications, and small plan sets for Texas property, " +
       `${SEALING_PHRASE}.`,
-    parentOrganization: {
-      "@type": "Organization",
-      "@id": PARENT_ID,
-      name: SITE.legalEntity,
-      url: SITE.parentUrl,
-    },
+    address: { "@type": "PostalAddress", ...SITE.address },
+    parentOrganization: { "@type": "Organization", name: SITE.parentOrganization },
     brand: { "@type": "Brand", name: SITE_NAME },
     areaServed: { "@type": "State", name: "Texas" },
     email: SITE.email,

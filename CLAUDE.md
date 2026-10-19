@@ -12,8 +12,9 @@ operator rather than resolved locally, and the open ones are listed in
 ## 1. This brand, and what it may not touch
 
 Sealed Engineering is the **homeowner and ordering-party brand**: somebody who
-needs one specific document. It is a brand of 254 Engineering Services LLC and
-holds no license of its own.
+needs one specific document. It is a brand of 254 Engineering LLC and
+holds no license of its own. (It said "254 Engineering Services LLC" until
+2026-10-19; no such entity exists. Operator ruling that day.)
 
 | Owns | Does not own |
 | --- | --- |
@@ -33,7 +34,13 @@ reports collisions rather than resolving them.
 
 ## 2. The regulatory gate comes before everything
 
-TBPELS firm registration is pending. Until it issues:
+**TBPELS issued F-29811 on 2026-09-10 and reissued it to 254 Engineering LLC
+on 2026-09-21.** Since 2026-10-19 the footer, contact, terms and waitlist pages
+state the registration through `registrationStatement()` in
+`src/config/firm-registration.ts`, in both modes, and no page says it is
+pending. The gate below is still the law for this brand while
+`LAUNCH_MODE=prelaunch`: the brand does not take orders, and that is a fact
+about the brand rather than about the registration. While prelaunch:
 
 - Nothing states or implies that engineering services are currently offered or
   performed. `LAUNCH_MODE=prelaunch` drives this from `src/config/launch.ts`.

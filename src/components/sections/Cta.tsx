@@ -70,9 +70,8 @@ export function AvailabilityNotice({ className = "" }: { className?: string }) {
     >
       <p className="text-sm font-semibold text-wax-700">Opening soon</p>
       <p className="mt-2 text-sm leading-relaxed text-ink">
-        Sealed Engineering is not yet accepting orders. Firm registration is pending with the Texas
-        Board of Professional Engineers and Land Surveyors, and no engineering services are being
-        offered or performed under this brand until it is granted. Founding customers on the
+        Sealed Engineering is not yet accepting orders, and no engineering services are being
+        offered or performed under this brand until ordering opens. Founding customers on the
         waitlist are contacted first when ordering opens.
       </p>
     </div>

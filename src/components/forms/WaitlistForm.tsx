@@ -130,7 +130,7 @@ export function WaitlistForm({
       <p className="text-sm leading-relaxed text-ink-soft">
         Joining the waitlist does not create an engineer client relationship and is not a request
         for engineering services. Sealed Engineering is not offering or performing engineering
-        services until firm registration is granted.
+        services until ordering opens.
       </p>
     </form>
   );

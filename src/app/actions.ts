@@ -195,8 +195,7 @@ export async function submitOrder(_prev: FormState, form: FormData): Promise<For
     return {
       status: "error",
       message:
-        "Ordering is not open yet. Firm registration is pending with the Texas Board of " +
-        "Professional Engineers and Land Surveyors. Join the waitlist and we will contact you " +
+        "Ordering is not open yet. Join the waitlist and we will contact you " +
         "when it opens.",
     };
   }

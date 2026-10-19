@@ -10,6 +10,7 @@ import { pageMeta } from "@/lib/seo";
 import { faqSchema, graph } from "@/lib/schema";
 import { IS_PRELAUNCH, PRIMARY_CTA_HREF, PRIMARY_CTA_LABEL } from "@/config/launch";
 import { CITIES } from "@/data/cities";
+import { SITE } from "@/config/site";
 import type { Faq } from "@/data/types";
 
 export const metadata: Metadata = pageMeta({
@@ -64,7 +65,7 @@ const HOME_FAQS: Faq[] = [
   },
   {
     q: "Who is behind Sealed Engineering?",
-    a: "Sealed Engineering is a brand of 254 Engineering Services LLC, and all engineering work is performed under that entity's license and registration. The brand exists to make a defined set of deliverables orderable online rather than negotiated.",
+    a: `${SITE.legalLine}, and all engineering work is performed under that entity's license and registration. The brand exists to make a defined set of deliverables orderable online rather than negotiated.`,
   },
 ];
 

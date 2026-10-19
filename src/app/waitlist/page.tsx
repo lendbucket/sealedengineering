@@ -7,6 +7,7 @@ import { WaitlistForm } from "@/components/forms/WaitlistForm";
 import { pageMeta } from "@/lib/seo";
 import { breadcrumbSchema, graph, type Crumb } from "@/lib/schema";
 import { IS_LIVE } from "@/config/launch";
+import { registrationStatement } from "@/config/firm-registration";
 import { SERVICES, getService } from "@/data/services";
 
 export const metadata: Metadata = pageMeta({
@@ -66,9 +67,8 @@ export default async function WaitlistPage({
                 Join the Sealed Engineering waitlist
               </h1>
               <p className="mt-5 text-lg leading-relaxed text-ink-soft">
-                Sealed Engineering is not open yet. Firm registration is pending with the Texas
-                Board of Professional Engineers and Land Surveyors, and until it is granted no
-                engineering services are offered or performed under this brand.
+                Sealed Engineering is not open yet, and until ordering opens no engineering
+                services are offered or performed under this brand. {registrationStatement()}
               </p>
               <p className="mt-4 text-lg leading-relaxed text-ink-soft">
                 What the waitlist does is put you in line. Founding customers are contacted first
@@ -86,8 +86,8 @@ export default async function WaitlistPage({
                     recorded with the date you joined. Nothing is sold, shared, or passed on.
                   </li>
                   <li>
-                    <strong className="font-semibold text-seal-800">2.</strong> When firm
-                    registration is granted, you are contacted at the email you give below.
+                    <strong className="font-semibold text-seal-800">2.</strong> When ordering
+                    opens, you are contacted at the email you give below.
                   </li>
                   <li>
                     <strong className="font-semibold text-seal-800">3.</strong> Businesses with

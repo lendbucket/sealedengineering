@@ -124,7 +124,10 @@ if (sm.status !== 200) {
       // visitor reasonably believes is already running.
       if (!IS_LIVE) {
         const discloses =
-          mainText.includes("Firm registration is pending") ||
+          // "Firm registration is pending" until 2026-10-19, when the pages
+          // stopped saying it because it was false. The disclosure that ordering
+          // is not open is now worded on its own terms.
+          mainText.toLowerCase().includes("until ordering opens") ||
           mainText.includes("not yet accepting orders") ||
           mainText.includes("Opening soon");
         if (!discloses) {

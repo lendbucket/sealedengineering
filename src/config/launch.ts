@@ -12,14 +12,16 @@
  * assumption. Two modes:
  *
  *   prelaunch  Order CTAs become waitlist forms. Copy speaks in the future
- *              tense. Footer discloses that registration is pending.
- *   live       Order flow activates. Footer renders the firm number.
+ *              tense. Footer states the firm registration.
+ *   live       Order flow activates. Footer states the firm registration.
  *
  * `live` additionally requires TBPELS_FIRM_NUMBER to be set, because a live
  * site with an empty firm number is the exact disclosure failure this gate
  * exists to prevent. Missing it degrades to prelaunch rather than shipping a
  * footer that says "TBPELS Firm No." followed by nothing.
  */
+
+import { registrationStatement } from "./firm-registration";
 
 export type LaunchMode = "prelaunch" | "live";
 
@@ -52,12 +54,16 @@ export const TBPELS_FIRM_NUMBER: string | null = IS_LIVE ? firmNumber : null;
  * the compliance copy read from the same source.
  */
 export function licensureLines(): string[] {
-  if (IS_LIVE) {
-    return [`TBPELS Firm No. ${TBPELS_FIRM_NUMBER}`];
-  }
-  return [
-    "Firm registration pending with the Texas Board of Professional Engineers and Land Surveyors.",
-  ];
+  /*
+   * THE SAME SENTENCE IN BOTH MODES, AND IT IS THE REGISTRATION. Operator
+   * ruling, 2026-10-19. This returned "Firm registration pending with the
+   * Texas Board of Professional Engineers and Land Surveyors." in prelaunch,
+   * a month after TBPELS issued F-29811. The mode decides whether the brand
+   * takes orders; it never decided whether the firm is registered, and the old
+   * line conflated the two. Empty only if the registration has lapsed.
+   */
+  const statement = registrationStatement();
+  return statement ? [statement] : [];
 }
 
 /**
