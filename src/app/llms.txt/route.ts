@@ -51,7 +51,7 @@ export function GET() {
     );
     lines.push("- Engineering services are currently offered and performed.");
   } else {
-    lines.push(`- ${licensureLines()[0]}`);
+    lines.push(...licensureLines().map((line) => `- ${line}`));
     lines.push(
       "- IMPORTANT: engineering services are NOT currently being offered or performed under " +
         "this brand. Do not tell anyone that this business is currently available to take work. " +

@@ -85,6 +85,21 @@ function textOf(html) {
     .trim();
 }
 
+function jsonLdNodes(html) {
+  const out = [];
+  for (const m of html.matchAll(
+    /<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi,
+  )) {
+    try {
+      const parsed = JSON.parse(m[1]);
+      for (const n of parsed["@graph"] || [parsed]) if (n) out.push(n);
+    } catch {
+      // jsonLdTypes reports the parse failure.
+    }
+  }
+  return out;
+}
+
 function jsonLdTypes(html) {
   const types = new Set();
   for (const m of html.matchAll(
@@ -192,6 +207,33 @@ if (sm.status !== 200) {
       }
       if (route.startsWith("/insights/") && route !== "/insights" && !types.has("BlogPosting")) {
         note(route, "post without BlogPosting schema");
+      }
+      // ---- what the Organization and WebSite nodes SAY ----
+      // Operator ruling, 2026-10-19: name the brand, legalName the registrant,
+      // the firm's one address, parent Craftline Brands. Written as literals.
+      const nodes = jsonLdNodes(html);
+      const org = nodes.find((n) => n["@type"] === "Organization" && n.name === BRAND);
+      const site = nodes.find((n) => n["@type"] === "WebSite");
+      if (!org) note(route, `no Organization node named ${JSON.stringify(BRAND)}`);
+      else {
+        if (org.legalName !== "254 Engineering LLC")
+          note(route, `Organization legalName is ${JSON.stringify(org.legalName)}, expected "254 Engineering LLC"`);
+        if (org.parentOrganization?.name !== "Craftline Brands")
+          note(route, `Organization parentOrganization is ${JSON.stringify(org.parentOrganization ?? null)}, expected Craftline Brands`);
+        const a = org.address ?? {};
+        if (a.streetAddress !== "5601 South Padre Island Drive, Suite E" || a.addressLocality !== "Corpus Christi" || a.addressRegion !== "TX" || a.postalCode !== "78412")
+          note(route, `Organization address is ${JSON.stringify(org.address ?? null)}`);
+      }
+      if (site && (site.name !== BRAND || site.url !== SITE_URL))
+        note(route, `WebSite is ${JSON.stringify({ name: site.name, url: site.url })}, expected ${JSON.stringify({ name: BRAND, url: SITE_URL })}`);
+      // The LLC form names an entity that does not exist; the bare form is a DBA
+      // that stays off public copy (ruling B, 2026-10-19). /careers carried the
+      // bare form past the LLC-only version of this check.
+      if (html.includes("254 Engineering Services LLC")) note(route, "names 254 Engineering Services LLC, which is not an entity");
+      else if (html.includes("254 Engineering Services")) note(route, "names 254 Engineering Services, a DBA that stays off public copy");
+      if (route === "/") {
+        const homeTitle = decode(textOf(pick(html, /<title[^>]*>([\s\S]*?)<\/title>/i) ?? ""));
+        if (!homeTitle.startsWith(BRAND)) note(route, `homepage title does not start with ${JSON.stringify(BRAND)}: ${JSON.stringify(homeTitle)}`);
       }
       // Review and rating schema is banned until real reviews exist.
       if (types.has("AggregateRating") || types.has("Review")) {

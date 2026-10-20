@@ -1,4 +1,4 @@
-import { TBPELS_FIRM_NUMBER } from "@/config/launch";
+import { FIRM_REGISTRATION } from "@/config/firm-registration";
 
 /**
  * The only credentials this site is allowed to publish.
@@ -18,8 +18,9 @@ import { TBPELS_FIRM_NUMBER } from "@/config/launch";
  * credential is therefore a deliberate edit to this file rather than a side
  * effect of writing copy.
  *
- * All three lists are empty on purpose today. No individual engineer is named
- * anywhere on the site, and the firm registration is still pending.
+ * The two engineer lists are empty on purpose: no individual engineer is named
+ * anywhere on the site. The firm list holds the board's registration from
+ * 2026-10-19, when the site began stating it.
  */
 
 /** Full names permitted to appear alongside a P.E. designation. */
@@ -34,15 +35,13 @@ export const VERIFIED_PE_LICENSE_NUMBERS: readonly string[] = [];
 /**
  * TBPELS firm registration numbers permitted to appear.
  *
- * Derived from the launch config rather than duplicated: in live mode the
- * footer renders TBPELS_FIRM_NUMBER, and that number has to be allowed through
- * the audit. In prelaunch the list is empty, which means any firm number
- * appearing anywhere fails the build. That is the correct posture while the
- * registration is pending.
+ * The registration in src/config/firm-registration.ts, which every page now
+ * states, and nothing else. A TBPELS_FIRM_NUMBER in the environment that
+ * differs from the board's record renders in live mode and fails the audit,
+ * which is the point. It was derived from that variable, and empty in
+ * prelaunch, until 2026-10-19, while the registration was described as pending.
  */
-export const VERIFIED_FIRM_NUMBERS: readonly string[] = TBPELS_FIRM_NUMBER
-  ? [TBPELS_FIRM_NUMBER]
-  : [];
+export const VERIFIED_FIRM_NUMBERS: readonly string[] = [FIRM_REGISTRATION.number];
 
 /** Normalised for comparison: case folded, punctuation and spacing removed. */
 export function normalizeCredential(value: string): string {

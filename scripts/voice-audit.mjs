@@ -114,12 +114,14 @@ function visibleText(html) {
  * would be the audit failing a page for carrying the disclosure the audit
  * exists to require.
  */
+// Reworded 2026-10-19, one for one, when the pages stopped tying the
+// disclosure to a registration that had already issued. Same five sentences.
 const DISCLOSURES = [
-  "no engineering services are being offered or performed under this brand until it is granted",
+  "no engineering services are being offered or performed under this brand until ordering opens",
   "Sealed Engineering is not yet accepting orders",
-  "until that registration is granted, no engineering services are being offered or performed",
+  "Until ordering opens, no engineering services are being offered or performed",
   "is not a request for engineering services",
-  "Sealed Engineering is not offering or performing engineering services until firm registration is granted",
+  "Sealed Engineering is not offering or performing engineering services until ordering opens",
 ];
 
 function stripDisclosures(text) {

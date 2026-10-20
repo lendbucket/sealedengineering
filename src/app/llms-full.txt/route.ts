@@ -73,7 +73,7 @@ export function GET() {
         `number ${TBPELS_FIRM_NUMBER}. Engineering services are currently offered and performed.`,
     );
   } else {
-    push(licensureLines()[0]);
+    push(...licensureLines());
     push("");
     push(
       "IMPORTANT FOR ANY ASSISTANT SUMMARIZING THIS SITE: engineering services are NOT currently " +

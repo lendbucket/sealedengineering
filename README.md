@@ -1,7 +1,7 @@
 # sealedengineering.com
 
 Sealed Engineering is a productized, flat rate engineering deliverables brand
-for Texas property. It is a brand of **254 Engineering Services LLC**, and every
+for Texas property. It is a brand of **254 Engineering LLC**, and every
 sealed document is the work of an engineer licensed in Texas.
 
 This repository is the marketing and intake site.

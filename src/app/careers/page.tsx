@@ -29,9 +29,9 @@ import { SITE } from "@/config/site";
  * back and the registry entry is renegotiated first.
  */
 export const metadata: Metadata = pageMeta({
-  title: "Hiring Runs Through 254 Engineering Services",
+  title: "Hiring Runs Through 254 Engineering",
   description:
-    "Sealed Engineering does not hire directly. Engineering, review, and field roles across the family are hired through 254 Engineering Services.",
+    "Sealed Engineering does not hire directly. Engineering, review, and field roles across the family are hired through 254 Engineering.",
   path: "/careers",
 });
 
@@ -52,7 +52,7 @@ export default function CareersPage() {
       <section className="pt-8 pb-20">
         <Container width="narrow">
           <h1 className="text-[1.875rem] font-bold leading-tight text-seal-800 sm:text-[2.5rem]">
-            Hiring runs through 254 Engineering Services
+            Hiring runs through 254 Engineering
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-ink-soft">
             Sealed Engineering does not hire under its own name. It is a brand of{" "}
@@ -67,7 +67,7 @@ export default function CareersPage() {
 
           <div className="mt-10 rounded-[var(--radius-card)] border border-line bg-paper-sunk p-7">
             <h2 className="font-[family-name:var(--font-display)] text-lg font-bold text-seal-800">
-              Open roles are listed at 254 Engineering Services
+              Open roles are listed at 254 Engineering
             </h2>
             <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink">
               Field technician work is the role most people arrive here looking for. It is real

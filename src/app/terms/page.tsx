@@ -6,6 +6,7 @@ import { pageMeta } from "@/lib/seo";
 import { breadcrumbSchema, graph, type Crumb } from "@/lib/schema";
 import { SITE } from "@/config/site";
 import { IS_PRELAUNCH } from "@/config/launch";
+import { registrationStatement } from "@/config/firm-registration";
 
 export const metadata: Metadata = pageMeta({
   title: "Terms of Use | Sealed Engineering",
@@ -57,8 +58,7 @@ export default function TermsPage() {
               <>
                 <h2>2. Current status</h2>
                 <p>
-                  Firm registration is pending with the Texas Board of Professional Engineers and
-                  Land Surveyors. Until that registration is granted, no engineering services are
+                  {registrationStatement()} Until ordering opens, no engineering services are
                   being offered or performed under the Sealed Engineering name, and nothing on this
                   site is an offer to perform them. The waitlist records interest and creates no
                   obligation on either side.
