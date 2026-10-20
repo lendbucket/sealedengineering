@@ -226,7 +226,11 @@ if (sm.status !== 200) {
       }
       if (site && (site.name !== BRAND || site.url !== SITE_URL))
         note(route, `WebSite is ${JSON.stringify({ name: site.name, url: site.url })}, expected ${JSON.stringify({ name: BRAND, url: SITE_URL })}`);
+      // The LLC form names an entity that does not exist; the bare form is a DBA
+      // that stays off public copy (ruling B, 2026-10-19). /careers carried the
+      // bare form past the LLC-only version of this check.
       if (html.includes("254 Engineering Services LLC")) note(route, "names 254 Engineering Services LLC, which is not an entity");
+      else if (html.includes("254 Engineering Services")) note(route, "names 254 Engineering Services, a DBA that stays off public copy");
       if (route === "/") {
         const homeTitle = decode(textOf(pick(html, /<title[^>]*>([\s\S]*?)<\/title>/i) ?? ""));
         if (!homeTitle.startsWith(BRAND)) note(route, `homepage title does not start with ${JSON.stringify(BRAND)}: ${JSON.stringify(homeTitle)}`);

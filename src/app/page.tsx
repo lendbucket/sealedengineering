@@ -204,8 +204,8 @@ export default function HomePage() {
                 anything to the permit office or the underwriter receiving it.
               </p>
               <p className="mt-5 text-sm text-ink-soft">
-                Engineering work is performed under the license and registration of 254 Engineering
-                Services LLC.
+                Engineering work is performed under the license and registration of{" "}
+                {SITE.legalEntity}.
               </p>
             </div>
           </div>
