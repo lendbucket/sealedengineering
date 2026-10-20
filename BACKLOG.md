@@ -436,3 +436,21 @@ build, because sitemap loc values are absolute; that is fixed here.
 **Note on this repo's copy.** Both files were copied into the working tree and
 deliberately NOT committed, because the 254 session that wrote them is not this
 repo's session. Commit them with your next piece of work here.
+
+### Committed 2026-10-20, with 254's current registry laid over the draft
+
+Operator ruling, 2026-10-20. The two notes above were true until this entry: the
+draft sat uncommitted in this repo's main checkout from 2026-08-31. It was
+carried unchanged onto the branch `sync/registry-differentiation`, and then
+`keyword-registry.ts` was replaced with 254engineering main at 6552d14,
+verbatim. The main checkout's working tree was left as it was.
+
+Where the draft and 254 disagreed, 254 won. The draft held 18 topics and 254
+holds 54; none was dropped, 36 were added, and 11 changed, almost all of them
+this brand's recorded paths and its 25 named city slugs. The 254 stance
+sentence also changed (ruling of 2026-10-18: ordering is a door on a
+capability page). The draft's `registry-audit.mjs` already read the new format
+and needed no further port.
+
+**From now on**, whenever 254's registry changes on its main, the sync to this
+repo is the next item of work, on its own branch, with this repo's full suite.
