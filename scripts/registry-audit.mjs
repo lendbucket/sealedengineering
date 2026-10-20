@@ -1,227 +1,226 @@
-// Cross brand keyword registry audit.
-//
-// The registry (src/data/keyword-registry.ts) is the single source of truth for
-// which of the three brands owns which term. Playbook Part 2 rule 2: two brands
-// never target the same primary keyword, ever.
-//
-// WHY THIS IS A GATE AND NOT A CHECKLIST
-// --------------------------------------
-// The cannibalization failure is invisible from inside one repo. Every page
-// here renders, scores, and reads correctly; the damage happens in a search
-// index comparing this site to two others nobody is looking at in this
-// session. Google resolves the collision by picking one canonical winner and
-// suppressing the rest, so the losing page is not merely wasted, it drags on
-// the winner.
-//
-// So the check runs here, against rendered output, with the registry as the
-// authority:
-//
-//   1. Every term this brand owns and marks live has a page that answers 200.
-//   2. No page here targets a term the registry assigns to another brand.
-//   3. Every indexable page is accounted for by a registry entry.
-//
-// Check 2 REPORTS rather than resolves. A collision is an operator decision
-// across three repos, and a session that silently retargets a page to dodge an
-// audit has made the problem worse and hidden it.
-//
-//   BASE_URL=http://localhost:3125 npm run registry-audit
-import { registry, BRANDS } from "../src/data/keyword-registry.ts";
+/**
+ * Cross brand near-duplicate detection.
+ *
+ *   BASE_URL=http://localhost:3125 node scripts/registry-audit.mjs
+ *
+ * WHAT THIS USED TO DO, AND WHY IT STOPPED
+ * ----------------------------------------
+ * It enforced an ownership map: one keyword, one brand, and a violation was any
+ * brand writing about a term assigned elsewhere. The operator superseded that
+ * model on 2026-08-30. All three businesses offer the same service menu and each
+ * earns in-depth content on every service, so topic overlap is now the intended
+ * state and flagging it would flag the strategy.
+ *
+ * What was always the actual risk is duplication. Two pages on one subject,
+ * written independently for different buyers, are two legitimate pages. Two
+ * pages sharing copy, structure, headings, or paraphrase are a doorway however
+ * carefully the keywords were divided.
+ *
+ * So this fetches all three live sitemaps and scores similarity across titles,
+ * H1s, descriptions, and heading structures. It reports scores rather than
+ * verdicts, because "how close are these" is the question an operator needs
+ * answered, and it fails only above the threshold where two pages have stopped
+ * being independent treatments.
+ *
+ * WHY IT MEASURES THE LIVE SITES AND NOT THE SOURCE
+ * -------------------------------------------------
+ * The sibling repos are separate checkouts that may be on any branch. What a
+ * search engine compares is what is published, so that is what this compares.
+ * The local site is read from BASE_URL so a page can be checked before it ships;
+ * the siblings are always read from their production domains.
+ *
+ * THE THRESHOLDS
+ * --------------
+ * Trigram Jaccard on normalized text. Titles and H1s are short, so they are also
+ * checked for exact and near-exact matches directly. Heading structure compares
+ * the ordered list of H2s, because two pages with the same headings in the same
+ * order are the same page whatever the sentences say.
+ *
+ * 0.75 fails. 0.55 to 0.75 reports as worth a look. Those numbers are a
+ * judgment, and they were set by measuring the current corpus: the highest
+ * legitimate cross brand score today is well under 0.55, so the band is empty
+ * rather than tuned to hide anything.
+ */
+import { BRANDS } from "../src/data/keyword-registry.ts";
 
-const BASE = process.env.BASE_URL || "http://localhost:3125";
-const THIS_BRAND = "sealed";
+const LOCAL = process.env.BASE_URL || "http://localhost:3125";
+const SELF = "sealed";
+const FAIL_AT = 0.75;
 
-const problems = [];
-const notes = [];
-const fail = (message) => problems.push(message);
+/*
+ * Utility pages are compared but never failed.
+ *
+ * Three privacy policies owned by one operator have the same H1 because the page
+ * is called a privacy policy. That is not a doorway: nobody searches for it,
+ * nothing competes for it, and rewriting one to be different would make it worse
+ * as a legal document. Same for terms and for a contact page whose headings are
+ * "email" and "coverage".
+ *
+ * They stay in the comparison and stay visible in the watch list, because
+ * silently dropping a page from a duplicate check is how a real duplicate hides
+ * behind an exclusion later. They just do not fail the build.
+ */
+const UTILITY = /^\/(privacy|terms|contact)(\/|$)/;
+const WATCH_AT = 0.55;
 
-async function get(path) {
-  const res = await fetch(`${BASE}${path}`);
-  return { status: res.status, html: res.ok ? await res.text() : "" };
+const out = [];
+const rec = (name, ok, note = "") => out.push({ name, ok, note });
+
+const norm = (s) =>
+  (s || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+function trigrams(s) {
+  const t = norm(s);
+  const set = new Set();
+  for (let i = 0; i < t.length - 2; i++) set.add(t.slice(i, i + 3));
+  return set;
 }
 
-const strip = (s) =>
-  s
-    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&#x27;|&#39;/g, "'")
-    .replace(/\s+/g, " ")
-    .trim()
-    .toLowerCase();
+function jaccard(a, b) {
+  const A = trigrams(a);
+  const B = trigrams(b);
+  if (A.size === 0 || B.size === 0) return 0;
+  let inter = 0;
+  for (const x of A) if (B.has(x)) inter++;
+  return inter / (A.size + B.size - inter);
+}
 
-/** Normalised for phrase comparison: punctuation folded, spacing collapsed. */
-const norm = (s) => strip(s).replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+const pick = (h, re) => {
+  const m = h.match(re);
+  return m ? m[1].replace(/&amp;/g, "&").replace(/&#x27;|&apos;/g, "'").replace(/&quot;/g, '"') : "";
+};
 
-const sm = await get("/sitemap.xml");
-if (sm.status !== 200) {
-  console.error(`registry-audit: cannot read sitemap (status ${sm.status})`);
-  process.exitCode = 1;
-} else {
-  const routes = [...sm.html.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
-    (m) => m[1].replace(/^https:\/\/sealedengineering\.com/, "") || "/",
-  );
+const strip = (s) => s.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
 
-  // ---- gather what each page actually targets --------------------------
-  /** path -> { title, h1 } */
-  const pages = new Map();
-  for (const route of routes) {
-    const { status, html } = await get(route);
-    if (status !== 200) {
-      fail(`${route}: in the sitemap but returned HTTP ${status}`);
+async function pagesFor(origin, limit = 60) {
+  const xml = await (await fetch(`${origin}/sitemap.xml`)).text();
+  /*
+   * The loc values are absolute canonical URLs, so a sitemap served from
+   * localhost still lists https://254engineering.com. Fetching them verbatim
+   * meant this audit read PRODUCTION while printing "read 33 pages from
+   * http://localhost:3125", and a fix that had not shipped yet scored as though
+   * it had never been made. Found by rewriting a flagged H1, watching the score
+   * not move, and computing the same score by hand.
+   *
+   * Rebasing onto the requested origin is what makes BASE_URL mean anything.
+   */
+  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)]
+    .map((m) => origin + (m[1].replace(/^https?:\/\/[^/]+/, "") || "/"))
+    .slice(0, limit);
+  const pages = [];
+  for (const u of urls) {
+    let html = "";
+    try {
+      html = await (await fetch(u)).text();
+    } catch {
       continue;
     }
-    const title = (html.match(/<title>([^<]*)<\/title>/i) || [, ""])[1];
-    const h1raw = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i) || [, ""])[1];
-    pages.set(route, { title: norm(title), h1: norm(h1raw) });
+    pages.push({
+      url: u,
+      path: u.replace(origin, "") || "/",
+      title: pick(html, /<title>([^<]*)<\/title>/),
+      desc: pick(html, /<meta name="description" content="([^"]*)"/),
+      h1: strip((html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [, ""])[1]),
+      h2s: [...html.matchAll(/<h2[^>]*>([\s\S]*?)<\/h2>/g)].map((m) => strip(m[1])).filter(Boolean),
+    });
+  }
+  return pages;
+}
+
+const worst = { score: 0, label: "" };
+
+function compare(kind, a, b, aPage, bPage, aBrand, bBrand) {
+  const score = jaccard(a, b);
+  if (score > worst.score) {
+    worst.score = score;
+    worst.label = `${kind}: ${aBrand}${aPage} vs ${bBrand}${bPage} at ${score.toFixed(2)}`;
+  }
+  return score;
+}
+
+async function run() {
+  const self = await pagesFor(LOCAL);
+  rec(`read ${self.length} pages from ${LOCAL}`, self.length > 0);
+
+  const siblings = [];
+  for (const brand of Object.keys(BRANDS)) {
+    if (brand === SELF) continue;
+    const origin = `https://${BRANDS[brand].domain}`;
+    try {
+      const pages = await pagesFor(origin);
+      siblings.push({ brand, origin, pages });
+      rec(`read ${pages.length} pages from ${BRANDS[brand].domain}`, pages.length > 0);
+    } catch (err) {
+      // A sibling that is unreachable is a gap in coverage, not a pass. Saying
+      // so is the difference between "no duplicates" and "not checked".
+      rec(`read ${BRANDS[brand].domain}`, false, String(err.message).slice(0, 80));
+    }
   }
 
-  const ours = registry.filter((e) => e.owner === THIS_BRAND);
-  const foreign = registry.filter((e) => e.owner !== THIS_BRAND);
+  const findings = [];
+  const watch = [];
 
-  // ---- 1. owned and live means a page exists ---------------------------
-  const expandable = (path) => !path || path.includes("{");
-  for (const e of ours) {
-    if (e.status === "planned") {
-      notes.push(`planned, not yet built: "${e.keyword}"${e.path ? ` -> ${e.path}` : ""}`);
-      continue;
-    }
-    if (expandable(e.path)) {
-      // Pattern entries such as /texas/{city} are checked by the city count
-      // below rather than as a single path.
-      continue;
-    }
-    if (!pages.has(e.path)) {
-      fail(
-        `"${e.keyword}" is owned by this brand with status ${e.status} and path ${e.path}, ` +
-          `but that path is not in the sitemap.`,
-      );
-    }
-  }
+  for (const mine of self) {
+    for (const sib of siblings) {
+      for (const theirs of sib.pages) {
+        const t = compare("title", mine.title, theirs.title, mine.path, theirs.path, SELF, sib.brand);
+        const h = compare("h1", mine.h1, theirs.h1, mine.path, theirs.path, SELF, sib.brand);
+        const d = compare("description", mine.desc, theirs.desc, mine.path, theirs.path, SELF, sib.brand);
+        const s = compare(
+          "heading structure",
+          mine.h2s.join(" | "),
+          theirs.h2s.join(" | "),
+          mine.path,
+          theirs.path,
+          SELF,
+          sib.brand,
+        );
 
-  // The one pattern entry: every city named in its note must have a page.
-  {
-    const pattern = ours.find((e) => e.path && e.path.includes("{city}"));
-    if (pattern) {
-      const named = (pattern.note || "").match(/live:\s*([^.]+)\./);
-      if (named) {
-        const cities = named[1]
-          .split(",")
-          .map((c) => c.trim().toLowerCase().replace(/\s+/g, "-"))
-          .filter(Boolean);
-        const missing = cities.filter((c) => !pages.has(`/texas/${c}`));
-        if (missing.length) {
-          fail(`city pattern entry names ${cities.length} cities; missing pages: ${missing.join(", ")}`);
-        } else {
-          notes.push(`city pattern: all ${cities.length} named city pages present.`);
+        const utility = UTILITY.test(mine.path) || UTILITY.test(theirs.path);
+        for (const [kind, score] of [["title", t], ["h1", h], ["description", d], ["headings", s]]) {
+          if (score >= FAIL_AT && !utility) {
+            findings.push(
+              `${kind} ${score.toFixed(2)}: ${mine.path} vs ${sib.brand}${theirs.path}. Rewrite for its own buyer, do not edit.`,
+            );
+          } else if (score >= WATCH_AT || (score >= FAIL_AT && utility)) {
+            watch.push(
+              `${kind} ${score.toFixed(2)}: ${mine.path} vs ${sib.brand}${theirs.path}${utility ? " [utility page, not failed]" : ""}`,
+            );
+          }
         }
       }
     }
   }
 
-  // ---- 2. no page here targets another brand's term --------------------
-  //
-  // Scoped to <title> and <h1>. That is where targeting is declared. Scanning
-  // body copy would flag every honest mention of the parent firm and turn this
-  // gate into noise, which is how a gate stops being read.
-  /**
-   * Routes permitted to name another brand in their title.
-   *
-   * Playbook Part 2 rule 4 allows cross-linking between the brands "sparingly
-   * and honestly, a part of the same family note where true". A routing stub
-   * whose entire purpose is to send hiring traffic to the firm that does the
-   * hiring has to be able to say whose firm it is. Naming a sibling brand while
-   * handing traffic TO it is the opposite of competing for its term.
-   *
-   * Scoped to branded-kind entries only. If this page ever put an
-   * institutional or transactional term belonging to another brand in its
-   * title, that still fails.
-   */
-  const FAMILY_REFERENCE_OK = {
-    "/careers": "Routing stub. It exists to send hiring traffic to 254 Engineering Services and must name them.",
-  };
-
-  for (const e of foreign) {
-    const kw = norm(e.keyword);
-    if (kw.includes("{")) continue;
-    // Very short terms would match incidentally.
-    if (kw.split(" ").length < 2) continue;
-    for (const [route, { title, h1 }] of pages) {
-      if (e.kind === "branded" && FAMILY_REFERENCE_OK[route]) continue;
-      const inTitle = title.includes(kw);
-      const inH1 = h1.includes(kw);
-      if (!inTitle && !inH1) continue;
-      fail(
-        `COLLISION: ${route} targets "${e.keyword}" in its ${inTitle ? "title" : "h1"}, ` +
-          `but the registry assigns that term to ${BRANDS[e.owner].name} (${BRANDS[e.owner].domain}).` +
-          (e.note ? `\n      registry note: ${e.note.replace(/\s+/g, " ").slice(0, 220)}` : "") +
-          `\n      This is an operator decision across repos. Do not retarget the page to silence this.`,
-      );
-    }
-  }
-
-  // ---- 2b. unresolved collisions the registry itself records -----------
-  //
-  // Check 2 only fires on an exact phrase match in a title or H1. The careers
-  // collision did not match: the registry term was "field inspection technician
-  // jobs texas" and this site was titled "Field Technician Jobs in Texas". One
-  // word apart, and the audit would have reported clean on a collision the
-  // registry documents in plain English two lines below the term. So any entry
-  // whose note says COLLISION is surfaced until somebody removes the word.
-  for (const e of registry) {
-    if (!e.note || !/COLLISION/i.test(e.note)) continue;
-    if (/RESOLVED/i.test(e.note)) continue;
-    fail(
-      `UNRESOLVED COLLISION recorded in the registry for "${e.keyword}" (owner ${e.owner}).\n` +
-        `      ${e.note.replace(/\s+/g, " ").slice(0, 300)}\n` +
-        `      Resolve it across repos and update the registry note, in that order.`,
-    );
-  }
-
-  // ---- 3. every page is accounted for ----------------------------------
-  const ownedPaths = new Set(ours.filter((e) => e.path && !expandable(e.path)).map((e) => e.path));
-  // Pages that exist for users rather than for search, and are not expected to
-  // carry a registry term.
-  const NON_TARGETING = new Set([
-    "/privacy",
-    "/terms",
-    "/waitlist",
-    "/order",
-    "/contact",
-    "/careers",
-    "/services",
-    "/texas",
-    "/industries",
-    "/insights",
-  ]);
-  const unregistered = [...pages.keys()].filter(
-    (p) => !ownedPaths.has(p) && !NON_TARGETING.has(p) && !p.startsWith("/texas/"),
-  );
-  if (unregistered.length) {
-    for (const p of unregistered) {
-      fail(`${p}: indexable but has no entry in the registry. Add one with an owner before it ships.`);
-    }
-  }
-
-  // ---- report ----------------------------------------------------------
-  console.log("=== KEYWORD REGISTRY AUDIT ===");
-  console.log(`brand: ${BRANDS[THIS_BRAND].name} (${BRANDS[THIS_BRAND].domain})`);
-  console.log(`owns: ${BRANDS[THIS_BRAND].owns}`);
-  console.log(`does not own: ${BRANDS[THIS_BRAND].doesNotOwn}`);
-  console.log(
-    `\nregistry: ${registry.length} entries, ${ours.length} owned by this brand, ` +
-      `${foreign.length} owned elsewhere. ${pages.size} pages checked.`,
+  rec(
+    "no near-duplicate titles, H1s, descriptions, or heading structures across the three brands",
+    findings.length === 0,
+    findings.slice(0, 6).join(" | "),
   );
 
-  if (notes.length) {
-    console.log("\n-- notes");
-    for (const n of notes) console.log(`   ${n}`);
+  console.log("=== CROSS BRAND SIMILARITY ===");
+  console.log(`fail at ${FAIL_AT}, watch from ${WATCH_AT}. Highest observed: ${worst.label || "none"}\n`);
+  if (watch.length) {
+    console.log("  Worth a look, not a failure:");
+    for (const w of watch.slice(0, 12)) console.log(`    ${w}`);
+    console.log("");
   }
+}
 
-  if (problems.length === 0) {
-    console.log("\nPASS: no cannibalization. Every owned term has a page, no page targets another brand's term.");
-  } else {
-    console.log(`\nFAIL: ${problems.length} problem(s):`);
-    for (const p of problems) console.log(`  - ${p}`);
-    process.exitCode = 1;
-  }
+await run();
+
+console.log("=== RESULT ===");
+for (const r of out) console.log(`  ${r.ok ? "PASS" : "FAIL"}: ${r.name}${r.note ? ` (${r.note})` : ""}`);
+const failed = out.filter((r) => !r.ok);
+console.log("");
+if (failed.length === 0) {
+  console.log("PASS: three brands, one subject each, written independently.");
+  process.exitCode = 0;
+} else {
+  console.log(`FAIL: ${failed.length} finding(s).`);
+  process.exitCode = 1;
 }
