@@ -367,3 +367,90 @@ strings in data files.
       that the 254 repo had no registry file. That was wrong. It is at
       `254engineering/data/keyword-registry.ts`, on main, and is the source of
       truth. The earlier "source of truth is mislabelled" item is withdrawn.
+
+### The keyword registry was updated by 254 on 2026-08-23, pull it before writing
+
+`keyword-registry.ts` in this repo was overwritten with the version from
+254engineering on 2026-08-23. It is the synchronized file, so the copy is
+verbatim and this repo had no local changes to it.
+
+**What changed.** 254 ran its phase 1 research batch and shipped four editorial
+posts. Four entries moved or appeared, all owned by 254, all in the institutional
+territory this brand does not target:
+
+- `texas professional services procurement act` is new. It replaced
+  `how texas cities procure engineering services`, which was repointed because
+  Ahrefs has no record of that phrasing at all.
+- `texas engineering firm registration` gained a path and a measurement.
+- `engineer of record texas` is new.
+- `texas pe license lookup` is new. 254 asked before taking it: the
+  no-second-lookup-guide note on this brand's windstorm certificate entries was
+  ruled to be scoped to windstorm only, so PE licensure lookup went to 254.
+
+All four are marked `planned` rather than `live` because the pages are written
+and not yet deployed. They flip to `live` when 254 merges and deploys, and the
+live URL check in `registry-audit` starts probing them at that point.
+
+**Nothing here loses territory.** No entry owned by this brand changed owner,
+status, or path in this sync.
+
+**Evidence** for the volume and difficulty figures quoted in the new notes is in
+`254engineering/docs/keyword-batch-phase-1.md`.
+
+**Note on this repo's copy.** The file was copied into the working tree and was
+deliberately NOT committed, because the 254 session that wrote it is not the
+session that owns this repo and the standing rule is one session per repo
+directory. Commit it here on a branch of this repo's choosing.
+
+### The keyword registry became a differentiation record, 2026-08-31
+
+The operator superseded the ownership model. All three businesses offer the full
+service menu, each serves a different buyer, and each earns in-depth content on
+every service it performs. Dividing the keywords starved two of the three sites
+of content on work they actually do.
+
+keyword-registry.ts in this repo was overwritten with the version from
+254engineering. It is the synchronized file and this repo had no local changes to
+it beyond the previous sync, so the copy is verbatim.
+
+**What this repo gains.** Nothing is off limits by ownership any more. This brand
+may write in depth on any service it performs, including subjects previously
+assigned elsewhere. Read the topic's angle entry before writing: it records how
+each brand's treatment of that subject differs.
+
+**The one prohibition that survives, and it is absolute.** No page may share
+substantial copy, structure, headings, or paraphrase with a sibling page on the
+same subject. Each is written independently from primary sources for its own
+buyer. Any page that could be find-and-replaced into a sibling page fails and is
+rewritten.
+
+**registry-audit was rewritten to match** and is synced here too. It no longer
+flags topic overlap. It fetches all three live sitemaps and scores similarity
+across titles, H1s, descriptions, and heading structures, failing above 0.75.
+Privacy, terms, and contact are compared and printed but never failed.
+
+Run it with BASE_URL pointing at this repo's local server to check a page before
+it ships. The previous version silently read production instead of the local
+build, because sitemap loc values are absolute; that is fixed here.
+
+**Note on this repo's copy.** Both files were copied into the working tree and
+deliberately NOT committed, because the 254 session that wrote them is not this
+repo's session. Commit them with your next piece of work here.
+
+### Committed 2026-10-20, with 254's current registry laid over the draft
+
+Operator ruling, 2026-10-20. The two notes above were true until this entry: the
+draft sat uncommitted in this repo's main checkout from 2026-08-31. It was
+carried unchanged onto the branch `sync/registry-differentiation`, and then
+`keyword-registry.ts` was replaced with 254engineering main at 6552d14,
+verbatim. The main checkout's working tree was left as it was.
+
+Where the draft and 254 disagreed, 254 won. The draft held 18 topics and 254
+holds 54; none was dropped, 36 were added, and 11 changed, almost all of them
+this brand's recorded paths and its 25 named city slugs. The 254 stance
+sentence also changed (ruling of 2026-10-18: ordering is a door on a
+capability page). The draft's `registry-audit.mjs` already read the new format
+and needed no further port.
+
+**From now on**, whenever 254's registry changes on its main, the sync to this
+repo is the next item of work, on its own branch, with this repo's full suite.
